@@ -1,0 +1,1245 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>大物复习 | 浮生若梦</title><meta name="author" content="Meta Xiao"><meta name="copyright" content="Meta Xiao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="大物笔记精粹要期末考了😭，整理下笔记。 第一章——质点运动学位置矢量物理学中用一个位置矢量来描述质点的位置，记作 $\mathbf{r}$ ，其大小为 $|\mathbf{r}|$ ，方向为 $\mathbf{e_r}$ 的方向。笛卡尔坐标系中，位置矢量可以表示为 $\mathbf{r} &#x3D; x \mathbf{e_x} + y \mathbf{e_y} + z \mathbf{e_z}$ ，其">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大物复习">
+<meta property="og:url" content="https://www.teslongxiao.cn/posts/5a9acf5a.html">
+<meta property="og:site_name" content="浮生若梦">
+<meta property="og:description" content="大物笔记精粹要期末考了😭，整理下笔记。 第一章——质点运动学位置矢量物理学中用一个位置矢量来描述质点的位置，记作 $\mathbf{r}$ ，其大小为 $|\mathbf{r}|$ ，方向为 $\mathbf{e_r}$ 的方向。笛卡尔坐标系中，位置矢量可以表示为 $\mathbf{r} &#x3D; x \mathbf{e_x} + y \mathbf{e_y} + z \mathbf{e_z}$ ，其">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/wallhaven-gpvyv7.jpg">
+<meta property="article:published_time" content="2025-06-26T07:47:14.000Z">
+<meta property="article:modified_time" content="2025-07-26T08:10:00.181Z">
+<meta property="article:author" content="Meta Xiao">
+<meta property="article:tag" content="物理">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/wallhaven-gpvyv7.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "大物复习",
+  "url": "https://www.teslongxiao.cn/posts/5a9acf5a.html",
+  "image": "https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/wallhaven-gpvyv7.jpg",
+  "datePublished": "2025-06-26T07:47:14.000Z",
+  "dateModified": "2025-07-26T08:10:00.181Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Meta Xiao",
+      "url": "https://www.teslongxiao.cn/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/image.png"><link rel="canonical" href="https://www.teslongxiao.cn/posts/5a9acf5a.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="Qi_9CrV7lldy8VD7RIVN3Nb62FP7EmhAITFqplx0mzo"/><meta name="baidu-site-verification" content="codeva-nF4CVmePFG"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f6e1da')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":500,"languages":{"author":"作者: Meta Xiao","link":"链接: ","source":"来源: 浮生若梦","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '大物复习',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+
+<link rel="stylesheet" href="/css/recommend.css?v=1.1.2.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/css/flash.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-image: url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/subway_girl.gif);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/1737896078867.gif" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-tools"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-user"></i><span> 我的</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/talks/"><i class="fa-fw fas fa-coffee"></i><span> 动态</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/wallhaven-gpvyv7.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/bar-logo.png" alt="Logo"><span class="site-name">浮生若梦</span></a><a class="nav-page-title" href="/"><span class="site-name">大物复习</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-tools"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-user"></i><span> 我的</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/talks/"><i class="fa-fw fas fa-coffee"></i><span> 动态</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">大物复习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-26T07:47:14.000Z" title="发表于 2025-06-26 15:47:14">2025-06-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-26T08:10:00.181Z" title="更新于 2025-07-26 16:10:00">2025-07-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%89%A9%E7%90%86/">物理</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E5%AD%A6/">数学</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">14k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>59分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img gist" style="background-image: url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/wallhaven-gpvyv7.jpg)"></div><article class="container post-content" id="article-container"><h1 id="大物笔记精粹"><a href="#大物笔记精粹" class="headerlink" title="大物笔记精粹"></a>大物笔记精粹</h1><p>要期末考了😭，整理下笔记。</p>
+<h2 id="第一章——质点运动学"><a href="#第一章——质点运动学" class="headerlink" title="第一章——质点运动学"></a>第一章——质点运动学</h2><h3 id="位置矢量"><a href="#位置矢量" class="headerlink" title="位置矢量"></a>位置矢量</h3><p>物理学中用一个<strong>位置矢量</strong>来描述质点的位置，记作 $\mathbf{r}$ ，其大小为 $|\mathbf{r}|$ ，方向为 $\mathbf{e_r}$ 的方向。笛卡尔坐标系中，位置矢量可以表示为 $\mathbf{r} = x \mathbf{e_x} + y \mathbf{e_y} + z \mathbf{e_z}$ ，其中 $x, y, z$ 分别为质点在三个坐标轴上的坐标。</p>
+<p>如果位置矢量写成含时的函数，即 $\mathbf{r} = \mathbf{r}(t)$ ，则可以表示质点随时间变化的轨迹，如 $\mathbf{r}(t)=\cos{t}\mathbf{i}+\sin{t}\mathbf{j}$ 。如果消去其中的时间 $t$ ，则可以得到质点运动的轨迹方程，如 $\mathbf{r}(t)=\cos{t}\mathbf{i}+\sin{t}\mathbf{j}$ 可以表示为 $x^2+y^2=1$ 。</p>
+<h3 id="位移"><a href="#位移" class="headerlink" title="位移"></a>位移</h3><p>位置矢量的差记为位移，即 $\Delta \mathbf{r}=\mathbf{r_2}-\mathbf{r_1}$ ，其大小为 $|\Delta \mathbf{r}|$ ，当 $|\Delta \mathbf{r}| \to 0$ 时等于路程 $\Delta s$ 。 在笛卡尔坐标系中，位移可以表示为 $\Delta \mathbf{r}=\Delta x\mathbf{i}+\Delta y\mathbf{j}+\Delta z\mathbf{k}$ 。</p>
+<div class="note warning no-icon flat"><p>值得注意的是，位移的模是 $|\Delta \mathbf r|$ ；而 $\Delta \mathbf r$ 表示位置矢量的增量，即 $\Delta \mathbf r = |\mathbf r_2| - |\mathbf r_1|$ 。</p>
+</div>
+<h3 id="速度"><a href="#速度" class="headerlink" title="速度"></a>速度</h3><p>平均速度 $\overline{\mathbf{v}} = \frac{\Delta{\mathbf r}}{\Delta t}$ 。当 $\Delta t \to 0$ 时，平均速度等于瞬时速度 $\mathbf{v} = \frac{d\mathbf{r}}{dt}$ ，其方向即为轨迹上该点的切线方向。</p>
+<p>平均速率 $\overline{v} = \frac{\Delta s}{\Delta t}$ ，当 $\Delta t \to 0$ 时，平均速率等于瞬时速率 $v = \frac{ds}{dt} = \frac{|d \mathbf r|}{t}=|\mathbf v|$ <strong>瞬时速率就是瞬时速度的模</strong> 。</p>
+<p>在笛卡尔坐标系中，瞬时速度可以表示为 $\mathbf{v} = v_x \mathbf{i} + v_y \mathbf{j} + v_z \mathbf{k}$ ，其中 $v_x, v_y, v_z$ 分别为质点在三个坐标轴上的瞬时速度。</p>
+<h3 id="加速度"><a href="#加速度" class="headerlink" title="加速度"></a>加速度</h3><p>平均加速度 $\overline{\mathbf{a}} = \frac{\Delta{\mathbf{v}}}{\Delta t}$ 。当 $\Delta t \to 0$ 时，平均加速度等于瞬时加速度 $\mathbf{a} = \frac{d\mathbf{v}}{dt} = \frac{d^2\mathbf{r}}{dt^2}$ 。</p>
+<p>同样的加速度可以在笛卡尔坐标系中沿着三个坐标轴分解，但还可以沿着轨迹分解，即沿着该点的切线方向和法线方向分解，于是有 <script type="math/tex">\mathbf{a} = a_\tau  \mathbf{e_\tau } + a_n \mathbf{e_n}</script> ，其中 $a_\tau $ 为切线方向上的加速度，$a_n$ 为法线方向上的加速度。</p>
+<p>同时对于该点的瞬时速度也做沿轨迹和法线方向的分解，即 <script type="math/tex">\mathbf{v} = v_\tau  \mathbf{e_\tau } + v_n \mathbf{e_n}</script> ，那么加速度可以表示为： </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf{a} &= \frac{dv_\tau }{dt} \mathbf{e_\tau } + \frac{dv_n }{dt} \mathbf{e_n}\\
+&= \frac{dv }{dt} \mathbf{e_\tau } + v \frac{d\theta}{dt} \mathbf{e_n}\\
+&= \frac{dv }{dt} \mathbf{e_\tau } + v \frac{d\theta}{ds} \frac{ds}{dt} \mathbf{e_n}\\
+&= \frac{dv }{dt} \mathbf{e_\tau } + v^2 \frac{d\theta}{ds} \mathbf{e_n}\\
+&= \frac{dv }{dt} \mathbf{e_\tau } +  \frac{v^2}{\rho} \mathbf{e_n}\\
+\end{aligned}</script><p>其中 $\rho = \frac{ds}{d\theta}$ 为曲率半径。</p>
+<p>于是，切向加速度 $a_\tau = \frac{dv }{dt} = \frac{d^2 s}{dt^2}$ ，法向加速度 $a_n = \frac{v^2}{\rho}$ 其各自乘上对应的单位向量合成后记为加速度 $\mathbf a$。</p>
+<h3 id="角速度和角加速度"><a href="#角速度和角加速度" class="headerlink" title="角速度和角加速度"></a>角速度和角加速度</h3><p>角速度 $\omega = \frac{d\theta}{dt}$ ，其方向为正方向，单位为 $rad/s$ 。</p>
+<p>角加速度 $\alpha = \frac{d\omega}{dt} = \frac{d^2\theta}{dt^2}$ ，其方向为正方向，单位为 $rad/s^2$ 。</p>
+<p>那么在圆周运动中有：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{matrix}
+ds =  Rd\theta    \\
+v = \frac{ds}{dt} = R\frac{d\theta}{dt} = R \omega \\
+a_\tau = \frac{dv}{dt} = R\frac{d\omega}{dt} = R\alpha \\
+a_n = \frac{v^2}{R} = R\omega 
+\end{matrix}\right.</script><p>不难观察到 $v=w \cdot r$ ，$a_\tau = \alpha \cdot r$ ，$a_n = \omega \cdot r$ ，即角速度和角加速度分别与线速度、线加速度和线位移成正比。</p>
+<p>并且加入叉乘，有 $\mathbf{a}  = \mathbf{v} \times \mathbf{\omega}$ ，$\mathbf{v}  = \mathbf{w} \times \mathbf{r}$ 。</p>
+<h3 id="匀加速直线运动"><a href="#匀加速直线运动" class="headerlink" title="匀加速直线运动"></a>匀加速直线运动</h3><script type="math/tex; mode=display">
+\left\{\begin{matrix}
+s = v_0 t + \frac{1}{2}at^2 \\
+v = v_0 + at \\
+v^2 = v_0^2 + 2as \\
+a = \frac{v-v_0}{t}
+\end{matrix}\right.</script><h3 id="匀加速圆周运动"><a href="#匀加速圆周运动" class="headerlink" title="匀加速圆周运动"></a>匀加速圆周运动</h3><script type="math/tex; mode=display">
+\left\{\begin{matrix}
+s = \frac{1}{2}at^2 \\
+v = v_0 + at \\
+v^2 = v_0^2 + 2as \\
+a = \frac{v-v_0}{t} \\
+a_\tau = \frac{dv}{dt} = \frac{d^2 s}{dt^2} = a \\
+a_n = \frac{v^2}{R} = \omega^2 R
+\end{matrix}\right.</script><h3 id="相对运动"><a href="#相对运动" class="headerlink" title="相对运动"></a>相对运动</h3><p>这里只介绍伽利略变换：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{matrix}
+\mathbf{v'} = \mathbf{v} - \mathbf{v}_s \\
+\mathbf{a'} = \mathbf{a} - \mathbf{a}_s
+\end{matrix}\right.</script><p>其中 $\mathbf{v}_s$ 为参考系 $S$ 相对于参考系 $S’$ 的速度，$\mathbf{a}_s$ 为参考系 $S$ 相对于参考系 $S’$ 的加速度。</p>
+<h2 id="第二章——质点运动学"><a href="#第二章——质点运动学" class="headerlink" title="第二章——质点运动学"></a>第二章——质点运动学</h2><h3 id="牛顿三定律"><a href="#牛顿三定律" class="headerlink" title="牛顿三定律"></a>牛顿三定律</h3><p>这里就不再重复说明了，三定律的内容和受力分析那些奇技淫巧，高中应该也掌握不少。</p>
+<h3 id="质点动量定理"><a href="#质点动量定理" class="headerlink" title="质点动量定理"></a>质点动量定理</h3><p>动量 $\mathbf{p} = m\mathbf{v}$ ，其方向与速度方向相同，单位为 $kg \cdot m/s$ 。<br>又由于 $\mathbf{F}=\frac{d \mathbf{p}}{dt}$ ，积分有 $\mathbf I = \Delta \mathbf{p} = \int_{t_1}^{t_2} \mathbf{F} dt$ ，于是有 $\Delta \mathbf{p} = \mathbf{F} \Delta t$ ，即动量变化等于冲量 $\mathbf I$ 。</p>
+<h3 id="质点系动量定理"><a href="#质点系动量定理" class="headerlink" title="质点系动量定理"></a>质点系动量定理</h3><script type="math/tex; mode=display">
+\Delta \mathbf{P} = \int_{t_1}^{t_2} \sum \mathbf{F} dt = \int_{t_1}^{t_2} \sum \mathbf{F}_{外} dt = \sum \Delta \mathbf{p}_{内}</script><p>用自然语言表达是：<strong>质点系的总动量的增量等于作用于该系统上合外力的冲量</strong>，这个结论说明了内力对质点系的总动量是无贡献的。但在质点系内部动量的传递和交换的过程中，是内力起作用。具体案例可以参考<strong>牛顿摆</strong>。</p>
+<h3 id="动量守恒定律"><a href="#动量守恒定律" class="headerlink" title="动量守恒定律"></a>动量守恒定律</h3><p>由质点系的动量定理有，当 $\sum \mathbf{F}_{外} = 0$ 时，$\Delta \mathbf{P} = m \mathbf v_2 - m \mathbf v_1 = 0$  ，即动量守恒。</p>
+<p>也就是说，<strong>对于一个孤立的力学系统（系统不受外力作用）或合外力为零的系统，系统内质点间的动量是可以交换的，但系统的总动量保持不变</strong> 。 </p>
+<div class="note warning no-icon flat"><p>值得注意的是，虽然动量守恒推导中运用了牛顿三定律，但不代表动量守恒定律是牛顿三定律的推论，在之后的很多实验和理论中，动量守恒定律被证明其运用范围的广泛性。</p>
+</div>
+<h3 id="功"><a href="#功" class="headerlink" title="功"></a>功</h3><p>功的定义为：<strong>物体在力的作用下，沿着力的方向移动了距离，那么力所做的功就是力与物体移动距离的乘积</strong>。用数学语言表达就是：<script type="math/tex">W = \int d\ W= \int \mathbf{F} \cdot d\mathbf{s}</script></p>
+<p>其中 $d\mathbf{s}$ 为物体沿力的方向移动的距离（即力在元位移方向上的投影），$\mathbf{F}$ 为物体所受的力。</p>
+<p>在笛卡尔坐标系中，有：<script type="math/tex">W = \int \mathbf{F} \cdot d\mathbf{s} = \int F_x dx + F_y dy + F_z dz</script></p>
+<h3 id="功率"><a href="#功率" class="headerlink" title="功率"></a>功率</h3><p>功率的定义为：<strong>物体在力的作用下，沿着力的方向移动了距离，那么力所做的功就是力与物体移动距离的乘积</strong>。用数学语言表达就是：<script type="math/tex">P = \frac{dW}{dt} = \mathbf{F} \cdot \mathbf{v}</script></p>
+<p>相对地，平均功率为：<script type="math/tex">\overline P= \frac{W}{t}</script></p>
+<h3 id="保守力的功"><a href="#保守力的功" class="headerlink" title="保守力的功"></a>保守力的功</h3><h4 id="重力"><a href="#重力" class="headerlink" title="重力"></a>重力</h4><script type="math/tex; mode=display">
+W=\int_{z_0}^{z} mg dz = - mg(z-z_0)</script><p>这里重力方向与z轴正方向相反，所有加了个负号。</p>
+<h4 id="弹性力"><a href="#弹性力" class="headerlink" title="弹性力"></a>弹性力</h4><script type="math/tex; mode=display">
+W=\int_{x_0}^{x} -kx dx = -(\frac{1}{2}kx^2 - \frac{1}{2}kx_0^2)</script><p>这里弹性力方向与x轴正方向相反，所有加了个负号。</p>
+<h4 id="万有引力"><a href="#万有引力" class="headerlink" title="万有引力"></a>万有引力</h4><script type="math/tex; mode=display">
+W=\int_{r_0}^{r} -\frac{GMm}{r^2} dr = GMm \left(\frac{1}{r_0} - \frac{1}{r}\right)</script><p>这里引力方向与r轴正方向相反，所有加了个负号。</p>
+<p>综上，这些力做功的公式都有个共同点，就是做功的值与路径无关，只与初始位置和最终位置有关。因此，这些力被称为<strong>保守力</strong>。</p>
+<script type="math/tex; mode=display">
+\oint \mathbf{F} \cdot d\mathbf{s} = 0</script><h3 id="动能定理"><a href="#动能定理" class="headerlink" title="动能定理"></a>动能定理</h3><div class="note primary no-icon flat"><p>推导：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+W &= \int_{A}^{B} \mathbf{F} \cdot d\mathbf{s} \\ 
+  &=  m \int_{A}^{B} \frac{d\mathbf{v}}{dt} \cdot d\mathbf{s} \\
+  &=  m \int_{A}^{B} \frac{d\mathbf{s}}{dt} \cdot  d \mathbf v \\
+  &=  m \int_{v_1}^{v_2} \mathbf{v} \cdot d \mathbf v \\
+  &=  \frac{1}{2}m(v_2^2 - v_1^2)
+\end{aligned}</script></div>
+<p>动能 $E_k = \frac{1}{2}mv^2$ ，其单位为 $J$ 。</p>
+<h3 id="势能"><a href="#势能" class="headerlink" title="势能"></a>势能</h3><p>对于一个保守力其做的功总与相对位置的变化决定，由此我们可以用其相对位置来定义一个势能函数 $E_p$ ：</p>
+<script type="math/tex; mode=display">
+E_p = - \int \mathbf{F} \cdot d\mathbf{s} = E(s)+C</script><p>其中 $C$ 为<strong>系统零势能的位置</strong>决定的常数。</p>
+<p>下面给出几个常见的势能函数：</p>
+<ol>
+<li>重力势能 $E_p = mgh$ ，其中 $h$ 为物体相对于零势能位置的高度。</li>
+<li>弹性势能 $E_p = \frac{1}{2}kx^2$ ，其中 $x$ 为物体相对于平衡位置的距离。</li>
+<li>万有引力势能 $E_p = -\frac{GMm}{r}$ ，其中 $r$ 为物体相对于万有引力中心的距离。</li>
+</ol>
+<h3 id="质点系的动能定理和功能原理"><a href="#质点系的动能定理和功能原理" class="headerlink" title="质点系的动能定理和功能原理"></a>质点系的动能定理和功能原理</h3><script type="math/tex; mode=display">
+\sum_{i=1}^{n} \int_{1}^{2} \mathbf{F}_{外} \cdot d\mathbf{s}_i + \sum_{i=1}^{n} \int_{1}^{2} \sum_{j=1,j\neq i}^{n} \mathbf{F}_{内ji} \cdot d\mathbf{s}_i = \sum_{i=1}^{n} \frac{1}{2}m_i(v_{i2}^2 - v_{i1}^2)</script><div class="note primary no-icon flat"><p>值得注意的是，对于内力做功 $dw$ 有：</p>
+<script type="math/tex; mode=display">
+dW=\mathbf F d \mathbf s = \mathbf f_{12} \cdot d (\mathbf s_2 - \mathbf s_1)</script><p>即系统质点系有相对位移时才具有内力做功。</p>
+</div>
+<p>又由于内力总是成对出现，因此可以把内力分为保守内力 <script type="math/tex">W_{内保}</script> 和非保守内力 <script type="math/tex">W_{内非}</script> ，再用 <script type="math/tex">W_{外}</script> 表示质点系外力做的功， <script type="math/tex">E_k</script> 表示质点系的动能，则有：</p>
+<script type="math/tex; mode=display">
+W_{外} + W_{内保} + W_{内非} = \Delta E_k</script><p>这就是<strong>质点系的动能定理</strong>，即<strong>质点系的总动能变化等于外力做的功与保守内力做的功与非保守内力做的功之和</strong>。</p>
+<p>又因为 $W_{内保} = \Delta E_p$ ，于是有：</p>
+<script type="math/tex; mode=display">
+W_{外} + W_{内非} = \Delta E_k + \Delta E_p</script><p>又令 $E_M=E_k+E_p$ ，其中 $E_M$ 为<strong>质点系的机械能</strong>，于是有：</p>
+<script type="math/tex; mode=display">
+W_{外} + W_{内非} = \Delta E_M</script><p>这就是<strong>功能原理</strong>，即<strong>质点系的总机械能变化等于外力做的功与非保守内力做的功之和</strong>。</p>
+<h3 id="机械能守恒定律"><a href="#机械能守恒定律" class="headerlink" title="机械能守恒定律"></a>机械能守恒定律</h3><p>由动能定理和功能原理有，当 <script type="math/tex">W_{外} = 0\ \  , \ \ W_{内非} = 0</script> 时， <script type="math/tex">\Delta E_M = 0</script> ，即机械能守恒。或表达为 <script type="math/tex">\Delta E_p = -\Delta E_k</script> ，即<strong>机械能守恒时，系统势能的变化与系统动能的变化和为零</strong></p>
+<h3 id="质点的角动量"><a href="#质点的角动量" class="headerlink" title="质点的角动量"></a>质点的角动量</h3><p>角动量 $\mathbf{L} = \mathbf{r} \times \mathbf{p} =m( \mathbf r \times  \mathbf v)$ ，按照右手叉乘法则其方向与<strong>角速度方向相同</strong>，大小为 $L=mr \sin \varphi $，单位为 $kg \cdot m^2/s$ 。</p>
+<h3 id="力矩"><a href="#力矩" class="headerlink" title="力矩"></a>力矩</h3><p>力矩定义为：$\mathbf M=\mathbf r \times \mathbf F$ 大小为 $M=rF \sin \varphi$ （即<strong>力矩大小等于力臂乘力的大小</strong>），单位为 $N \cdot m$ 。</p>
+<h3 id="角动量定理"><a href="#角动量定理" class="headerlink" title="角动量定理"></a>角动量定理</h3><script type="math/tex; mode=display">
+\Delta \mathbf L = \int_{t_1}^{t_2} \mathbf M dt = \mathbf L_2 - \mathbf L_1</script><div class="note primary no-icon flat"><p>以下是其推导：</p>
+<p>由 $ \mathbf L = \mathbf r \times \mathbf p$ 两边同时对时间求导有：</p>
+<script type="math/tex; mode=display">
+\frac{d \mathbf L}{dt} = \frac{d \mathbf r}{dt} \times \mathbf p + \mathbf r \times \frac{d \mathbf p}{dt} = \mathbf v \times \mathbf p + \mathbf r \times \mathbf F</script><p>又由 $\mathbf v \times \mathbf p = \mathbf 0$ ， $\mathbf r \times \mathbf F = \mathbf M$ 有：</p>
+<script type="math/tex; mode=display">
+\frac{d \mathbf L}{dt} = \mathbf M</script><p>于是积分有：</p>
+<script type="math/tex; mode=display">
+\int_{t_1}^{t_2} \mathbf M dt = \mathbf L_2 - \mathbf L_1</script></div>
+<div class="note warning no-icon flat"><p><strong>注意</strong>：该定理是对于同一质点系而言的</p>
+</div>
+<h3 id="角动量守恒定律"><a href="#角动量守恒定律" class="headerlink" title="角动量守恒定律"></a>角动量守恒定律</h3><p>由角动量定理有，当 $\mathbf M = 0$ 时， $\Delta \mathbf L = 0$ ，即角动量守恒。</p>
+<h2 id="第三章——刚体力学基础"><a href="#第三章——刚体力学基础" class="headerlink" title="第三章——刚体力学基础"></a>第三章——刚体力学基础</h2><h3 id="刚体"><a href="#刚体" class="headerlink" title="刚体"></a>刚体</h3><p><strong>刚体</strong>是指<strong>内部各部分之间没有相对运动</strong>的物体。刚体内部各部分之间的距离和形状保持不变，刚体内部没有形变。刚体的运功可以由<strong>六个自由度</strong>来描述，即三个平动自由度和三个转动自由度。</p>
+<h4 id="刚体的平动："><a href="#刚体的平动：" class="headerlink" title="刚体的平动："></a><strong>刚体的平动</strong>：</h4><p>在平动过程中，刚体上各点的运动轨迹相同，运动速度和加速度相同。所以在刚体平动时，可以把刚体看成一个质点。</p>
+<h4 id="刚体的转动："><a href="#刚体的转动：" class="headerlink" title="刚体的转动："></a><strong>刚体的转动</strong>：</h4><p>在转动过程中，刚体上各个质点绕着同一轴（转轴）作圆周运动。</p>
+<div class="note warning no-icon flat"><p><strong>注意</strong>：该转轴可在刚体内部也可在刚体外部，也可以运动。</p>
+</div>
+<h4 id="线量和角量的关系："><a href="#线量和角量的关系：" class="headerlink" title="线量和角量的关系："></a><strong>线量和角量的关系</strong>：</h4><script type="math/tex; mode=display">
+\begin{aligned}
+v_i &=\omega r_i \\
+a_{\tau i}&=\alpha r_i \\
+a_{ni} &=\omega^2 r_i
+\end{aligned}</script><h3 id="刚体的转动定理"><a href="#刚体的转动定理" class="headerlink" title="刚体的转动定理"></a>刚体的转动定理</h3><script type="math/tex; mode=display">
+\mathbf M = \mathbf r \times \mathbf F = J \alpha</script><p>其中 $J$ 为<strong>转动惯量</strong>， $\alpha$ 为<strong>角加速度</strong>。</p>
+<div class="note primary no-icon flat"><p>以下是其推导：</p>
+<p>对于围绕一定轴旋转的刚体的某个质点 $i$ ，其质元 $\Delta m_i$ 旋转半径为 $r_i$ ，设其合外力在旋转平面内的分量为 $\mathbf F_i$ ，其他质元对该质点的和内力在旋转平面内的分量为 $\mathbf f_i$ ，他们与矢径 $\mathbf r_i$ 的夹角为 $\varphi_i$ 和 $\theta_i$ ，采用自然坐标系，在法向和切向上分别有：</p>
+<p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/physics1.png" alt="图1"></p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+-(F_i \cos \varphi_i + f_{i} \cos \theta_i) &= \Delta m_i a_{ni} = \Delta m_i r_i \omega^2 \\
+(F_i \sin \varphi_i + f_{i} \sin \theta_i) &= \Delta m_i a_{\tau i} = \Delta m_i r_i \alpha
+\end{aligned}</script><p>由于切向的分力力矩为0，于是对于法向的方程两边同乘 $r_i$ 有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+F_i r_i \sin \varphi_i + f_{i} r_i \sin \theta_i &= \Delta m_i r_i^2 \alpha \\
+\end{aligned}</script><p>求和有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\sum_{i=1}^{n} F_i r_i \sin \varphi_i +\sum_{i=1}^{n} \sum_{j=1}^{n} f_{ij} r_i \sin \theta_i &= \sum_{i=1}^{n} \Delta m_i r_i^2 \alpha \\
+\end{aligned}</script><p>由于内力总是成对出现，每对内力在旋转平面内做功为零，于是有：</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n} F_i r_i \sin \varphi_i = (\sum_{i=1}^{n} \Delta m_i r_i^2 ) \alpha</script><p>即 $M=J\alpha$ ，其中 <script type="math/tex">J=\lim_{n \to \infty }\sum_{i=1}^{n} \Delta m_i r_i^2=\int_M r^2 dm</script> 为<strong>转动惯量</strong>。</p>
+</div>
+<h3 id="平行轴定理"><a href="#平行轴定理" class="headerlink" title="平行轴定理"></a>平行轴定理</h3><script type="math/tex; mode=display">
+J_p = J_cm + md^2</script><p>其中 $J_cm$ 为以CM为轴的转动惯量， $d$ 为CM到P轴的距离。</p>
+<p>其证明自行<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/469610339">浏览</a>。</p>
+<h3 id="常见转动惯量"><a href="#常见转动惯量" class="headerlink" title="常见转动惯量"></a>常见转动惯量</h3><p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/J_normal.png" alt="J_n"></p>
+<div class="hide-block"><button type="button" class="hide-button" style="background-color:  pink ;color:  brown">具体推导</button><div class="hide-content"><p>实际上$J$最原始最暴力的算法就是用多重积分 <script type="math/tex">J={\int\int\int}_V r^2 \ dm</script></p>
+<p>我的老师教的方法没用多重积分，虽然他只详细写了几个案例，但我觉得还是挺妙的，遂自己推完。</p>
+<div class="note info no-icon flat"><p>线元： <script type="math/tex">dm=\lambda dl</script><br>面元： <script type="math/tex">dm=\sigma ds</script><br>体元： <script type="math/tex">dm=\rho dV</script></p>
+</div>
+
+<div class="note purple no-icon flat"><ol>
+<li>圆环（轴过中心，与环面垂直）：<br>设环面质量为 $M$ ，环半径为 $R$ ，环面密度为 $\rho=\frac{M}{2R}$  ，质元 $ dm= \rho\  dl =\rho R d \theta=\frac{M}{2\pi} \ d\theta$ 于是有：<script type="math/tex; mode=display">
+J= \int_M r^2 dm = \int_0^{2\pi} \frac{M\cdot R^2}{2\pi} \ d\theta = MR^2</script></li>
+<li>圆盘（轴过中心，与盘面垂直）：<br>设盘面质量为 $M$ ，盘半径为 $R$ ，盘面密度为 $\sigma =\frac{M}{\pi R^2}$  ，质元 $ dm= \sigma \  ds =\sigma  2\pi r d r=\frac{2M}{R^2} rdr$ 于是有：<script type="math/tex; mode=display">
+J= \int_M r^2 dm = \int_0^{R} \frac{2M}{R^2} r^3 dr = \frac{MR^2}{2}</script></li>
+<li>圆柱体（轴沿几何轴）：<br>由圆盘有限叠加而成，于是有：<script type="math/tex; mode=display">
+J=\frac{1}{2}MR^2</script></li>
+<li>细棒（轴过中心，与棒垂直）：<br>设棒质量为 $M$ ，棒长度为 $L$ ，线密度为 $\lambda  =\frac{M}{L}$  ，质元 $ dm=\lambda dr$ 于是有：<script type="math/tex; mode=display">
+J=\int_{L/2}^{-L/2} r^2 dm = 2\int_{0}^{L/2} \frac{M}{L} r^2 dr = \frac{1}{12}ML^2</script></li>
+<li>球体（轴过球心）：<br>设球体质量为 $M$ ，球半径为 $R$ ，球体密度为 $\rho =\frac{M}{\frac{4}{3}\pi R^3}$  ，质元 $ dm= \rho \  dV =\rho 2\pi r^2 dh=\frac{3M}{2R^3} r^2 dh$ （这里用圆片法分割球体），又 $r^2+h^2=R^2$ 于是有：<script type="math/tex; mode=display">
+J=\int_M r^2 dm = \int_{-R}^{R} \frac{3M}{2 R^3} r^4  dh = 2\frac{3M}{2R^3} \int_{0}^{R} (R^2-h^2)^2 dh = \frac{2}{5}MR^2</script></li>
+<li>球壳（轴过球心）：<br>设球壳的质量为 $M$ ， 球半径为球半径为 $R$ ，球壳面密度为 $\sigma =\frac{M}{4 \pi R^2}$  ，质元 $ dm= \sigma ds =\sigma 2\pi r dh=\frac{M}{2 R^2} r dh$ （这里一样用层切，切成圆环），又 $r^2+h^2=R^2$ 于是有：<script type="math/tex; mode=display">
+\begin{aligned}
+J&=\int_M r^2 dm = \int_{-R}^{R} \frac{M}{2 R^2} r^3  dh \\
+&= 2\frac{M}{2 R^2} \int_{0}^{R} (R^2-h^2)\sqrt{R^2-h^2} dh \\
+&= MR\int_{0}^{R} (1-\frac{h^2}{R^2})\sqrt{1-\frac{h^2}{R^2}} dh \\
+&= MR\int_{0}^{\pi/2} \cos^2 \theta \sin \theta dR\sin{\theta} \\
+&= MR^2\int_{0}^{\pi/2} \sin^2 \theta -\sin^4 \theta d\theta \\
+&= \frac{2}{3}MR^2
+\end{aligned}</script></li>
+<li>圆环（轴沿直径）<br>设环质量为 $M$ ，环半径为 $R$ ，环线密度为 $\lambda  =\frac{M}{2\pi R}$  ，质元 $ dm= \lambda dl =\lambda R d \theta=\frac{M}{2\pi} \ d\theta$ 于是有：<script type="math/tex; mode=display">
+J=\int_M r^2 dm =\frac{M\cdot R^2}{2\pi} \int_{-\pi/2}^{\pi/2} \sin^2 \theta \ d\theta = \frac{1}{2}MR^2</script></li>
+<li>圆筒（轴沿直径）<br>设筒质量为 $M$ ，筒内半径 $R_1$ ，筒外半径 $R_2$ ，则面密度为 $\sigma =\frac{M}{2\pi(R_2^2-R_1^2)}$  ，质元 $ dm= \sigma \  ds =\sigma  2\pi r d r=\frac{M}{R_2^2-R_1^2} rdr$ 于是有：<script type="math/tex; mode=display">
+J=\int_M r^2 dm = \int_{R_1}^{R_2} \frac{M}{R_2^2-R_1^2} r^3 dr = \frac{1}{2}M(R_2^2+R_1^2)</script></li>
+<li>薄圆盘（轴沿着直径）<br>设圆盘质量为 $M$ ，圆盘半径 $R$ ，面密度 $\sigma =\frac{M}{\pi R^2}$ ，作沿垂直转轴切片（丝），质元 $dm=\sigma 2r dx = \frac{2M\sqrt{R^2-x^2}}{\pi R^2} dx$ 于是有：<script type="math/tex; mode=display">
+\begin{aligned}
+J&=\int_M r^2 dm = \int_{-R}^{R} \frac{2M\sqrt{R^2-x^2}}{\pi R^2} x^2 dx \\
+&= \frac{4M}{\pi R^2} \int_{0}^{R} x^2 \sqrt{R^2-x^2} dx \\
+&= \frac{4M}{\pi R^2} \int_{0}^{\pi/2} R^2 \sin^2 \theta R \cos \theta d R \sin \theta \\
+&= \frac{4MR^2}{\pi} \frac{1}{4} \int_{0}^{\pi/2} \sin^2 2\theta d\theta \\
+&= \frac{MR^2}{\pi} \frac{1}{2} \int_{0}^{\pi/2} (1-\cos 4\theta) d\theta \\
+&= \frac{MR^2}{\pi} \left[ \theta - \frac{1}{4} \sin 4\theta \right]_{0}^{\pi/2} = \frac{1}{2}MR^2
+\end{aligned}</script></li>
+<li>圆柱体（轴过几何中心，与几何轴垂直）<br>设圆柱体质量为 $M$ ， 半径为 $R$ ， 高为 $H$ ，则体密度为 $\rho = \frac{M}{\pi R^2 H}$  ，质元 $ dm= \rho \  dV =\rho \pi r^2 dh=\frac{M}{\pi R^2 H} \pi R^2 dh$ ，这里 $r^2=\frac{1}{4}R^2+h^2$ （等效于转轴为直径的圆片和细棒的累加）于是有：<script type="math/tex; mode=display">
+J=\int_M r^2 dm = \int_{-H/2}^{H/2} (\frac{1}{4}R^2+h^2)\frac{M}{\pi R^2 H} \pi R^2 dh = \frac{1}{4}MR^2+\frac{1}{12}MH^2</script></li>
+</ol>
+</div>
+</div></div>
+<div class="note success no-icon flat"><p>一般计算转动惯量的体积积分算法：</p>
+<script type="math/tex; mode=display">
+J={\int\int\int}_V r^2 \rho dV</script><ol>
+<li>求出 $\rho(x,y,z)$ （密度函数）；</li>
+<li>确定距离个各质元的距离 $r^2$ ：  <ul>
+<li>若转轴为z-轴，则 $r^2=x^2+y^2$ ；</li>
+<li>若转轴为y-轴，则 $r^2=x^2+z^2$；</li>
+</ul>
+</li>
+<li>写出积分表达式 <script type="math/tex">J={\int\int\int}_V (x^2+y^2) \rho(x,y,z)\ dxdydz</script></li>
+<li>选择积分顺序，积分。</li>
+</ol>
+</div>
+<h3 id="转动动能"><a href="#转动动能" class="headerlink" title="转动动能"></a>转动动能</h3><script type="math/tex; mode=display">
+\begin{aligned}
+E_k&= \sum_{i=1}^{n} \frac{1}{2}\Delta m_i r_i^2 \omega^2 \\
+&= \frac{1}{2} (\sum_{i=1}^{n} m_i r_i^2) \omega^2 \\
+&=\frac{1}{2}J\omega^2
+\end{aligned}</script><h3 id="力矩做的功"><a href="#力矩做的功" class="headerlink" title="力矩做的功"></a>力矩做的功</h3><script type="math/tex; mode=display">
+W=\int_{\theta_1}^{\theta_2} M d\theta</script><h3 id="刚体定轴转动的动能定理"><a href="#刚体定轴转动的动能定理" class="headerlink" title="刚体定轴转动的动能定理"></a>刚体定轴转动的动能定理</h3><script type="math/tex; mode=display">
+W=\int_{\theta_1}^{\theta_2} M d\theta=\frac{1}{2}J\omega_2^2-\frac{1}{2}J\omega_1^2</script><p>此式子表明，<strong>合外力矩对定轴转动刚体所做的功等于刚体转动动能的变化量</strong>。</p>
+<div class="note primary no-icon flat"><p>推导：</p>
+<p>由 <script type="math/tex">M=J\alpha=J\frac{d\omega}{dt}=J\frac{d\omega}{d\theta}\frac{d\theta}{dt}=J\cdot\omega\frac{d\omega}{d\theta}</script> ，分离变量积分：</p>
+<script type="math/tex; mode=display">
+\int M d\theta = \int J\omega d\omega</script><p>即可得上式。</p>
+</div>
+<h3 id="刚体定轴转动的角动量"><a href="#刚体定轴转动的角动量" class="headerlink" title="刚体定轴转动的角动量"></a>刚体定轴转动的角动量</h3><script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf L&=\sum_i(\Delta m_i r_i^2 \mathbf{\omega}) \\
+&=\sum_i(\Delta m_i r_i^2) \mathbf{\omega} \\
+&=J\mathbf{\omega}
+\end{aligned}</script><h3 id="刚体定轴转动的角动量定理"><a href="#刚体定轴转动的角动量定理" class="headerlink" title="刚体定轴转动的角动量定理"></a>刚体定轴转动的角动量定理</h3><script type="math/tex; mode=display">
+\Delta \mathbf L=\int_{t_1}^{t_2} \mathbf M dt=\int_{\theta_1}^{\theta_2}  d \mathbf L = \mathbf L_2-\mathbf L_1= J\omega_2-J\omega_1</script><p>此式子表明，<strong>合外力矩对定轴转动刚体所做的功等于刚体角动量的变化量</strong>。</p>
+<div class="note primary no-icon flat"><p>推导：</p>
+<p>由 <script type="math/tex">\mathbf M=J\mathbf{\omega}=\frac{d(J\mathbf{\omega})}{dt}=\frac{d\mathbf L}{dt}</script> ，分离变量积分：</p>
+<script type="math/tex; mode=display">
+\int \mathbf M dt = \int J d \mathbf L</script><p>即可得上式。</p>
+</div>
+<h3 id="刚体定轴转动的角动量守恒"><a href="#刚体定轴转动的角动量守恒" class="headerlink" title="刚体定轴转动的角动量守恒"></a>刚体定轴转动的角动量守恒</h3><script type="math/tex; mode=display">
+\mathbf M=0 \Rightarrow \mathbf L=\text{const}</script><p>或者写成， <script type="math/tex">J\omega=J\omega_0</script></p>
+<p>即，<strong>合外力矩为零的定轴转动刚体，其角动量守恒</strong>。</p>
+<h3 id="质点平动和刚体定轴转动的关系"><a href="#质点平动和刚体定轴转动的关系" class="headerlink" title="质点平动和刚体定轴转动的关系"></a>质点平动和刚体定轴转动的关系</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">质点平动</th>
+<th style="text-align:center">刚体定轴转动</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">质量 $m$</td>
+<td style="text-align:center">转动惯量 $J$</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">力 $\mathbf F$</td>
+<td style="text-align:center">力矩 $\mathbf M$</td>
+</tr>
+<tr>
+<td style="text-align:center">力与质量的关系</td>
+<td style="text-align:center">$\mathbf F=ma$</td>
+<td style="text-align:center">$\mathbf M=J\alpha$</td>
+</tr>
+<tr>
+<td style="text-align:center">动量</td>
+<td style="text-align:center">$\mathbf p=m \mathbf v$</td>
+<td style="text-align:center">$\mathbf L=J \omega$</td>
+</tr>
+<tr>
+<td style="text-align:center">动量守恒定律</td>
+<td style="text-align:center">$\int \mathbf F dt = m(\mathbf v- \mathbf v_0)$</td>
+<td style="text-align:center">$\int \mathbf M dt = J(\omega-\omega_0)$</td>
+</tr>
+<tr>
+<td style="text-align:center">动能 $E_k$</td>
+<td style="text-align:center">$E_k=\frac{1}{2}mv^2$</td>
+<td style="text-align:center">$E_k=\frac{1}{2}J\omega^2$</td>
+</tr>
+<tr>
+<td style="text-align:center">功</td>
+<td style="text-align:center">$W=\int \mathbf F \cdot d \mathbf s$</td>
+<td style="text-align:center">$W=\int \mathbf M d\theta$</td>
+</tr>
+<tr>
+<td style="text-align:center">动能定理</td>
+<td style="text-align:center">$W = \frac{1}{2}mv^2-\frac{1}{2}mv_0^2$</td>
+<td style="text-align:center">$W = \frac{1}{2}J\omega^2-\frac{1}{2}J\omega_0^2$</td>
+</tr>
+<tr>
+<td style="text-align:center">功能原理</td>
+<td style="text-align:center"><script type="math/tex">W_{外力}+W_{非保内}=E_{末}-E_{初}</script></td>
+<td style="text-align:center"><script type="math/tex">W_{外力矩}+W_{非保内}=E_{末}-E_{初}</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="第四章——机械振动与机械波"><a href="#第四章——机械振动与机械波" class="headerlink" title="第四章——机械振动与机械波"></a>第四章——机械振动与机械波</h2><p>满足方程 <script type="math/tex">x=A\cos{(\omega t+\varphi_0)}</script> 的振动称为简谐振动。常见的振动系统有弹簧振子、单摆（这个要在 $\theta$ 很小时作近似）、简谐振子等。</p>
+<div class="note danger no-icon flat"><p>注意这里的振动方程是 $x=A\cos{(\omega t+\varphi_0)}$ ，不是 $x=A\sin{(\omega t+\varphi_0)}$ 。具体用sin还是cos看作者喜好，书上用的是cos，那么这里和其统一。</p>
+</div>
+<h3 id="如何判断一个振动是简谐振动？"><a href="#如何判断一个振动是简谐振动？" class="headerlink" title="如何判断一个振动是简谐振动？"></a>如何判断一个振动是简谐振动？</h3><p>满足以下任一条件：</p>
+<ul>
+<li>$\mathbf F=-k\mathbf x$</li>
+<li>$\frac{d^2\mathbf x}{dt^2}=-\omega^2\mathbf x$</li>
+<li>位移x或者速度v随时间t的图像是正弦型函数</li>
+</ul>
+<h3 id="简谐振动各个量之间的关系"><a href="#简谐振动各个量之间的关系" class="headerlink" title="简谐振动各个量之间的关系"></a>简谐振动各个量之间的关系</h3><ul>
+<li>$A=\sqrt{x_0^2+v_0^2/\omega^2}$ </li>
+<li><p>周期 $T=2\pi/\omega$ ， 频率 $f=1/T$， 角频率 $\omega=2\pi f$ ；角频率是振动的固有性质，与振幅无关。以下是常见的角频率：</p>
+<ul>
+<li>弹簧振子：$\omega=\sqrt{k/m}$</li>
+<li>单摆：$\omega=\sqrt{g/L}$ （L为摆长，g为重力加速度）</li>
+<li>简谐振子：$\omega=\sqrt{1/mk}$</li>
+<li>复摆：$\omega=\sqrt{mgh/J}$ （J为转动惯量）</li>
+</ul>
+</li>
+<li><p>速度 $v=-A\omega\sin{(\omega t+\varphi_0)}$ ，加速度 $a=-A\omega^2\cos{(\omega t+\varphi_0)}$</p>
+</li>
+<li>初相位 $\varphi_0=\arctan{(-v_0/\omega x_0)}$ （初相位是振动的初始状态，与振幅无关）</li>
+</ul>
+<h3 id="简谐振子的机械能"><a href="#简谐振子的机械能" class="headerlink" title="简谐振子的机械能"></a>简谐振子的机械能</h3><ol>
+<li>动能 <script type="math/tex">E_k=\frac{1}{2}mv^2=\frac{1}{2}A^2 \cos^2{(\omega t+\varphi_0)}</script> ，最大值为 <script type="math/tex">E_{km}=\frac{1}{2}m\omega^2 A^2</script> ；</li>
+<li>势能 <script type="math/tex">E_p=\frac{1}{2}kx^2=\frac{1}{2}A^2 \sin^2{(\omega t+\varphi_0)}</script> ，最大值为 <script type="math/tex">E_{pm}=\frac{1}{2}kA^2</script> ；</li>
+</ol>
+<p>于是，机械能 $E=E_k+E_p=\frac{1}{2}kA^2=\frac{1}{2}m\omega^2 A^2=\frac{1}{2}m v_m^2$ ，为常数。</p>
+<p>说明简谐运动的机械能守恒，其能量正比于振幅的平方、正比于角频率的平方（ $E\propto A^2 \propto \omega^2$ ）。</p>
+<p>在一个周期内，动能和势能的平均值为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\overline{E_k}&=\frac{1}{T}\int_0^T E_k dt=\frac{1}{4}m\omega^2 A^2 \\
+\overline{E_p}&=\frac{1}{T}\int_0^T E_p dt=\frac{1}{4}kA^2
+\end{aligned}</script><p>即一个周期内，动能和势能的平均值相等，且都等于总能量（机械能）的一半。</p>
+<h3 id="旋转矢量法"><a href="#旋转矢量法" class="headerlink" title="旋转矢量法"></a>旋转矢量法</h3><p>该方法可以直观地描述简谐振动（波）的运动情况，对简谐振动（波）的叠加有重要作用。这里我直接用老师的ppt上讲的了。</p>
+<p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/physics2.png" alt="旋转矢量法"></p>
+<ol>
+<li>作位置向量 $\mathbf r$ ，大小为 $A$ 、与x-轴夹角为 $\varphi_0$ ，如图上A向量下的虚线向量，其在x-轴的投影即位移函数 $x(0)$ 的大小；</li>
+<li>然后其速度向量 $\mathbf v$ ，大小为 $A\omega$ 、与x-轴夹角为 $\varphi_0+\pi/2$ ，这个向量起点为位置向量 $\mathbf r$ 的终点，并与其夹角为90°；</li>
+<li>最后作加速度向量 $\mathbf a$ ，大小为 $A\omega^2$ 、与x-轴夹角为 $\varphi_0+\pi$ ，这个向量起点为速度向量 $\mathbf r$ 的终点，并与其夹角为180°（反向）。</li>
+</ol>
+<p>然后旋转$\omega t$ 即如上图的A向量。这就是旋转矢量法，在圆上表示波的运动情况。</p>
+<h3 id="波的叠加"><a href="#波的叠加" class="headerlink" title="波的叠加"></a>波的叠加</h3><p>这里结果只针对<strong>同方向、同频率的简谐波</strong>合成，考虑两简谐波 $x_1=A_i \cos{(\omega t+\varphi_1)}$ 和 $x_2=A_2 \cos{(\omega t+\varphi_2)}$ 利用三角恒等式可求得：</p>
+<script type="math/tex; mode=display">
+x=x_1+x_2=A\cos{(\omega t+\varphi)}</script><p>其中A和$\varphi$ 分别为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+A&=\sqrt{A_1^2+A_2^2+2A_1A_2\cos{(\varphi_2-\varphi_1)}} \\
+\varphi&=\arctan{\frac{A_1 \sin \varphi_1+A_2\sin \varphi_2}{A_1 \cos \varphi_1+A_2\cos \varphi_2}}
+\end{aligned}</script><p>这里用旋转适量法，我直接用老师的ppt和笔记了。</p>
+<p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/physics3.png" alt="简谐波的叠加"></p>
+<p>如上图做出两个简谐波的旋转矢量（只要画出位置矢量），然后相加，得到合振幅的旋转矢量。</p>
+<p>对于振幅 $A$ 由几何关系，可求得：</p>
+<script type="math/tex; mode=display">
+A=\sqrt{A_1^2+A_2^2+2A_1A_2\cos{(\varphi_2-\varphi_1)}}</script><p>对于初相位 $\varphi$ ，我们作水平方向（沿x-轴）和竖直方向的投影，再对应相加，分别得到：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& \left\{\begin{matrix}
+x_{A_1}=A_1 \cos \varphi_1 \\
+y_{A_1}=A_1 \sin \varphi_1
+\end{matrix}\right. \\
+& \left\{\begin{matrix}
+x_{A_2}=A_2 \cos \varphi_2 \\
+y_{A_2}=A_2 \sin \varphi_2
+\end{matrix}\right. \\
+& \left\{\begin{matrix}
+x_{A_0}=A_1 \cos \varphi_1 + A_2 \cos \varphi_2 \\
+y_{A_0}=A_1 \sin \varphi_1 + A_2 \sin \varphi_2
+\end{matrix}\right. \\
+\end{aligned}</script><p>于是，初相位 $\varphi$ 为：</p>
+<script type="math/tex; mode=display">
+\varphi=\arctan{\frac{y_{A_0}}{x_{A_0}}}=\arctan{\frac{A_1 \sin \varphi_1+A_2\sin \varphi_2}{A_1 \cos \varphi_1+A_2\cos \varphi_2}}</script><h3 id="横波和纵波"><a href="#横波和纵波" class="headerlink" title="横波和纵波"></a>横波和纵波</h3><ul>
+<li>横波：质点振动方向与波的传播方向垂直；</li>
+<li>纵波：质点振动方向与波的传播方向平行。</li>
+</ul>
+<h3 id="平面波函数"><a href="#平面波函数" class="headerlink" title="平面波函数"></a>平面波函数</h3><h4 id="一维平面波函数（横波）"><a href="#一维平面波函数（横波）" class="headerlink" title="一维平面波函数（横波）"></a><strong>一维平面波函数（横波）</strong></h4><script type="math/tex; mode=display">
+y(x,t)=A\cos{(\omega t-kx+\varphi_0)}</script><p>该式子表示在一维直线中，平面波以x-轴为对称轴，以x轴为波源，向x轴正负方向传播。y表示质点在x处的振动位移，A表示振幅，$\omega$ 表示角频率，$k=\frac{2\pi}{\lambda}$ 表示波数，$\varphi_0$ 表示初相位 ，$\lambda$ 表示波长。</p>
+<p>其中，波速 $v=\frac{\lambda}{T}=\frac{\omega}{k}=\lambda f$ 。横波使得质点在垂直于传播方向（x-轴）的方向上振动。</p>
+<h4 id="一维平面波函数（纵波）"><a href="#一维平面波函数（纵波）" class="headerlink" title="一维平面波函数（纵波）"></a><strong>一维平面波函数（纵波）</strong></h4><script type="math/tex; mode=display">
+\xi (x,t)=A\sin{(\omega t-kx+\varphi_0)}</script><p>这里的 $\xi$ 表示质点在x处的振动位移，其他参数与横波相同。纵波使得质点在平行传播方向（x-轴）的方向上振动。</p>
+<h4 id="二维平面波函数"><a href="#二维平面波函数" class="headerlink" title="二维平面波函数"></a><strong>二维平面波函数</strong></h4><p>对于横波，二维平面波函数为：</p>
+<script type="math/tex; mode=display">
+z(\mathbf r,\mathbf k,t)=A\cos{(\mathbf k \cdot \mathbf r - \omega t +\varphi_0)}</script><p>其中 $\mathbf r$ 表示平面中任意一点的位置矢量$(x,y)$、$\mathbf k$ 表示波矢，方向为波速方向，大小为 $k=2 \pi / \lambda$ 、$\mathbf k \cdot \mathbf r$ 表示在沿着垂直波矢方向移动 $l$ 导致的相位变化 $kl\cos \theta $ 、$\omega$ 表示角频率、$A$ 表示振幅、$\varphi_0$ 表示初相位。</p>
+<p>同理，对于纵波，二维平面波函数替换为 $\xi$ 即可。</p>
+<h4 id="波函数的复数表示"><a href="#波函数的复数表示" class="headerlink" title="波函数的复数表示"></a><strong>波函数的复数表示</strong></h4><p>这点有点类似电路分析中的<strong>相量</strong>，可以用于简化计算，其实部才具有实际的意义，虚部无意义。</p>
+<p>对于任意一个平面波函数 <script type="math/tex">y (x,t)=A\sin{(\omega t-kx+\varphi_0)}</script> ，可以表示为：</p>
+<script type="math/tex; mode=display">
+\tilde{y}=Ae^{i(\omega t-kx+\varphi_0)}</script><h3 id="波的干涉"><a href="#波的干涉" class="headerlink" title="波的干涉"></a>波的干涉</h3><h4 id="相干条件"><a href="#相干条件" class="headerlink" title="相干条件"></a><strong>相干条件</strong></h4><ol>
+<li>相位差 $\Delta \varphi=\varphi_2-\varphi_1=2\pi n$ ，其中 $n=0,1,2,\cdots$ ；</li>
+<li>频率相同 $f_1=f_2=f$ ；</li>
+<li>波长相同 $\lambda_1=\lambda_2=\lambda$ ；</li>
+<li>相位差 $\Delta \varphi$ 为常数。</li>
+</ol>
+<h4 id="干涉结果"><a href="#干涉结果" class="headerlink" title="干涉结果"></a><strong>干涉结果</strong></h4><ol>
+<li>完全相干：$\Delta \varphi=2\pi n$ ，振幅 $A=A_1+A_2$ ，强度 $I=I_1+I_2+2\sqrt{I_1I_2}$ ；（ $\pi /2 $ 的偶数倍 ）</li>
+<li>完全相消：$\Delta \varphi=2\pi (n+1/2)$ ，振幅 $A=\sqrt{A_1^2+A_2^2}$ ，强度 $I=I_1+I_2-2\sqrt{I_1I_2}$ ；（ $\pi /2 $ 的奇数倍 ）</li>
+<li>部分相干：$\Delta \varphi\neq 2\pi n$ ，振幅 $A=\sqrt{A_1^2+A_2^2+2A_1A_2\cos{(\varphi_2-\varphi_1)}}$ ，强度 $I=I_1+I_2+2\sqrt{I_1I_2}\cos{(\varphi_2-\varphi_1)}$ 。</li>
+</ol>
+<h2 id="第七章-静电场"><a href="#第七章-静电场" class="headerlink" title="第七章 静电场"></a>第七章 静电场</h2><h3 id="库伦定律"><a href="#库伦定律" class="headerlink" title="库伦定律"></a>库伦定律</h3><script type="math/tex; mode=display">
+F=k\frac{q_1q_2}{r^2}=\frac{1}{4\pi \varepsilon_0}\frac{q_1q_2}{r^2}</script><p>其中，$\varepsilon_0$ 为真空介电常数，$q_1,q_2$ 为电荷量，$r$ 为距离。这里把系数替代为 $k=1/(4\pi \varepsilon_0)$ ，是为了便于用化简由库伦定律推导出的常用公式。</p>
+<p>考虑方向则有：</p>
+<script type="math/tex; mode=display">
+\mathbf F = \frac{1}{4\pi \varepsilon_0}\frac{q_1q_2}{r^2}\hat{\mathbf r}</script><p>其中， $\hat{\mathbf r}$ 表示单位方向矢量，方向由正负电荷决定。</p>
+<h3 id="电场强度"><a href="#电场强度" class="headerlink" title="电场强度"></a>电场强度</h3><script type="math/tex; mode=display">
+\mathbf E = \frac{\mathbf F}{q_0}</script><p>其中， $q_0$ 为试探电荷量，$\mathbf E$ 的单位为 $N/C$ 或者 $V/m$ 。并且，电场强度由于其是矢量，可以叠加和分解。</p>
+<h3 id="电场强度的计算"><a href="#电场强度的计算" class="headerlink" title="电场强度的计算"></a>电场强度的计算</h3><p>对于连续的带电体，先分解再叠加。</p>
+<script type="math/tex; mode=display">
+\mathbf E = \frac{1}{4\pi \varepsilon_0}\int \frac{dq}{r^2}\hat{\mathbf r}</script><ol>
+<li>一个点电荷 $q$ 产生的电场强度为：<script type="math/tex; mode=display">
+\mathbf E = \frac{1}{4\pi \varepsilon_0}\frac{q}{r^2}\hat{\mathbf r}</script></li>
+<li>很多个点电荷产生的电场强度，先分解再叠加。</li>
+<li><p>无限长均匀带电细长直线的电场强度：<br>设 $+Q$ 为电荷量，线密度为 $\lambda$ ，在直线上 $a$ 位置点 $P$ 的电场强度为：<br>我们将在P点的电场强度分解为 x 方向和 y 方向，显然由对称性得在 x 方向上的电场强度为0，只需要计算在y-轴方向上的电场强度。由$dq=λdl$ ，$r=\sqrt{x^2 + a^2} $ 所以有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf E &= \frac{1}{4\pi \varepsilon_0}\int_{-\infty }^{\infty } \frac{\lambda \sin \theta dx}{x^2 + a^2} \hat{\mathbf j} \\
+&= \frac{\lambda a}{2\pi \varepsilon_0} \int_{0}^{\infty } \frac{dx}{(x^2 + a^2)^{3/2}} \hat{\mathbf j} \\
+&= \frac{\lambda a}{2\pi \varepsilon_0} \int_{0}^{\pi/2 } \frac{a\sec^2 \theta d\theta }{a^3 \sec^3 \theta } \hat{\mathbf j} \\
+&= \frac{\lambda a}{2\pi \varepsilon_0} \frac{1}{a^2} \int_{0}^{\pi/2 } \cos \theta d\theta \hat{\mathbf j} \\
+&= \frac{\lambda}{2 a \pi \varepsilon_0} \hat{\mathbf j}
+\end{aligned}</script><div class="note primary no-icon flat"><p>提示，这里的积分运算中用了三角换元 $\tan^2 \theta +1 = \sec^2 \theta$ ，即 $x=a\tan \theta$ ，$dx=a\sec^2 \theta d\theta$ 。</p>
+</div>  
+</li>
+<li><p>有限长均匀带电细长直线中垂线上的电场强度：<br>设 $L$ 为直线长度，$+Q$ 为电荷量，线密度为 $\lambda=Q/L$ ，点 $P$ 在直线中点上方 $a$ 处。<br>我们将在P点的电场强度分解为 $x$ 方向和 $y$ 方向，则 $x$ 方向的电场强度为0，只需要计算在y-轴方向上的电场强度。由$dq=λdl$ ，$r=\sqrt{x^2 + a^2} $ 所以有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf E &= \frac{1}{4\pi \varepsilon_0}\int_{-L/2}^{L/2} \frac{\lambda \sin \theta dx}{x^2 + a^2} \hat{\mathbf j} \\
+&= \frac{\lambda a}{2\pi \varepsilon_0} \int_{0}^{L/2} \frac{dx}{(x^2 + a^2)^{3/2}} \hat{\mathbf j} \\
+&= \frac{\lambda }{2 a \pi \varepsilon_0} \int_{0}^{\theta_1} \cos \theta d \theta \hat{\mathbf j} \\
+&= \frac{\lambda }{2 a \pi \varepsilon_0} \frac{L}{\sqrt{L^2+a^2}} \hat{\mathbf j}
+\end{aligned}</script></li>
+<li>有限长均匀带电细长直线延长线外的电场强度：<br>设直线长度为 $L$ ，线密度为 $\lambda=Q/L$ ，点 $P$ 在直线延长线外 $a$ 处。以直线远离点P的另一端作为原点，x-轴向P点有 $dq=\lambda dx \ \ r=L+a-x$ 则： <script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf E &= \frac{1}{4\pi \varepsilon_0}\int_{0}^{L} \frac{\lambda dx}{(L+a-x)^2} \hat{\mathbf i} \\
+&= \frac{\lambda}{4\pi \varepsilon_0} [\frac{1}{L+a-x}]_{L}^{0} \hat{\mathbf i} \\
+&= \frac{Q}{4\pi \varepsilon_0 a (L+a)}  \hat{\mathbf i}
+\end{aligned}</script></li>
+<li>无限大均匀带电平面上的电场强度：<br>设平面的电荷密度为 $\sigma$ ，点 $P$ 在平面上方 $h$ 处。显然将P点的各个电场元分解后，平行x0y平面的电场无贡献，只有平行z-轴的电场贡献，且 $dq=\sigma ds = \sigma dx dy \ \  \ r^2=x^2+y^2+h^2 \ \ \ \cos \varphi_z=\frac{h}{\sqrt{x^2+y^2+h^2}}$ ，于是有：<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf E &= \frac{1}{4\pi \varepsilon_0}\int_{-\infty }^{\infty } \int_{-\infty }^{\infty } \frac{\sigma  dx dy}{(x^2+y^2+h^2)^2} \cos \varphi_z \hat{\mathbf k} \\
+&= \frac{1}{4\pi \varepsilon_0}\int_{-\infty }^{\infty } \int_{-\infty }^{\infty } \frac{\sigma h dx dy}{(x^2+y^2+h^2)^{3/2}} \hat{\mathbf k} \\
+&= \frac{\sigma h }{4\pi \varepsilon_0} \int_{0}^{2\pi } d \theta \int_{0}^{\infty } \frac{r dr}{(r^2+h^2)^{3/2}} \hat{\mathbf k} \\
+&= \frac{\sigma h }{4\pi \varepsilon_0} 2 \pi  \int_{h^2}^{\infty } \frac{du}{2 u^{3/2}} \hat{\mathbf k} \\
+&= \frac{\sigma h }{2 \varepsilon_0} \frac{1}{2} [-\frac{2}{\sqrt{u}}]_{h^2}^{\infty} \hat{\mathbf k} \\
+&= \frac{\sigma h }{2 \varepsilon_0} \frac{1}{h} \hat{\mathbf k} = \frac{\sigma }{2 \varepsilon_0} \hat{\mathbf k}
+\end{aligned}</script></li>
+</ol>
+<h3 id="电场线"><a href="#电场线" class="headerlink" title="电场线"></a>电场线</h3><script type="math/tex; mode=display">
+\frac{d \mathbf r}{d \lambda} || \mathbf E(\mathbf r)</script><ol>
+<li>电场线由正电荷出发，指向负电荷，且电场线密集处电场强度大，稀疏处电场强度小。</li>
+<li>电场线不交叉，且电场线密集处电场强度大，稀疏处电场强度小。</li>
+<li>对电场线某点作切向量，这个切向量即该点的电场强度，大小为 $\mathbf E = \frac{d\mathbf l}{d \mathbf \lambda}$ （即垂直通过E的方向的电场线数目）。</li>
+</ol>
+<div class="hide-block"><button type="button" class="hide-button" style="background-color:  pink ;color:  brown">扩展内容-二维电场线的绘制</button><div class="hide-content"><p>首先由电场线的定义，设电场线为曲线 $\mathbf r(\lambda) = (x(\lambda),y(\lambda))$ ，则电场强度为 $\mathbf E = \frac{d\mathbf r}{d \lambda}$ ，电场线切向的单位矢量为 $\hat{\mathbf l} = \frac{d\mathbf r}{d \lambda} / |\mathbf E|$ ，则电场线方程为：</p>
+<script type="math/tex; mode=display">
+\frac{dx}{d\lambda} = \frac{E_x}{E} \ \ \ \frac{dy}{d\lambda} = \frac{E_y}{E}</script><p>消去 $\lambda$ 得到：</p>
+<script type="math/tex; mode=display">
+\frac{dy}{dx} = \frac{E_y(x,y)}{E_x(x,y)}</script><p>那么只要知道 $\mathbf E(x,y) = (E_x(x,y),E_y(x,y))$ ，就可以解出电场线方程。</p>
+<div class="note purple no-icon flat"><ul>
+<li>点电荷的电场线：<br>设点电荷 $q$ 在原点，则 $\mathbf E(x,y) = k\frac{q}{(x^2+y^2)^{3/2}}(x,y) \Rightarrow E_x=k\frac{qx}{(x^2+y^2)^{3/2}} , E_y=k\frac{qy}{(x^2+y^2)^{3/2}}$ ，带入微分方程有：  <script type="math/tex; mode=display">
+\frac{dy}{dx} = \frac{y}{x} \Rightarrow \frac{dy}{y} = \frac{dx}{x} \Rightarrow y = Cx</script></li>
+</ul>
+<p>所以点电荷的电场线方程为 $y=Cx$ 直线族。</p>
+<ul>
+<li>两异性电荷的电场线：<br>设两电荷$ Q_1\ ,\  Q_2$ ，坐标分别为 $(x_1,0) \ , (x_2,0)$  ，试探点P $(x,y)$ 并设 $r_1=\sqrt{(x-x_1)^2+y^2} \ \  r_2=\sqrt{(x-x_2)^2+y^2}$ ，于是在P点的电场强度为：<script type="math/tex; mode=display">
+\begin{aligned}
+& \left\{\begin{matrix}
+E_{1x}&=& k\frac{Q_1(x-x_1)}{r_1^3} \\
+E_{1y}&=& k\frac{Q_1y}{r_1^3} \\
+\end{matrix}\right. \\
+& \left\{\begin{matrix}
+E_{2x}&=& k\frac{Q_2(x-x_2)}{r_2^3} \\
+E_{2y}&=& k\frac{Q_2y}{r_2^3} \
+\end{matrix}\right. \\
+& \left\{\begin{matrix}
+E_x&=&k(\frac{Q_1(x-x_1)}{r_1^3}+k\frac{Q_2(x-x_2)}{r_2^3}) \\
+E_y&=&k(\frac{Q_1y}{r_1^3}+k\frac{Q_2y}{r_2^3}) \\
+\end{matrix}\right. \\
+\end{aligned}</script>那么带入微分方程有：<script type="math/tex; mode=display">
+\frac{dy}{dx} = \frac{\frac{Q_1(x-x_1)}{r_1^3}+k\frac{Q_2(x-x_2)}{r_2^3}}{\frac{Q_1y}{r_1^3}+k\frac{Q_2y}{r_2^3}}</script>化简得：<script type="math/tex; mode=display">
+\frac{Q_1}{y}(\frac{x-x_1}{r_1^3}dy-\frac{y}{r_1^3}dx)+\frac{Q_2}{y}(\frac{x-x_2}{r_2^3}dy-\frac{y}{r_2^3}dx)=0 \ \ \ \ \ \ (*)</script>注意到：<script type="math/tex; mode=display">
+\begin{aligned}
+d(\frac{x-x_1}{r_1}) &= \frac{r_1\ d(x-x_1)-(x-x_1)\ dr_1}{r_1^2} \\
+&= \frac{r_1\ dx-(x-x_1)\ \frac{1}{2}((x-x_1)^2+y^2)^{-1/2} d((x-x_1)^2+y^2)}{r_1^2}  \\
+&= \frac{r_1\ dx-(x-x_1)\ \frac{(x-x_1)\ dx+y \ dy}{r_1}}{r_1^2}  \\
+&= \frac{r_1^2\ dx -(x-x_1)^2\ dx-y(x-x_1)\  dy}{r_1^3}  \\
+&= \frac{y^2\ dx-(x-x_1)y\ dy}{r_1^3} \  \  \  \  \  (\because  r_1^2dx-(x-x_1)^2\ dx = y^2dx) \\
+\end{aligned}</script>同样地：<script type="math/tex; mode=display">
+d(\frac{x-x_2}{r_2})= \frac{y^2\ dx-(x-x_2)y\ dy}{r_2^3}</script>带入(*)式有：<script type="math/tex; mode=display">
+-\frac{Q_1}{y}\frac{1}{y}d(\frac{x-x_1}{r_1})-\frac{Q_2}{y}\frac{1}{y}d(\frac{x-x_2}{r_2})=0 \Rightarrow d(\frac{x-x_1}{r_1})+\frac{Q_2}{Q_1}d(\frac{x-x_2}{r_2})=0</script>积分得：<script type="math/tex; mode=display">
+\frac{x-x_1}{r_1}+\frac{Q_2}{Q_1}(\frac{x-x_2}{r_2})=C</script>即：<script type="math/tex; mode=display">
+Q_1\frac{x-x_1}{\sqrt{(x-x_1)^2+y^2}}+Q_2\frac{x-x_2}{\sqrt{(x-x_2)^2+y^2}}=C</script>该计算结果模拟如下：<br><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/physics4.png" alt="电场线图1"></li>
+</ul>
+</div>
+</div></div>
+<h3 id="电通量"><a href="#电通量" class="headerlink" title="电通量"></a>电通量</h3><p>这里取其标量积，结果为标量，由 <script type="math/tex">\mathbf E = \frac{d \Phi \hat{n}}{d \mathbf S}</script> 可得：</p>
+<script type="math/tex; mode=display">
+\Phi = \int_{S} \mathbf E \cdot d\mathbf S</script><p>这里 $d\Phi=d(\mathbf E\cdot \mathbf S)$ 其中 $\mathbf S$为面积矢量，方向为法向量方向，大小为面积。电通量的单位是 $V \cdot m$ 。</p>
+<p>如果 $\mathbf S$ 为闭合曲面，那么写成 $\Phi = \oint_{S} \mathbf E \cdot d\mathbf S$ 。</p>
+<ul>
+<li>如果 <strong>电场强度大小是均匀的，方向也是均匀的</strong> ，那么 <strong>电通量就是电场强度大小乘以表面积</strong> （具体是内还是外看面积微元法向）。比如一个带电的立方体，那么电通量就是电场强度大小乘以立方体的表面积。</li>
+</ul>
+<h3 id="高斯定理"><a href="#高斯定理" class="headerlink" title="高斯定理"></a>高斯定理</h3><div class="note primary no-icon flat"><p>高斯定理的数学表示为：</p>
+<script type="math/tex; mode=display">
+\int_V (\nabla \cdot \mathbf{F})\, dV = \oint_{\partial V} \mathbf{F} \cdot d\mathbf{A}</script><p>其中 $\nabla$ 为梯度算子 $[\frac{\partial}{\partial x},\frac{\partial}{\partial y},\frac{\partial}{\partial z}]^T$ ，$\mathbf{F}$ 为矢量场，$V$ 为空间区域，$\partial V$ 为 $V$ 的边界，$d\mathbf{A}$ 为边界上的面积元。<br>其通俗解释为：<strong>一个向量场在空间中某区域内部“产生”（源）或“消失”（汇）的总量，等于该区域边界上流出的总量</strong>。 理解这个通俗解释后，高斯定理在电磁学的应用就很好理解了。</p>
+</div>
+<script type="math/tex; mode=display">
+\oint_{S} \mathbf E \cdot d\mathbf S =\frac{1}{\varepsilon_0} \sum q_i =\frac{Q_{enc}}{\varepsilon_0}</script><p>其中 $S$ 为闭合曲面，$q<em>i$ 为空间中电荷，$Q</em>{enc}$ 为闭合曲面内电荷的代数和。该定理说明了电场通过闭合曲面的通量与闭合曲面内电荷的代数和成正比。</p>
+<p>举个例子，计算球壳外电场强度：</p>
+<p>有一个含均匀电荷密度 $\sigma$ 的球壳，半径为 $R$ ，求球壳外距离球心 $d$ 电场强度。</p>
+<p>首先，由高斯定理，有：</p>
+<script type="math/tex; mode=display">
+\oint_{S} \mathbf E \cdot d\mathbf S =\frac{1}{\varepsilon_0} \sum q_i  \Rightarrow \mathbf E \cdot 4\pi R^2 = \sigma \frac{4\pi R^2}{\varepsilon_0} \Rightarrow \mathbf E = \frac{\sigma}{\varepsilon_0} \hat{\mathbf r}</script><p>那么球壳外电场强度为 $\frac{\sigma}{\varepsilon_0} \hat{\mathbf r}$ ，其中 $\hat{\mathbf r}$ 为矢径向外的单位向量。</p>
+<h3 id="静电场力做的功"><a href="#静电场力做的功" class="headerlink" title="静电场力做的功"></a>静电场力做的功</h3><script type="math/tex; mode=display">
+W = \int_{\mathbf r_1}^{\mathbf r_2} \mathbf F \cdot d\mathbf r = q \int_{\mathbf r_1}^{\mathbf r_2} \mathbf E \cdot d\mathbf r</script><p>如果是一个点电荷那么其电场力做的功为：</p>
+<script type="math/tex; mode=display">
+W = k\frac{q_0q}{r}(\frac{1}{r_a}-\frac{1}{r_b})</script><p>这个为试探电荷 $q_0$ 从 $\mathbf r_a$ 移动到 $\mathbf r_b$ 的电场力做的功。</p>
+<p>这说明静电场做功与路径无关，只与初末位置有关，是保守力。那么必然有：</p>
+<script type="math/tex; mode=display">
+\oint_l \mathbf E \cdot d\mathbf l = 0</script><h3 id="电势能"><a href="#电势能" class="headerlink" title="电势能"></a>电势能</h3><p>由于静电场做功与路径无关，那么必然存在一个势能，并定义在无穷远处电势能为0，则电场中某一点a：</p>
+<script type="math/tex; mode=display">
+E_{pa}=q_0 \int_a^{\infty} \mathbf E \cdot d\mathbf l</script><h3 id="电势"><a href="#电势" class="headerlink" title="电势"></a>电势</h3><p>显然用电势能描述电场不方便，去除试探电荷 $q_0$ ，那么有：</p>
+<script type="math/tex; mode=display">
+\varphi_a = \int_a^{\infty} \mathbf E \cdot d\mathbf l</script><p>这就是电势的定义（也叫电位，毕竟势能也叫位能），其单位为伏特。</p>
+<h3 id="电势差"><a href="#电势差" class="headerlink" title="电势差"></a>电势差</h3><p>对于静电场中两点a，b，电势差（电压）为：</p>
+<script type="math/tex; mode=display">
+U_{ab}=\Delta \varphi = \varphi_a - \varphi_b = \int_a^b \mathbf E \cdot d\mathbf l</script><div class="note danger no-icon flat"><p>一定要注意电压是前者的电势减去后者的电势 $U_{ab} = \varphi_a - \varphi_b $ 不是 $\varphi_b - \varphi_a$ 。<strong>因为电势的起点为无穷远为非0点</strong>。</p>
+<p>因为电势是沿着向量 $\mathbf l$ 进行的积分，如果学了向量微积分，那么电场可以定义为：</p>
+<script type="math/tex; mode=display">
+\mathbf E = -\nabla \varphi = -\frac{\partial \varphi}{\partial x}\hat{i}-\frac{\partial \varphi}{\partial y}\hat{j}-\frac{\partial \varphi}{\partial z}\hat{k}</script><p>即 <strong>电场是电势的负梯度</strong> 。</p>
+</div>
+<h3 id="电势的计算"><a href="#电势的计算" class="headerlink" title="电势的计算"></a>电势的计算</h3><h4 id="点电荷的电势"><a href="#点电荷的电势" class="headerlink" title="点电荷的电势"></a><strong>点电荷的电势</strong></h4><script type="math/tex; mode=display">
+\varphi = \frac{kq}{r} = \frac{1}{4\pi\varepsilon_0} \frac{q}{r}</script><h4 id="点电荷系的电势"><a href="#点电荷系的电势" class="headerlink" title="点电荷系的电势"></a><strong>点电荷系的电势</strong></h4><script type="math/tex; mode=display">
+\begin{aligned}
+\varphi_p &= \int_p^{\infty} \mathbf E \cdot d\mathbf l \\
+&= \int_p^{\infty} \sum_i \mathbf E_i \cdot d\mathbf l \\
+&= \sum_i \int_p^{\infty} \mathbf E_i \cdot d\mathbf l = \sum_i \frac{kq_i}{r_i}\\
+\end{aligned}</script><p>这表明，<strong>点电荷系的电势等于各个点电荷电场的电势之和</strong> ，这就是电势的叠加定理。</p>
+<p>由此可见，对于均匀连续的带电体，其电势等于其电荷密度 $\rho$ 的积分：</p>
+<script type="math/tex; mode=display">
+\varphi =\frac{1}{4\pi\varepsilon_0}{\int \int \int }_V dq = \frac{1}{4\pi\varepsilon_0} {\int \int \int }_V \rho \ dV</script><h3 id="等势面"><a href="#等势面" class="headerlink" title="等势面"></a>等势面</h3><ol>
+<li>等势面上任意两点电势差为0</li>
+<li>等势面不相交</li>
+<li>电场强度 $\mathbf E$ 与等势面垂直</li>
+</ol>
+<div class="hide-block"><button type="button" class="hide-button" style="background-color:  pink ;color:  brown">扩展内容-二维等势线的绘制</button><div class="hide-content"><p>在二维上等势面退化为等势线，线上每点的电势均相等，那么我们直接求出在平面上各个点的电势函数 $\varphi(x,y)=C$ 使其某个常数值，这就可以描述平面上的等势线族了。 </p>
+<div class="note purple no-icon flat"><ul>
+<li><p>点电荷的等势线：<br>设点电荷 $q$ 在坐标原点，那么有 $\varphi(x,y)=\frac{kq}{\sqrt{x^2+y^2}}$ ，令 $\varphi(x,y)=C$ ，解得 $x^2+y^2=C$ ，这就是点电荷的等势线方程。</p>
+</li>
+<li><p>两异性电荷的电场线：<br>设两异性电荷 $Q_1 \ , \  Q_2$ 坐标为 $(x_1,0) \ , \ (x_2,0)$ 那么其等势线方程为：</p>
+<script type="math/tex; mode=display">
+\frac{Q_1}{\sqrt{(x-x_1)^2+y^2}}+\frac{Q_2}{\sqrt{(x-x_2)^2+y^2}}=C</script></li>
+</ul>
+</div>
+</div></div>
+<h2 id="第八章-稳恒磁场"><a href="#第八章-稳恒磁场" class="headerlink" title="第八章 稳恒磁场"></a>第八章 稳恒磁场</h2><h3 id="磁感应强度"><a href="#磁感应强度" class="headerlink" title="磁感应强度"></a>磁感应强度</h3><p>磁感应强度是描述磁场对运动电荷或电流的作用力的物理量，其单位为特斯拉（T）。</p>
+<div class="note warning no-icon flat"><p>这里请区别<strong>磁感应强度</strong>和<strong>磁场强度</strong>：</p>
+<ul>
+<li>磁感应强度：描述磁场对运动电荷或电流的作用力的物理量，其单位为特斯拉（T）。</li>
+<li>磁场强度：描述电流或磁场源产生的磁场的物理量，其单位为安培每米（A/m）。</li>
+</ul>
+<p>他们之间的关系为：</p>
+<script type="math/tex; mode=display">
+\mathbf B = \mu_0 \mathbf H + \mathbf M</script><p>其中 $\mathbf B$ 为磁感应强度，$\mathbf H$ 为磁场强度，$\mathbf M$ 为磁化强度，$\mu_0$ 为真空磁导率。</p>
+</div>
+<h3 id="磁通量"><a href="#磁通量" class="headerlink" title="磁通量"></a>磁通量</h3><script type="math/tex; mode=display">
+\Phi = \int_{S} \mathbf B \cdot d\mathbf S</script><p>其中 $S$ 为闭合曲面，$d\mathbf S$ 为面积矢量，方向为法向量方向，大小为面积。磁通量的单位为韦伯（Wb）。</p>
+<h3 id="磁场的高斯定理"><a href="#磁场的高斯定理" class="headerlink" title="磁场的高斯定理"></a>磁场的高斯定理</h3><p>由于未发现磁单极子，所以磁感应强度 $\mathbf B$ 在闭合曲面上积分等于0。并且我们记，闭合曲面面积S向外为正，即<strong>从闭合曲面穿出的磁通为正，穿入闭合曲面为负</strong>。</p>
+<script type="math/tex; mode=display">
+\oint_{S} \mathbf B \cdot d\mathbf S = 0</script><h3 id="毕奥-萨伐尔定律（Biot-Savart-Law）"><a href="#毕奥-萨伐尔定律（Biot-Savart-Law）" class="headerlink" title="毕奥-萨伐尔定律（Biot-Savart Law）"></a>毕奥-萨伐尔定律（Biot-Savart Law）</h3><script type="math/tex; mode=display">
+\mathbf B = \frac{\mu_0}{4\pi} \int \frac{Id\mathbf l \times \hat{\mathbf r}}{r^2}</script><p>其中 $I$ 为电流强度，$I d\mathbf l$ 为电流元，$\hat{\mathbf r}$ 为<strong>电流元到点</strong>的单位矢量，$r$ 为电流元到点的距离。</p>
+<div class="note success no-icon flat"><p>这个是矢量积分，我们可以将其拆分为三个分量（以笛卡尔坐标系举例）：</p>
+<ul>
+<li>观察点 $\mathbf r =(x,y,z)$</li>
+<li>电流路径参数方程 $\mathbf r’(t) = (x’(t),y’(t),z’(t))$ ， 其中参数 $t \in [a,b]$ </li>
+<li>电流元运动方向 $\mathbf v(t) = \frac{\mathbf r’(t)}{d t} = (x_t’(t),y_t’(t),z_t’(t))$</li>
+<li>相对位置向量 $\mathbf R(t)=\mathbf r - \mathbf r’(t) = (x-x’(t),y-y’(t),z-z’(t)) = (R_x(t),R_y(t),R_z(t))$</li>
+</ul>
+<p>那么平行各轴的分量大小分别为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+B_x &= \frac{\mu_0I}{4\pi} \int_{a}^{b} \frac{y_t'(t)R_z(t)-z_t'(t)R_y(t)} {|R(t)|^3}  dt \\
+B_y &= \frac{\mu_0I}{4\pi} \int_{a}^{b} \frac{z_t'(t)R_x(t)-x_t'(t)R_z(t)} {|R(t)|^3}  dt \\
+B_z &= \frac{\mu_0I}{4\pi} \int_{a}^{b} \frac{x_t'(t)R_y(t)-y_t'(t)R_x(t)} {|R(t)|^3}  dt \\
+\end{aligned}</script><p>其中 $|R(t)|^3 = {((R_x(t))^2 + (R_y(t))^2 + (R_z(t))^2)}^{3/2}$ 。</p>
+<p>于是$\mathbf B = (B_x,B_y,B_z)$</p>
+</div>
+<p>运动电荷产生的磁场可以用电流元来描述，所以运动电荷产生的磁场为：</p>
+<script type="math/tex; mode=display">
+\mathbf B = \frac{\mu_0}{4\pi} \frac{q \mathbf v \times \hat{\mathbf r}}{r^2}</script><p>那么我们用运动电荷代替电流元，得到：</p>
+<script type="math/tex; mode=display">
+\mathbf B = \frac{\mu_0}{4\pi} \int \frac{q \mathbf v \times \hat{\mathbf r}}{r^2} dt</script><p>只计算大小即:</p>
+<script type="math/tex; mode=display">
+B = \frac{\mu_0}{4\pi} \int \frac{q  v \sin(\mathbf v, \mathbf r)}{r^2} dt</script><div class="note primary no-icon flat"><p>一些常见的磁场大小计算结果（<strong>重要</strong>）：</p>
+<ul>
+<li>无限长的直导线： $B = \frac{\mu_0 I}{2\pi r}$</li>
+<li>圆环： $B = \frac{\mu_0 I }{2R}$</li>
+<li>圆弧： $B = \frac{\mu_0 I \theta}{4\pi R}$</li>
+</ul>
+</div>
+<h3 id="安培环路定律"><a href="#安培环路定律" class="headerlink" title="安培环路定律"></a>安培环路定律</h3><script type="math/tex; mode=display">
+\oint_{C} \mathbf B \cdot d\mathbf l = \mu_0 I</script><p>其中 $C$ 为闭合回路，$I$ 为该闭合回路所包围的电流。</p>
+<p>并且对于闭合回路内的电流正负:</p>
+<ul>
+<li>当穿过回路的电流方向于回路方向满足右手螺旋定则时，电流为正。</li>
+<li>当穿过回路的电流方向于回路方向不满足右手螺旋定则时，电流为负。</li>
+</ul>
+<h3 id="安培定律"><a href="#安培定律" class="headerlink" title="安培定律"></a>安培定律</h3><script type="math/tex; mode=display">
+\mathbf F = \int_L d\mathbf F = \int_L I d\mathbf l \times \mathbf B</script><p>其中 $L$ 为导线段，$Id\mathbf l$ 为导线段上的电流元，$\mathbf B$ 为该导线段上的磁场。</p>
+<p>当I、B为恒定值，F的大小为， $F=BIL$</p>
+<h3 id="洛伦兹力"><a href="#洛伦兹力" class="headerlink" title="洛伦兹力"></a>洛伦兹力</h3><script type="math/tex; mode=display">
+\mathbf F = q \mathbf v \times \mathbf B</script><p>其中 $q$ 为电荷量，$\mathbf v$ 为电荷运动速度，$\mathbf B$ 为磁场。</p>
+<p>我们将洛伦兹力与电场力结合，得到：</p>
+<script type="math/tex; mode=display">
+\mathbf F= q(\mathbf E + \mathbf v \times \mathbf B)</script><p>在匀强磁场中，带点粒子的运动：</p>
+<ul>
+<li>粒子速度与磁场垂直，粒子做圆周运动：<ul>
+<li>半径 $r = \frac{mv}{qB}$</li>
+<li>周期 $T = \frac{2\pi r}{v} = \frac{2\pi m}{qB}$</li>
+<li>速度 $v = \frac{2\pi r}{T} = \frac{2\pi m}{qB}$</li>
+</ul>
+</li>
+<li>粒子速度与磁场平行，粒子做匀速直线运动：<ul>
+<li>速度 $v = const$</li>
+</ul>
+</li>
+<li>粒子速度与磁场斜交 $\theta$ ，粒子做螺旋线运动。<ul>
+<li>螺线半径 $r = \frac{mv \sin \theta}{qB}$</li>
+<li>水平速度 $v_{\parallel} = v \cos \theta$</li>
+<li>垂直速度 $v_{\perp} = v \sin \theta$</li>
+<li>螺线角速度 $\omega = \frac{v_{\perp}}{r} = \frac{qB}{m}$</li>
+<li>螺线周期 $T = \frac{2\pi r}{v_{\perp}} = \frac{2\pi m}{qB}$</li>
+<li>螺距 $h=v \cos \theta T = \frac{2 \pi m v \cos \theta}{qB}$</li>
+</ul>
+</li>
+</ul>
+<h2 id="第九章——变化的电磁场"><a href="#第九章——变化的电磁场" class="headerlink" title="第九章——变化的电磁场"></a>第九章——变化的电磁场</h2><h3 id="法拉第电磁感应定律"><a href="#法拉第电磁感应定律" class="headerlink" title="法拉第电磁感应定律"></a>法拉第电磁感应定律</h3><script type="math/tex; mode=display">
+\varepsilon = -K\frac{d\Phi_B}{dt}</script><p>其中 $\Phi_B$ 为闭合曲面内的磁通量， $K$ 为比例系数取决于这个式子中其他量的单位，在SI单位制中K=1。</p>
+<p>在绕 $n$ 闸的线圈中，感生电势为：</p>
+<script type="math/tex; mode=display">
+\varepsilon = -N \frac{d\Phi_B}{dt} = \frac{d\Psi_B }{dt}</script><p>其中 $\Psi_B=N\Phi_B $ 为闭合回路中的磁通链。</p>
+<p>对于该式的符号，我们以磁场的方向与回路包裹的面积法向 $\mathbf n$ 同向时磁通量为为正，此时如果磁通量<strong>减少</strong>，<strong>感生电势为正</strong>（表示<strong>感生电动势方向与规定回路方向相同</strong>），反之磁通量<strong>增加</strong>，<strong>感生电势为负</strong>。</p>
+<h3 id="楞次定律"><a href="#楞次定律" class="headerlink" title="楞次定律"></a>楞次定律</h3><p>在闭合回路中，感应电流总是试图阻止引起感应电流的磁通量的变化。</p>
+<div class="note info no-icon flat"><p>实际上其也有对应的数学表达式：</p>
+<script type="math/tex; mode=display">
+\oint_{L} \mathbf E \cdot d\mathbf l = - \int_S \frac{\partial B}{\partial t} \cdot d\mathbf S</script></div>
+<h3 id="动生电动势"><a href="#动生电动势" class="headerlink" title="动生电动势"></a>动生电动势</h3><script type="math/tex; mode=display">
+\varepsilon = \int_L (\mathbf v \times \mathbf B) \cdot d\mathbf l</script><p>其中 $\mathbf l$ 为线元，$\mathbf B$ 为磁场。</p>
+<div class="note success no-icon flat"><p>这里给出其数学上的计算方法，我们知道对于某个导线L其路径的参数方程为 $\mathbf r(t) = (x(t),y(t),z(t))$ ，那么路径元 $d\mathbf l$ 可化为：</p>
+<script type="math/tex; mode=display">
+d\mathbf l = \frac{d\mathbf r(t)}{dt} \cdot dt = (\frac{dx(t)}{dt},\frac{dy(t)}{dt},\frac{dz(t)}{dt}) \cdot dt = \mathbf r'(t) \cdot dt</script><p>并记磁场在路径 $\mathbf r$ 上的函数为 $\mathbf B(t) := \mathbf B(\mathbf r(t))$ ，那么有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\varepsilon &= \int_a^b [\mathbf v(t) \times \mathbf B(r(t))] \cdot \mathbf r'(t) \cdot dt  \\
+&= \int_a^b [(v_xB_z-v_zB_x) \ dx + (v_yB_x-v_xB_y) \ dy + (v_zB_y-v_yB_z) \ dz] \\
+&= \int_a^b [(v_xB_z-v_zB_x) x'(t) + (v_yB_x-v_xB_y) y'(t) + (v_zB_y-v_yB_z) z'(t)] \ dt
+\end{aligned}</script><p>这样就可以用坐标参数来计算电动势了，如果是其他的坐标系做转化也很简单。</p>
+</div>
+<div class="note primary no-icon flat"><p>但是对于简单的情况，我们就没必要如此复杂地积分运算了。我们知道 $d \varepsilon = dBLv\sin(\mathbf v,\mathbf B) $ ，于是构造速度方向和磁感线方向的正交：</p>
+<script type="math/tex; mode=display">
+\epsilon = BL_\perp v_\perp</script><p>其中 <script type="math/tex">L_\perp</script> 为磁感线在速度方向上的投影， <script type="math/tex">v_\perp</script> 为速度在磁感线方向上的投影。那么在实际问题中找到这两个等效量，就可以直接计算电动势了。</p>
+<ul>
+<li>在匀强磁场中，磁感线方向与速度方向垂直，那么 <script type="math/tex">L_\perp = L</script> ， <script type="math/tex">v_\perp = v</script> ，于是有 <script type="math/tex">\varepsilon = BLv</script> 。</li>
+<li>在匀强磁场中，棒绕着端点旋转，那么 <script type="math/tex">L_\perp =\frac{1}{2} L</script> ， <script type="math/tex">v_\perp =  \omega r</script> ，于是有 <script type="math/tex">\varepsilon = \frac{1}{2} B\omega r^2</script> 。</li>
+</ul>
+</div>
+<h3 id="感生电势"><a href="#感生电势" class="headerlink" title="感生电势"></a>感生电势</h3><script type="math/tex; mode=display">
+\varepsilon = \oint_L \mathbf E \cdot d\mathbf l = - \frac{d}{dt} \int_S \mathbf B \cdot d\mathbf S = - \int_S \frac{\partial \mathbf B}{\partial t} \cdot d\mathbf S</script><p>该式子表示：<strong>一个封闭回路上的感生电动势，等于穿过该回路所围曲面的磁通量随时间的变化率的相反数</strong></p>
+<h1 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h1><h2 id="习题1"><a href="#习题1" class="headerlink" title="习题1"></a>习题1</h2><p>已知一质点加速度满足 <script type="math/tex">a=A-Bv</script> ，其中 $A,B$ 为常数，求速度 $v(t)$ 。</p>
+<div class="hide-block"><button type="button" class="hide-button" style="background-color:  pink ;color:  brown">查看答案</button><div class="hide-content"><p>分离变量，积分后易得：<script type="math/tex">v(t)=\frac{A}{B}(1-e^{-Bt})</script></p>
+<div class="note purple no-icon flat"><p>具体计算过程：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\frac{dv}{dt} &= A-Bv \\
+\Leftrightarrow \  dt &= \frac{dv}{A-Bv} \\
+\Leftrightarrow \  \int dt &= \int \frac{dv}{A-Bv} \\
+\Leftrightarrow \  v&=\frac{A}{B}(1-e^{-Bt})
+\end{aligned}</script></div>
+</div></div>
+<h2 id="习题2"><a href="#习题2" class="headerlink" title="习题2"></a>习题2</h2><p>质点沿着x轴运动，并满足方程： <script type="math/tex">a=2+6x^2 \ (SI 单位)</script> ，质点在$x=0\ \mathrm m$时，$v=10 \ \mathrm m \cdot \mathrm s ^ {-1}$，求 $v(x)$。</p>
+<div class="hide-block"><button type="button" class="hide-button" style="background-color:  pink ;color:  brown">查看答案</button><div class="hide-content"><script type="math/tex; mode=display">v(x)=2\sqrt{x^3+x+25} \ \mathrm m \cdot \mathrm s ^ {-1}</script><div class="note purple no-icon flat"><p>具体计算过程：</p>
+<p>运用链式法则有：</p>
+<script type="math/tex; mode=display">
+a=\frac{dv}{dt}=\frac{dv}{dx}\cdot\frac{dx}{dt}=v\cdot\frac{dv}{dx}</script><p>由条件式带入得：</p>
+<script type="math/tex; mode=display">
+v\ dv = a \ dx = (2+6x^2) \ dx</script><p>积分得：</p>
+<script type="math/tex; mode=display">
+\frac{1}{2}v^2 = 2x^3 + 2x + C</script><p>带入初始条件 $v(0)=10$ 得 $C=50$ ，又$x&gt;0$于是有：</p>
+<script type="math/tex; mode=display">
+v(x)=2 \sqrt{x^3+x+25}</script></div>
+</div></div>
+<h2 id="习题3"><a href="#习题3" class="headerlink" title="习题3"></a>习题3</h2><p>有两个自重均为 $m$ 的弹簧A、B，其劲度系数分别为 $k_1,k_2$ ，将两个弹簧串联（A在B的上面），下面面悬挂一个质量为 $M=\lambda m$ 的物体，求弹簧的伸长量的比值。</p>
+<div class="hide-block"><button type="button" class="hide-button" style="background-color:  pink ;color:  brown">查看答案</button><div class="hide-content"><script type="math/tex; mode=display">
+\frac{\Delta x_1}{\Delta x_2} = \frac{2 \lambda+3}{2 \lambda+1}</script><div class="note purple no-icon flat"><p>解答思路：</p>
+<ul>
+<li>我们对具有自重的弹簧受力分析时，只关心某一端的手里情况，那么此时弹簧的重力应该在两端平分。上端的重力 $\frac{1}{2}mg$ 被上端点向上拉，下端的重力 $\frac{1}{2}mg$ 被下端点向上拉。</li>
+</ul>
+<p>对弹簧B的下端点进行受力分析有：</p>
+<script type="math/tex; mode=display">
+T_B= Mg+\frac{1}{2}mg</script><p>对弹簧A的下端点进行受力分析有：</p>
+<script type="math/tex; mode=display">
+T_A= Mg+\frac{3}{2}mg</script><p>结合胡可定律有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+k_1 \Delta x_1 &= Mg + \frac{3}{2}mg \\
+k_2 \Delta x_2 &= Mg + \frac{1}{2}mg \\
+\end{aligned}</script><p>并由 $M=\lambda m $ 代入解得：</p>
+<script type="math/tex; mode=display">
+\frac{\Delta x_1}{\Delta x_2} = \frac{2 \lambda+3}{2 \lambda+1}</script></div>
+</div></div>
+<h2 id="习题4"><a href="#习题4" class="headerlink" title="习题4"></a>习题4</h2><p>平板中央开一小孔，质量为 $m$ 的小球用细线系住，细线穿过小孔后挂一质量为 $M_1$ 的重物．小球作匀速圆周运动，当半径为 $r_0$ 时重物达到平衡．今在 $M_1$ 的下方再挂一质量为 $M_2$ 的物体，如题图．试问这时小球作匀速圆周运动的角速度 $\omega$ 和半径 $r$ 为多少?</p>
+<p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/physics5.png" alt="题图1"></p>
+<div class="hide-block"><button type="button" class="hide-button" style="background-color:  pink ;color:  brown">查看答案</button><div class="hide-content"><script type="math/tex; mode=display">
+\begin{aligned}
+\omega &= \sqrt{\frac{M_1g}{mr_0}}(\frac{M_1+M_2}{M_1})^{2/3} \\
+r &= r_0 \left( \frac{M_1+M_2}{M_1} \right)^{1/3}
+\end{aligned}</script><div class="note purple no-icon flat"><p>解题思路：</p>
+<p>对两次情况分别进行受力分析有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+M_1g &= m\omega^2r_0 \\
+(M_1+M_2)g &= m\omega^2r
+\end{aligned}</script><p>又因为对小球的拉力与运动方向垂直，角动量守恒，所以有：</p>
+<script type="math/tex; mode=display">
+mr_0^2\omega = mr^2\omega</script><p>联立解得：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\omega &= \sqrt{\frac{M_1g}{mr_0}}(\frac{M_1+M_2}{M_1})^{2/3} \\
+r &= r_0 \left( \frac{M_1+M_2}{M_1} \right)^{1/3}
+\end{aligned}</script></div>
+</div></div>
+<h2 id="习题5"><a href="#习题5" class="headerlink" title="习题5"></a>习题5</h2><p>质量M＝1.1 kg的匀质圆盘，可以绕通过其中心且垂直盘面的水平光滑固定轴转动．圆盘边缘绕有绳子，绳子下端挂一质量 $m_1＝1.0 \mathbf{kg}$ 的物体，如题3.5图所示．起初在圆盘上加一恒力矩使物体以速率 $v_0=0.6\ \mathbf{m/s}$ 匀速上升，如撤去所加力矩，问经历多少时间圆盘开始作反方向转动．(取g＝10 m/s^(-2))</p>
+<p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/physics6.png" alt="题图2"></p>
+<div class="hide-block"><button type="button" class="hide-button" style="background-color:  pink ;color:  brown">查看答案</button><div class="hide-content"><script type="math/tex; mode=display">
+t=0.078 \mathbf s</script><div class="note purple no-icon flat"><p>解题思路：</p>
+<p>分别对圆盘和物体进行受力分析有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+TR &= J\alpha \\
+m_1g-T &= m_1 a \\
+\end{aligned}</script><p>又由 $J=\frac{1}{2}MR^2 \ , \ a=\alpha R$ ，所以有：</p>
+<script type="math/tex; mode=display">
+a=\frac{m_1g}{m_1+\frac{1}{2}M}</script><p>当飞轮反转时， $v=0$ 有</p>
+<script type="math/tex; mode=display">
+v=v_0-at=0 \Rightarrow t=\frac{v_0}{a} = \frac{v_0(m_1+\frac{1}{2}M)}{m_1g}</script><p>带入数据解得： $t=0.078 \mathbf s$</p>
+</div>
+</div></div>
+<h2 id="习题6"><a href="#习题6" class="headerlink" title="习题6"></a>习题6</h2><p><strong>求</strong>图所示系统中物体的<strong>加速度</strong>．设滑轮为质量均匀分布的圆柱体，其质量为M=100kg，半径为R=0.1m，在绳与轮缘的摩擦力作用下旋转，忽略桌面与物体间的摩擦，设$m_2=4m_1=200 \mathbf{kg}$ 。(取g＝10 m/s^(-2))</p>
+<p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/physics7.png" alt="题图3"></p>
+<div class="hide-block"><button type="button" class="hide-button" style="background-color:  pink ;color:  brown">查看答案</button><div class="hide-content"><script type="math/tex; mode=display">
+a=\frac{20}{3} \mathbf{m/s^2}</script><div class="note purple no-icon flat"><p>解题思路：</p>
+<p>我们取沿绳子向下的方向为正方向，那么受力分析有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+(T_2-T_1)R &= \frac{1}{2}MR^2\alpha \\
+m_2g-T_2 &= m_2 R \alpha \\
+m_1g-T_1 &= m_1 R \alpha
+\end{aligned}</script><p>联立解得：</p>
+<script type="math/tex; mode=display">
+a=\frac{m_2g}{\frac{1}{2}M+m_1+m_2}</script><p>带入数据解得： $a=\frac{20}{3} \mathbf{m/s^2}$</p>
+</div>
+</div></div>
+<h2 id="习题7"><a href="#习题7" class="headerlink" title="习题7"></a>习题7</h2><p>个质量为M、半径为R并以角速度 $\omega$ 转动着的飞轮 (可看作匀质圆盘)，在某一瞬时突然有一片质量为m的碎片从轮的边缘上飞出．假定碎片脱离飞轮时的瞬时速度方向正好竖直向上．求碎片飞出后，飞轮的角动量变为多少?</p>
+<div class="hide-block"><button type="button" class="hide-button" style="background-color:  pink ;color:  brown">查看答案</button><div class="hide-content"><script type="math/tex; mode=display">
+L'=(\frac{1}{2}MR^2-mR^2)\omega</script><div class="note purple no-icon flat"><p>解题思路：</p>
+<p>由机械能守恒有</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\frac{1}{2} J \omega^2 & = \frac{1}{2} J' \omega'^2 + \frac{1}{2} m v^2 \\
+ v &=  \omega R\\
+\end{aligned}</script><p>又由于碎片脱离飞轮后其与飞轮的作用力为零，所以由角动量守恒有：</p>
+<script type="math/tex; mode=display">
+J\omega=J'\omega'+mvR</script><p>联立解得：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\left\{\begin{matrix}
+\omega' &=& \omega \\
+J' &=& \frac{1}{2}MR^2-mR^2
+\end{matrix}\right.
+\end{aligned}</script><p>带入数据解得： $L’=(\frac{1}{2}MR^2-mR^2)\omega$</p>
+</div>
+</div></div>
+<h2 id="习题8"><a href="#习题8" class="headerlink" title="习题8"></a>习题8</h2><p>如图所示，在A、B两点处放有电量分别为+q,-q的点电荷， 间距离为2R，现将另一正试验点电荷 $q_0$ 从O点经过半圆弧移到C点，求移动过程中电场力作的功．</p>
+<p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/physics8.png" alt="题图4"></p>
+<div class="hide-block"><button type="button" class="hide-button" style="background-color:  pink ;color:  brown">查看答案</button><div class="hide-content"><script type="math/tex; mode=display">
+W=\frac{q_0 q}{6 \pi \varepsilon_0 R}</script><div class="note purple no-icon flat"><p>解题思路：</p>
+<p>由点电荷系的电势公式有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\varphi_o &= \frac{1}{4 \pi \varepsilon_0 R}(\frac{q}{R}-\frac{q}{R}) \\
+\varphi_C &= \frac{1}{4 \pi \varepsilon_0 R}(\frac{q}{3R}-\frac{q}{R})
+\end{aligned}</script><p>又 $W=q_0(\varphi_C-\varphi_o)$ ，所以有：</p>
+<script type="math/tex; mode=display">
+W=\frac{q_0 q}{6 \pi \varepsilon_0 R}</script></div>
+</div></div>
+<h2 id="习题9"><a href="#习题9" class="headerlink" title="习题9"></a>习题9</h2><p>如图所示的绝缘细线上均匀分布着线密度为 $\lambda$ 的正电荷,两直导线的长度和半圆环的半径都等于 $R$ ．试求环中心O点处的场强和电势．</p>
+<p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/physics9.png" alt="题图5"></p>
+<div class="hide-block"><button type="button" class="hide-button" style="background-color:  pink ;color:  brown">查看答案</button><div class="hide-content"><script type="math/tex; mode=display">
+\begin{aligned}
+E_O&=-\frac{\lambda}{2 \pi \varepsilon_0 R} \\
+\varphi_O&=\frac{\lambda}{2 \pi \varepsilon_0} \ln 2 + \frac{\lambda}{4 \varepsilon_0}
+\end{aligned}</script><div class="note purple no-icon flat"><p>解题思路：</p>
+<p>对于在O点产生的电场强，由于对称x-轴方向的电场强为零，只要计算半圆环在y方向贡献的电场强度：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+E_O&=\int dE_y = \int_{-\pi/2}^{\pi/2} \frac{\lambda R \ d \theta}{4\pi\varepsilon_0 R^2}\cos\theta\\
+&=-\frac{\lambda}{2 \pi \varepsilon_0 R}
+\end{aligned}</script><p>对于AB段在O点产生的电势：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\varphi_1&=\int_{R}^{2R}\frac{\lambda \ dx}{4\pi \varepsilon_0 x} \\
+&=\frac{\lambda}{4\pi \varepsilon_0} \ln 2
+\end{aligned}</script><p>同理CD段在O点产生的电势：</p>
+<script type="math/tex; mode=display">
+\varphi_3=\frac{\lambda}{4\pi \varepsilon_0} \ln 2</script><p>半圆环产生的电势：</p>
+<script type="math/tex; mode=display">
+\varphi_2=\frac{\pi R \lambda}{4\pi \varepsilon_0 R}=\frac{\lambda}{4 \varepsilon_0}</script><p>叠加定理求和有</p>
+<script type="math/tex; mode=display">
+\varphi_O=\varphi_1+\varphi_2+\varphi_3=\frac{\lambda}{2 \pi \varepsilon_0} \ln 2 + \frac{\lambda}{4 \varepsilon_0}</script></div>
+</div></div>
+<h2 id="习题10"><a href="#习题10" class="headerlink" title="习题10"></a>习题10</h2><p>求长为2a、宽为2b的矩形边框，在通逆时针的电流I后对角线交点处的磁感应强度．</p>
+<div class="hide-block"><button type="button" class="hide-button" style="background-color:  pink ;color:  brown">查看答案</button><div class="hide-content"><script type="math/tex; mode=display">
+\mathbf B = \frac{\mu_0 I \sqrt{a^2+b^2}}{\pi a b} \hat{\mathbf k}</script><div class="note purple no-icon flat"><p>解题思路：</p>
+<p>设矩形边框对角线交点为原点，那么有：</p>
+<ul>
+<li>底边： $y=-b \ , \ x\in[-a,a]$ ，参数方程为 $\mathbf r(t) = (t,-b,0) $ ， 速度 $\mathbf v(t) =\frac{d \mathbf r}{d t}= (1,0,0)$</li>
+<li>顶边： $y=b \ , \ x\in[a,-a]$ ，参数方程为 $\mathbf r(t) = (t,b,0) $ ， 速度 $\mathbf v(t) = (-1,0,0)$</li>
+<li>右边： $x=a \ , \ y\in[-b,b]$ ，参数方程为 $\mathbf r(t) = (a,t,0) $ ， 速度 $\mathbf v(t) = (0,1,0)$</li>
+<li>左边： $x=-a \ , \ y\in[b,-b]$ ，参数方程为 $\mathbf r(t) = (-a,t,0) $ ， 速度 $\mathbf v(t) = (0,-1,0)$</li>
+</ul>
+<p>观察点 $\mathbf r_0=(0,0,0)$ ，相对位置 $\mathbf R(t) = \mathbf r_0 - \mathbf r(t) = (-x(t), - y(t) ,0)$ 。</p>
+<p>以及 $|\mathbf R(t)|^3 = (x(t)^2 + y(t)^2)^{3/2}$ ，注意到：</p>
+<script type="math/tex; mode=display">
+\mathbf v \times \mathbf R(t) = \lambda(t) \hat{\mathbf k}</script><p>即作叉积的结果都是平行于z-轴的，那么我们考虑B在z-轴的分量，有：</p>
+<script type="math/tex; mode=display">
+\mathbf B_z = \frac{\mu_0 I}{4 \pi} \int_L \frac{xdy-ydx}{(x^2+y^2)^{3/2}} \hat{\mathbf k}</script><p>于是将各个边的参数带入有：</p>
+<ul>
+<li>底边：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf B_z&=\frac{\mu_0 I}{4 \pi} \int_{-a}^{a} \frac{bdt}{(t^2+b^2)^{3/2}} \hat{\mathbf k} \\
+&= \frac{\mu_0 I b}{4 \pi} b \cdot [\frac{t}{b^2\sqrt{t^2+b^2}}]_{-a}^{a} \hat{\mathbf k} \\
+&= \frac{\mu_0 I}{4 \pi} \frac{2a}{b\sqrt{a^2+b^2}} \hat{\mathbf k}
+\end{aligned}</script><ul>
+<li>顶边：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf B_z&=\frac{\mu_0 I}{4 \pi} \int_{a}^{-a} \frac{-bdt}{(t^2+b^2)^{3/2}} \hat{\mathbf k} \\
+&= -\frac{\mu_0 I b}{4 \pi} b \cdot [\frac{t}{b^2\sqrt{t^2+b^2}}]_{a}^{-a} \hat{\mathbf k} \\
+&= \frac{\mu_0 I}{4 \pi} \frac{2a}{b\sqrt{a^2+b^2}} \hat{\mathbf k}
+\end{aligned}</script><ul>
+<li>右边：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf B_z&=\frac{\mu_0 I}{4 \pi} \int_{-b}^{b} \frac{adt}{(a^2+t^2)^{3/2}} \hat{\mathbf k} \\
+&= \frac{\mu_0 I a}{4 \pi} a \cdot [\frac{t}{a^2\sqrt{a^2+t^2}}]_{-b}^{b} \hat{\mathbf k} \\
+&= \frac{\mu_0 I}{4 \pi} \frac{2b}{a\sqrt{a^2+b^2}} \hat{\mathbf k}
+\end{aligned}</script><ul>
+<li>左边：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf B_z&=\frac{\mu_0 I}{4 \pi} \int_{b}^{-b} \frac{-adt}{(a^2+t^2)^{3/2}} \hat{\mathbf k} \\
+&= -\frac{\mu_0 I a}{4 \pi} a \cdot [\frac{t}{a^2\sqrt{a^2+t^2}}]_{b}^{-b} \hat{\mathbf k} \\
+&= \frac{\mu_0 I}{4 \pi} \frac{2b}{a\sqrt{a^2+b^2}} \hat{\mathbf k}
+\end{aligned}</script><p>所以有：</p>
+<script type="math/tex; mode=display">
+\mathbf B = \frac{\mu_0 I \sqrt{a^2+b^2}}{\pi a b} \hat{\mathbf k}</script></div>
+</div></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.teslongxiao.cn">Meta Xiao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.teslongxiao.cn/posts/5a9acf5a.html">https://www.teslongxiao.cn/posts/5a9acf5a.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.teslongxiao.cn" target="_blank">浮生若梦</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%89%A9%E7%90%86/">物理</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a></div><div class="post-share"><div class="social-share" data-image="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/wallhaven-gpvyv7.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/8f5e0b51.html" title="旋转、旋转矩阵、四元数的推导和证明"><img class="cover" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Euler2a.gif" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-10</div><div class="info-item-2">旋转、旋转矩阵、四元数的推导和证明</div></div><div class="info-2"><div class="info-item-1">旋转的表达从二维开始从高中学圆锥曲线时，老师提过爱心曲线的表达为：  x^{2}-\left|x\right|y+y^{2}=1即两个分别旋转了45°和-45°的椭圆 $x^2+3y^2=1$ 的叠加。 那时我们就知道，在坐标系上的一个点，绕原点逆时针旋转 $\theta$ 角后，坐标变换为：  \begin{aligned} \left\{\begin{matrix} x'=x\cos\theta-y\sin\theta\\ y'=x\sin\theta+y\cos\theta \end{matrix}\right. \end{aligned}在学习了线性代数后，我们知道，这个变换可以表示为矩阵乘法：  \begin{pmatrix} x'\\ y' \end{pmatrix}=\begin{pmatrix} \cos\theta & -\sin\theta\\ \sin\theta &...</div></div></div></a><a class="pagination-related" href="/posts/704d10ab.html" title="火箭轨迹三维模拟（低空）"><img class="cover" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/2025-03-12%20122109.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-05</div><div class="info-item-2">火箭轨迹三维模拟（低空）</div></div><div class="info-2"><div class="info-item-1">“Failure is an option here. If things are not failing, you are not innovating enough.”——Elon Musk 过程概述发射阶段（Liftoff） 火箭继续以倾角 $\theta_0$ 上升，速度逐渐增加。 空气阻力与速度方向相反，需要考虑空气阻力的影响。 火箭的姿态可能会随时间调整（例如通过控制舵面或推力矢量控制）。  相关公式：  推力：$F = \dot{m} v_e + A_e (P_e - P_0)$其中，$ \dot{m} $ 为推进剂流量，$ v_e $ 为喷射气体速度，$ A_e $ 为喷口面积，$ P_e $ 和 $ P_0 $ 分别为喷口出口压力和大气压力。  质量变化：$m(t) = m_0 - \dot{m} t$其中，$ m_0 $ 为火箭的初始质量。  加速度：$a = \frac{F}{m} - g - \frac{1}{2} C_D \rho v^2 A / m$其中，$ C_D $ 为阻力系数，$ \rho $ 为空气密度，$ v $ 为火箭的速度，$ A $...</div></div></div></a><a class="pagination-related" href="/posts/f8e37cbd.html" title="生成函数笔记"><img class="cover" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Oyama_Mahiro.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-15</div><div class="info-item-2">生成函数笔记</div></div><div class="info-2"><div class="info-item-1">引入我们中学在学习多项式和数列时，知道二项式 $(1+x)^n$ 展开后每一项的系数都是 $C_n^i$ ， 对应着数列 $a_i=C_n^i$ 。那么，我们是否可以构造一个函数 $f(x)$ ，使得 $f(x)$ 的系数对应着数列 $a_i$ ，从而可以方便地研究数列的性质呢？ 这个能生成出数列的函数 $f(x)$ 就被称为生成函数。生成函数是组合数学中一个非常重要的工具，可以方便地研究数列的性质。 定义实数序列 $a_0,a_1,\cdots ,a_k, \cdots$ 的生成函数（Generating function）是无穷级数  G(x)=a_0+a_1x+a_2x^2+\cdots+a_kx^k+\cdots=\sum_{k=0}^\infty a_kx^k例如，数列 a_k=2^{k-1} 的生成函数为 \sum_{k=0}^\infty 2^{k-1}x^k=\frac{1}{1-2x} 、数列 a_k=C_n^k 的生成函数为 \sum_{k=0}^\infty C_n^kx^k=(1+x)^n 、 数列 a_k=\frac{1}{k!} 的生成函数为...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%A7%E7%89%A9%E7%AC%94%E8%AE%B0%E7%B2%BE%E7%B2%B9"><span class="toc-number">1.</span> <span class="toc-text">大物笔记精粹</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0%E2%80%94%E2%80%94%E8%B4%A8%E7%82%B9%E8%BF%90%E5%8A%A8%E5%AD%A6"><span class="toc-number">1.1.</span> <span class="toc-text">第一章——质点运动学</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D%E7%BD%AE%E7%9F%A2%E9%87%8F"><span class="toc-number">1.1.1.</span> <span class="toc-text">位置矢量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D%E7%A7%BB"><span class="toc-number">1.1.2.</span> <span class="toc-text">位移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9F%E5%BA%A6"><span class="toc-number">1.1.3.</span> <span class="toc-text">速度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E9%80%9F%E5%BA%A6"><span class="toc-number">1.1.4.</span> <span class="toc-text">加速度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%92%E9%80%9F%E5%BA%A6%E5%92%8C%E8%A7%92%E5%8A%A0%E9%80%9F%E5%BA%A6"><span class="toc-number">1.1.5.</span> <span class="toc-text">角速度和角加速度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%80%E5%8A%A0%E9%80%9F%E7%9B%B4%E7%BA%BF%E8%BF%90%E5%8A%A8"><span class="toc-number">1.1.6.</span> <span class="toc-text">匀加速直线运动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%80%E5%8A%A0%E9%80%9F%E5%9C%86%E5%91%A8%E8%BF%90%E5%8A%A8"><span class="toc-number">1.1.7.</span> <span class="toc-text">匀加速圆周运动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E8%BF%90%E5%8A%A8"><span class="toc-number">1.1.8.</span> <span class="toc-text">相对运动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0%E2%80%94%E2%80%94%E8%B4%A8%E7%82%B9%E8%BF%90%E5%8A%A8%E5%AD%A6"><span class="toc-number">1.2.</span> <span class="toc-text">第二章——质点运动学</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%9B%E9%A1%BF%E4%B8%89%E5%AE%9A%E5%BE%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">牛顿三定律</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%A8%E7%82%B9%E5%8A%A8%E9%87%8F%E5%AE%9A%E7%90%86"><span class="toc-number">1.2.2.</span> <span class="toc-text">质点动量定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%A8%E7%82%B9%E7%B3%BB%E5%8A%A8%E9%87%8F%E5%AE%9A%E7%90%86"><span class="toc-number">1.2.3.</span> <span class="toc-text">质点系动量定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E9%87%8F%E5%AE%88%E6%81%92%E5%AE%9A%E5%BE%8B"><span class="toc-number">1.2.4.</span> <span class="toc-text">动量守恒定律</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F"><span class="toc-number">1.2.5.</span> <span class="toc-text">功</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E7%8E%87"><span class="toc-number">1.2.6.</span> <span class="toc-text">功率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E5%AE%88%E5%8A%9B%E7%9A%84%E5%8A%9F"><span class="toc-number">1.2.7.</span> <span class="toc-text">保守力的功</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E5%8A%9B"><span class="toc-number">1.2.7.1.</span> <span class="toc-text">重力</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%B9%E6%80%A7%E5%8A%9B"><span class="toc-number">1.2.7.2.</span> <span class="toc-text">弹性力</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%87%E6%9C%89%E5%BC%95%E5%8A%9B"><span class="toc-number">1.2.7.3.</span> <span class="toc-text">万有引力</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E8%83%BD%E5%AE%9A%E7%90%86"><span class="toc-number">1.2.8.</span> <span class="toc-text">动能定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%BF%E8%83%BD"><span class="toc-number">1.2.9.</span> <span class="toc-text">势能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%A8%E7%82%B9%E7%B3%BB%E7%9A%84%E5%8A%A8%E8%83%BD%E5%AE%9A%E7%90%86%E5%92%8C%E5%8A%9F%E8%83%BD%E5%8E%9F%E7%90%86"><span class="toc-number">1.2.10.</span> <span class="toc-text">质点系的动能定理和功能原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%BA%E6%A2%B0%E8%83%BD%E5%AE%88%E6%81%92%E5%AE%9A%E5%BE%8B"><span class="toc-number">1.2.11.</span> <span class="toc-text">机械能守恒定律</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%A8%E7%82%B9%E7%9A%84%E8%A7%92%E5%8A%A8%E9%87%8F"><span class="toc-number">1.2.12.</span> <span class="toc-text">质点的角动量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9B%E7%9F%A9"><span class="toc-number">1.2.13.</span> <span class="toc-text">力矩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%92%E5%8A%A8%E9%87%8F%E5%AE%9A%E7%90%86"><span class="toc-number">1.2.14.</span> <span class="toc-text">角动量定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%92%E5%8A%A8%E9%87%8F%E5%AE%88%E6%81%92%E5%AE%9A%E5%BE%8B"><span class="toc-number">1.2.15.</span> <span class="toc-text">角动量守恒定律</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0%E2%80%94%E2%80%94%E5%88%9A%E4%BD%93%E5%8A%9B%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="toc-number">1.3.</span> <span class="toc-text">第三章——刚体力学基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9A%E4%BD%93"><span class="toc-number">1.3.1.</span> <span class="toc-text">刚体</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9A%E4%BD%93%E7%9A%84%E5%B9%B3%E5%8A%A8%EF%BC%9A"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">刚体的平动：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9A%E4%BD%93%E7%9A%84%E8%BD%AC%E5%8A%A8%EF%BC%9A"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">刚体的转动：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E9%87%8F%E5%92%8C%E8%A7%92%E9%87%8F%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%9A"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">线量和角量的关系：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9A%E4%BD%93%E7%9A%84%E8%BD%AC%E5%8A%A8%E5%AE%9A%E7%90%86"><span class="toc-number">1.3.2.</span> <span class="toc-text">刚体的转动定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B3%E8%A1%8C%E8%BD%B4%E5%AE%9A%E7%90%86"><span class="toc-number">1.3.3.</span> <span class="toc-text">平行轴定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E8%BD%AC%E5%8A%A8%E6%83%AF%E9%87%8F"><span class="toc-number">1.3.4.</span> <span class="toc-text">常见转动惯量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AC%E5%8A%A8%E5%8A%A8%E8%83%BD"><span class="toc-number">1.3.5.</span> <span class="toc-text">转动动能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9B%E7%9F%A9%E5%81%9A%E7%9A%84%E5%8A%9F"><span class="toc-number">1.3.6.</span> <span class="toc-text">力矩做的功</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9A%E4%BD%93%E5%AE%9A%E8%BD%B4%E8%BD%AC%E5%8A%A8%E7%9A%84%E5%8A%A8%E8%83%BD%E5%AE%9A%E7%90%86"><span class="toc-number">1.3.7.</span> <span class="toc-text">刚体定轴转动的动能定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9A%E4%BD%93%E5%AE%9A%E8%BD%B4%E8%BD%AC%E5%8A%A8%E7%9A%84%E8%A7%92%E5%8A%A8%E9%87%8F"><span class="toc-number">1.3.8.</span> <span class="toc-text">刚体定轴转动的角动量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9A%E4%BD%93%E5%AE%9A%E8%BD%B4%E8%BD%AC%E5%8A%A8%E7%9A%84%E8%A7%92%E5%8A%A8%E9%87%8F%E5%AE%9A%E7%90%86"><span class="toc-number">1.3.9.</span> <span class="toc-text">刚体定轴转动的角动量定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9A%E4%BD%93%E5%AE%9A%E8%BD%B4%E8%BD%AC%E5%8A%A8%E7%9A%84%E8%A7%92%E5%8A%A8%E9%87%8F%E5%AE%88%E6%81%92"><span class="toc-number">1.3.10.</span> <span class="toc-text">刚体定轴转动的角动量守恒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%A8%E7%82%B9%E5%B9%B3%E5%8A%A8%E5%92%8C%E5%88%9A%E4%BD%93%E5%AE%9A%E8%BD%B4%E8%BD%AC%E5%8A%A8%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.3.11.</span> <span class="toc-text">质点平动和刚体定轴转动的关系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0%E2%80%94%E2%80%94%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8%E4%B8%8E%E6%9C%BA%E6%A2%B0%E6%B3%A2"><span class="toc-number">1.4.</span> <span class="toc-text">第四章——机械振动与机械波</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E6%8C%AF%E5%8A%A8%E6%98%AF%E7%AE%80%E8%B0%90%E6%8C%AF%E5%8A%A8%EF%BC%9F"><span class="toc-number">1.4.1.</span> <span class="toc-text">如何判断一个振动是简谐振动？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E8%B0%90%E6%8C%AF%E5%8A%A8%E5%90%84%E4%B8%AA%E9%87%8F%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.4.2.</span> <span class="toc-text">简谐振动各个量之间的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E8%B0%90%E6%8C%AF%E5%AD%90%E7%9A%84%E6%9C%BA%E6%A2%B0%E8%83%BD"><span class="toc-number">1.4.3.</span> <span class="toc-text">简谐振子的机械能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%8B%E8%BD%AC%E7%9F%A2%E9%87%8F%E6%B3%95"><span class="toc-number">1.4.4.</span> <span class="toc-text">旋转矢量法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A2%E7%9A%84%E5%8F%A0%E5%8A%A0"><span class="toc-number">1.4.5.</span> <span class="toc-text">波的叠加</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%AA%E6%B3%A2%E5%92%8C%E7%BA%B5%E6%B3%A2"><span class="toc-number">1.4.6.</span> <span class="toc-text">横波和纵波</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B3%E9%9D%A2%E6%B3%A2%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.7.</span> <span class="toc-text">平面波函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E7%BB%B4%E5%B9%B3%E9%9D%A2%E6%B3%A2%E5%87%BD%E6%95%B0%EF%BC%88%E6%A8%AA%E6%B3%A2%EF%BC%89"><span class="toc-number">1.4.7.1.</span> <span class="toc-text">一维平面波函数（横波）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E7%BB%B4%E5%B9%B3%E9%9D%A2%E6%B3%A2%E5%87%BD%E6%95%B0%EF%BC%88%E7%BA%B5%E6%B3%A2%EF%BC%89"><span class="toc-number">1.4.7.2.</span> <span class="toc-text">一维平面波函数（纵波）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E7%BB%B4%E5%B9%B3%E9%9D%A2%E6%B3%A2%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.7.3.</span> <span class="toc-text">二维平面波函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A2%E5%87%BD%E6%95%B0%E7%9A%84%E5%A4%8D%E6%95%B0%E8%A1%A8%E7%A4%BA"><span class="toc-number">1.4.7.4.</span> <span class="toc-text">波函数的复数表示</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A2%E7%9A%84%E5%B9%B2%E6%B6%89"><span class="toc-number">1.4.8.</span> <span class="toc-text">波的干涉</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B8%E5%B9%B2%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.4.8.1.</span> <span class="toc-text">相干条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B2%E6%B6%89%E7%BB%93%E6%9E%9C"><span class="toc-number">1.4.8.2.</span> <span class="toc-text">干涉结果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E9%9D%99%E7%94%B5%E5%9C%BA"><span class="toc-number">1.5.</span> <span class="toc-text">第七章 静电场</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%93%E4%BC%A6%E5%AE%9A%E5%BE%8B"><span class="toc-number">1.5.1.</span> <span class="toc-text">库伦定律</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E5%9C%BA%E5%BC%BA%E5%BA%A6"><span class="toc-number">1.5.2.</span> <span class="toc-text">电场强度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E5%9C%BA%E5%BC%BA%E5%BA%A6%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-number">1.5.3.</span> <span class="toc-text">电场强度的计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E5%9C%BA%E7%BA%BF"><span class="toc-number">1.5.4.</span> <span class="toc-text">电场线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E9%80%9A%E9%87%8F"><span class="toc-number">1.5.5.</span> <span class="toc-text">电通量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E6%96%AF%E5%AE%9A%E7%90%86"><span class="toc-number">1.5.6.</span> <span class="toc-text">高斯定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E7%94%B5%E5%9C%BA%E5%8A%9B%E5%81%9A%E7%9A%84%E5%8A%9F"><span class="toc-number">1.5.7.</span> <span class="toc-text">静电场力做的功</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E5%8A%BF%E8%83%BD"><span class="toc-number">1.5.8.</span> <span class="toc-text">电势能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E5%8A%BF"><span class="toc-number">1.5.9.</span> <span class="toc-text">电势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E5%8A%BF%E5%B7%AE"><span class="toc-number">1.5.10.</span> <span class="toc-text">电势差</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E5%8A%BF%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-number">1.5.11.</span> <span class="toc-text">电势的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%82%B9%E7%94%B5%E8%8D%B7%E7%9A%84%E7%94%B5%E5%8A%BF"><span class="toc-number">1.5.11.1.</span> <span class="toc-text">点电荷的电势</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%82%B9%E7%94%B5%E8%8D%B7%E7%B3%BB%E7%9A%84%E7%94%B5%E5%8A%BF"><span class="toc-number">1.5.11.2.</span> <span class="toc-text">点电荷系的电势</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%89%E5%8A%BF%E9%9D%A2"><span class="toc-number">1.5.12.</span> <span class="toc-text">等势面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E7%A8%B3%E6%81%92%E7%A3%81%E5%9C%BA"><span class="toc-number">1.6.</span> <span class="toc-text">第八章 稳恒磁场</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A3%81%E6%84%9F%E5%BA%94%E5%BC%BA%E5%BA%A6"><span class="toc-number">1.6.1.</span> <span class="toc-text">磁感应强度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A3%81%E9%80%9A%E9%87%8F"><span class="toc-number">1.6.2.</span> <span class="toc-text">磁通量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A3%81%E5%9C%BA%E7%9A%84%E9%AB%98%E6%96%AF%E5%AE%9A%E7%90%86"><span class="toc-number">1.6.3.</span> <span class="toc-text">磁场的高斯定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%95%E5%A5%A5-%E8%90%A8%E4%BC%90%E5%B0%94%E5%AE%9A%E5%BE%8B%EF%BC%88Biot-Savart-Law%EF%BC%89"><span class="toc-number">1.6.4.</span> <span class="toc-text">毕奥-萨伐尔定律（Biot-Savart Law）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%9F%B9%E7%8E%AF%E8%B7%AF%E5%AE%9A%E5%BE%8B"><span class="toc-number">1.6.5.</span> <span class="toc-text">安培环路定律</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%9F%B9%E5%AE%9A%E5%BE%8B"><span class="toc-number">1.6.6.</span> <span class="toc-text">安培定律</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B4%9B%E4%BC%A6%E5%85%B9%E5%8A%9B"><span class="toc-number">1.6.7.</span> <span class="toc-text">洛伦兹力</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0%E2%80%94%E2%80%94%E5%8F%98%E5%8C%96%E7%9A%84%E7%94%B5%E7%A3%81%E5%9C%BA"><span class="toc-number">1.7.</span> <span class="toc-text">第九章——变化的电磁场</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%95%E6%8B%89%E7%AC%AC%E7%94%B5%E7%A3%81%E6%84%9F%E5%BA%94%E5%AE%9A%E5%BE%8B"><span class="toc-number">1.7.1.</span> <span class="toc-text">法拉第电磁感应定律</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A5%9E%E6%AC%A1%E5%AE%9A%E5%BE%8B"><span class="toc-number">1.7.2.</span> <span class="toc-text">楞次定律</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E7%94%9F%E7%94%B5%E5%8A%A8%E5%8A%BF"><span class="toc-number">1.7.3.</span> <span class="toc-text">动生电动势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%84%9F%E7%94%9F%E7%94%B5%E5%8A%BF"><span class="toc-number">1.7.4.</span> <span class="toc-text">感生电势</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%A0%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">习题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A0%E9%A2%981"><span class="toc-number">2.1.</span> <span class="toc-text">习题1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A0%E9%A2%982"><span class="toc-number">2.2.</span> <span class="toc-text">习题2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A0%E9%A2%983"><span class="toc-number">2.3.</span> <span class="toc-text">习题3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A0%E9%A2%984"><span class="toc-number">2.4.</span> <span class="toc-text">习题4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A0%E9%A2%985"><span class="toc-number">2.5.</span> <span class="toc-text">习题5</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A0%E9%A2%986"><span class="toc-number">2.6.</span> <span class="toc-text">习题6</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A0%E9%A2%987"><span class="toc-number">2.7.</span> <span class="toc-text">习题7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A0%E9%A2%988"><span class="toc-number">2.8.</span> <span class="toc-text">习题8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A0%E9%A2%989"><span class="toc-number">2.9.</span> <span class="toc-text">习题9</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A0%E9%A2%9810"><span class="toc-number">2.10.</span> <span class="toc-text">习题10</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/8f5e0b51.html" title="旋转、旋转矩阵、四元数的推导和证明"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Euler2a.gif" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="旋转、旋转矩阵、四元数的推导和证明"/></a><div class="content"><a class="title" href="/posts/8f5e0b51.html" title="旋转、旋转矩阵、四元数的推导和证明">旋转、旋转矩阵、四元数的推导和证明</a><time datetime="2025-07-10T07:54:24.000Z" title="发表于 2025-07-10 15:54:24">2025-07-10</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><footer id="footer" style="background: transparent"><div id="footer_icons"><div><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://www.teslongxiao.cn/about" title="关于我"><i class="fa-solid fa-compass"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://res.abeim.cn/api/qq/?qq=2040426884" title="联系QQ"><i class="fa-brands fa-qq"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="mailto:2040426884@qq.com" title="发送邮件"><i class="fa-solid fa-envelope"></i></a></div><img class="footer_logo" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/aoao.gif" onclick="btf.scrollToDest(0,500)" title="返回顶部"/><div><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://github.com/META-Xiao" title="Github主页"><i class="fa-brands fa-github"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://space.bilibili.com/332124713" title="哔哩哔哩主页"><i class="fa-brands fa-bilibili"></i></a><a class="icon_link" href="/message/" title="留言"><i class="fa-solid fa-comment"></i></a></div><div id="footer_content"><div class="footer-group"><h3 class="footer-title"></h3><div class="footer-links"><a class="footer-item" href="undefined"></a></div></div></div></div><div id="footer-bottom"><div class="footer-bottom-content"><div class="footer-bottom-left"><span class="copyright">&copy;2024 - 2025 By <a target="_blank" rel="noopener" href="https://www.teslongxiao.cn" title="点击访问&quot;Meta&quot;的主页" style="margin-left:5px">Meta</a></span><div><a class="footer-bottom-link" target="_blank" href="https://icp.gov.moe/?keyword=20250061" rel="noopener external nofollow" title="萌ICP备20250061号">萌ICP备20250061号</a><a class="footer-bottom-link" target="_blank" href="https://v6.51.la/report/overview?comId=510796" rel="noopener external nofollow" title="51LA">统计信息</a></div></div><div class="footer-bottom-right"><div id="runtime" title="已运行时长">本站已运行：0 天 0 时 0 分 0 秒</div><div><a class="footer-bottom-link" target="_blank" href="https://hexo.io/zh-cn/" rel="noopener external nofollow" title="框架">Hexo</a><a class="footer-bottom-link" target="_blank" href="https://butterfly.js.org/" rel="noopener external nofollow" title="主题">Butterfly</a></div><script type="js" src="/js/footer.js"> </script></div></div></div></footer></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"3L3LMrlEa92UPmXV",ck:"3L3LMrlEa92UPmXV"})</script><script defer src="/js/footer.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start -->
+      <script data-pjax>
+        if (typeof window.recommend === 'undefined') {
+          window.recommend = {
+            hexo_butterfly_recommend_init: function() {
+              const $recommend = document.querySelector('#recommend');
+              if($recommend) return;
+              document.documentElement.style.setProperty('--recommend-main', '#409eff');
+              document.documentElement.style.setProperty('--recommend-deep', '#0075ffdd');
+              const hexo_butterfly_recommend_elist = 'null'.split(',');
+              var hexo_butterfly_recommend_cpage = location.pathname;
+              const hexo_butterfly_recommend_epage = '/';
+              var hexo_butterfly_recommend_flag = 0;
+        
+              for (var i = 0; i < hexo_butterfly_recommend_elist.length; i++) {
+                if (hexo_butterfly_recommend_cpage.includes(hexo_butterfly_recommend_elist[i])) {
+                  hexo_butterfly_recommend_flag++;
+                }
+              }
+              if ((hexo_butterfly_recommend_epage === 'all') && (hexo_butterfly_recommend_flag === 0)) {
+                window.recommend.hexo_butterfly_recommend_injector_config();
+              } else if (hexo_butterfly_recommend_epage === hexo_butterfly_recommend_cpage) {
+                window.recommend.hexo_butterfly_recommend_injector_config();
+              }
+            },
+            hexo_butterfly_recommend_injector_config: function() {
+              var parent_div_git = document.getElementById('content-inner');
+              var item_html = '<div class="recommend-right" id="recommend"><div id="recommend-content" onmousewheel="recommend.postScroll(this)"><div class="recommend-wrapper" id="recommend-banner"><div id="recommend-banner-wrapper"><div class="recommend-banner-title-wrapper"><div class="recommend-banner-title">Stay hungry</div><div class="recommend-banner-title">Stay foolish</div><div class="recommend-banner-title">www.teslongxiao.cn</div></div><div class="recommend-tags-all"><div class="recommend-tags-wrapper"><div class="recommend-tags-line"><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #f7cb4f"><i class="fa-brands fa-js" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #bd0102"><i class="fa-brands fa-angular" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #df5b40"><i class="fa-brands fa-git-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #f7cb4f"><i class="fa-brands fa-js" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #bd0102"><i class="fa-brands fa-angular" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #df5b40"><i class="fa-brands fa-git-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div></div><div class="recommend-tags-line"><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div></div></div></div><a id="recommend-banner-hover" onclick="recommend.toRandomPost()"><span class="recommend-banner-text">随便逛逛</span><i class="fas fa-arrow-right recommend-banner-righticon"></i></a></div><div id="recommend-category"><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;categories/精选&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #358bff, #15c6ff)"></div><span class="recommend-categoryItem-text">站长精选</span><i class="fa-solid fa-star"></i></a></div><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;categories&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #f65, #ffbf37)"></div><span class="recommend-categoryItem-text">文章分类</span><i class="fa-solid fa-book"></i></a></div><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;project&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #18e7ae, #1eebeb)"></div><span class="recommend-categoryItem-text">个人项目</span><i class="fa-solid fa-code"></i></a></div></div></div><div class="recommend-wrapper" id="recommend-post"><div class="recommend-post-main" id="recommend-post-main"><div class="recommend-post-cover" onclick="recommend.toPost(&quot;about&quot;)" style="background: var(--recommend-main) url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Light_up_Sky.gif) no-repeat center/cover"></div><div class="recommend-post-cover-wrapper"><div class="recommend-post-cover-info" onclick="recommend.toPost(&quot;about&quot;)"><div class="recommend-post-cover-subTitle">缥缃筆記</div><div class="recommend-post-cover-title">芸编偶拾 • 闲敲平仄煮时光</div></div><div class="recommend-post-cover-more" onclick="window.event.cancelBubble=true;recommend.hideCover();"><div class="recommend-post-cover-more-bg"></div><i class="fa-solid fa-circle-plus"></i><span>更多推荐</span></div></div></div><div class="recommend-post-list" onmouseleave="window.event.cancelBubble=true;recommend.showCover();"><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/f8e37cbd.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Oyama_Mahiro.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="生成函数笔记"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/f8e37cbd.html&quot;)" title="生成函数笔记">生成函数笔记</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/75364206.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Yanami_Anna.png" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="牛客小白月赛117题解"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/75364206.html&quot;)" title="牛客小白月赛117题解">牛客小白月赛117题解</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/704d10ab.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/2025-03-12%20122109.png" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="火箭轨迹三维模拟（低空）"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/704d10ab.html&quot;)" title="火箭轨迹三维模拟（低空）">火箭轨迹三维模拟（低空）</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/6cc39754.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Tifa1.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="洛谷题解--记3月24日训练"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/6cc39754.html&quot;)" title="洛谷题解--记3月24日训练">洛谷题解--记3月24日训练</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/3de51743.html&quot;)"><img src="https://th.bing.com/th/id/OIP.F_8ED-PP2GX-bE_TDHlrdQHaE8?w=1600&amp;h=1067&amp;rs=1&amp;pid=ImgDetMain" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="桌球碰撞"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/3de51743.html&quot;)" title="桌球碰撞">桌球碰撞</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/b9a16b3b.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/ATRI_pv.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="校赛G题题解"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/b9a16b3b.html&quot;)" title="校赛G题题解">校赛G题题解</div></div></div></div></div></div>';
+              parent_div_git.insertAdjacentHTML("afterbegin",item_html);
+            },
+            toRandomPost: function() {
+              var posts_path = "posts/18120.html,posts/56011.html,posts/54962.html,posts/1baa34af.html,posts/45c6e9dc.html,posts/16107.html,posts/d629c6d1.html,posts/96145f6d.html,posts/c43560d9.html,posts/e91093f0.html,posts/c72ae656.html,posts/5a9acf5a.html,posts/623e9466.html,posts/5e8d613b.html,posts/928debf2.html,posts/49f4a0d6.html,posts/dec5d03c.html,posts/b05b7d2d.html,posts/8f5e0b51.html,posts/b9a16b3b.html,posts/3de51743.html,posts/6cc39754.html,posts/704d10ab.html,posts/75364206.html,posts/f8e37cbd.html".split(',');
+              var randomPost = posts_path[Math.floor(Math.random() * posts_path.length)];
+              window.recommend.toPost(randomPost);
+            },
+            toPost: function(href) {
+              if (typeof pjax !== 'undefined') pjax.loadUrl('/' + href);
+              else window.location.href = window.location.origin + (href.charAt(0) === '/' ? '' : '/') + href;
+            },
+            hideCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              $main.className = 'recommend-post-main recommend-hide';
+            },
+            showCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              if ($main) $main.className = 'recommend-post-main';
+            },
+            postScroll: function(dom) {
+              const e = window.event || arguments.callee.caller.arguments[0];
+              if (document.body.clientWidth <= 1200) {
+                let o = -e.wheelDelta / 2;
+                dom.scrollLeft += o;
+                e.preventDefault();
+              }
+            }
+          }
+          console.log(
+            "%c plugin ⭐ hexo_butterfly_recommend ⭐ https://github.com/weizwz/hexo-butterfly-recommend ",
+            "color: #fff; padding:3px; font-size:12px; background: linear-gradient(90deg, #358bff, #1eebeb);"
+          )
+        }
+        window.recommend.hexo_butterfly_recommend_init();
+      </script><!-- hexo injector body_end end --></body></html>
