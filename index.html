@@ -1,0 +1,447 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>浮生若梦 - meta's blog</title><meta name="author" content="Meta Xiao"><meta name="copyright" content="Meta Xiao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="学习知识，记录生活，分享感悟">
+<meta property="og:type" content="website">
+<meta property="og:title" content="浮生若梦">
+<meta property="og:url" content="https://www.teslongxiao.cn/index.html">
+<meta property="og:site_name" content="浮生若梦">
+<meta property="og:description" content="学习知识，记录生活，分享感悟">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/1737896078867.gif">
+<meta property="article:author" content="Meta Xiao">
+<meta property="article:tag" content="study,life,share,techolgy,electronic,programming">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/1737896078867.gif"><link rel="shortcut icon" href="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/image.png"><link rel="canonical" href="https://www.teslongxiao.cn/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="Qi_9CrV7lldy8VD7RIVN3Nb62FP7EmhAITFqplx0mzo"/><meta name="baidu-site-verification" content="codeva-nF4CVmePFG"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f6e1da')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":500,"languages":{"author":"作者: Meta Xiao","link":"链接: ","source":"来源: 浮生若梦","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '浮生若梦',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+
+<link rel="stylesheet" href="/css/recommend.css?v=1.1.2.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/css/flash.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-image: url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/subway_girl.gif);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/1737896078867.gif" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">38</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-tools"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-user"></i><span> 我的</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/talks/"><i class="fa-fw fas fa-coffee"></i><span> 动态</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/bar-logo.png" alt="Logo"><span class="site-name">浮生若梦</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-tools"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-user"></i><span> 我的</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/talks/"><i class="fa-fw fas fa-coffee"></i><span> 动态</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">浮生若梦</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/META-Xiao" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2040426884@qq.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc masonry" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/ee1dab94.html" title="概率论与数理统计期末复习">概率论与数理统计期末复习</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-01-17T12:43:34.000Z" title="发表于 2026-01-17 20:43:34">2026-01-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%A6/">数学</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/">概率论</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/">统计学</a></span></div><div class="content">前言卧槽后天就要考概率论惹😫趁现在抄书复习一下 ~~ 还来得及嘛 ~~ 基本名词 样本空间：所有可能结果组成的集合 样本点：样本空间中的元素 样本：从总体中抽取的样本点组成的集合 随机事件（事件）：样本空间中的子集 必然事件： 样本空间 $\Omega$ 不可能事件：空集 $\emptyset$  相等事件：若 $A \subseteq B \wedge B \subseteq A$，则称 $A$ 与 $B$ 相等，记为 $A = B$ 互斥事件：若 $A \cap B = \emptyset$，则称 $A$ 与 $B$ 互斥（不相容） 对立事件（逆事件）： 若 $A \cup B = \Omega \wedge A \cap B = \emptyset$，则称 $A$ 与 $B$ 对立，记为 $A \oplus B$ 或 $\bar{A} = B$ 和事件：$A \cup B$ 或者 $A + B$ 积事件：$A \cap B$ 或者 $AB$ 差事件：$A - B ={x| x \in A \wedge x \notin B}$ 随机变量： 样本空间 $\Omega$...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/73c6c6c9.html" title="EDA课设——基于555timer和74160的数字电容测量仪">EDA课设——基于555timer和74160的数字电容测量仪</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-12-14T08:21:30.000Z" title="发表于 2025-12-14 16:21:30">2025-12-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AF%BE%E8%AE%BE/">课设</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF/">数字电路</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%A8%A1%E6%8B%9F%E7%94%B5%E8%B7%AF/">模拟电路</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/EDA/">EDA</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/multisim/">multisim</a></span></div><div class="content">要求用集成芯片（同步十进制计数器）74LS160N和两个555定时器，设计一个电容测量仪。  具有量程切换功能，测量电容范围100nF-100uF 用三个七段数码管作为显示元件，显示电容值的大小  设计思路由于我们知道对于一个电容来说其满足特性方程：  U_C(t)=U_c(\infty)-(U_c(\infty)-U_c(0))e^{-\frac{t}{RC}}那么可以使用一个固定的电阻R然后去测量一个由电容C决定的输出脉冲宽度。 对于555定时器来说，我们可以在其外部加入阻容原件，就可组成一个单稳态电路，当输入电压 $V_i$ 产生下降沿时进入暂稳态，电容充电，到达2/3Vcc时电容迅速放电，其电压达到0后回到稳态，其输出脉冲宽度（高电平的持续时间） $t_w$ 为：  \begin{aligned} t_w&=RC\ln\frac{V_{cc}-0}{V_{cc}-\frac{2}{3}V_{cc}}\\ &=RC\ln3 \ = \...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/fec4b5ee.html" title="牛客2025秋季算法编程训练联赛5-基础组题解">牛客2025秋季算法编程训练联赛5-基础组题解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-12T13:56:25.000Z" title="发表于 2025-11-12 21:56:25">2025-11-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%AC%94%E8%AE%B0/%E9%A2%98%E8%A7%A3/">题解</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/C/">C++</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E9%A2%98%E8%A7%A3/">题解</a></span></div><div class="content">本次比赛是我打a以来最接近AK的一次，打的也非常顺，看了下大部分是构造以及数学题，我还是喜欢这两类。 比赛链接牛客2025秋季算法编程训练联赛5-基础组 A-模板题意给出有且仅由大写字母构成，长度为 $n$ 的字符串s1 以及长度为 $m$ 的字符串s2，求最小操作可以将其中一个字符串转化为另一个，操作有：  将其中任意一个字母替换为另一个 把最后一个字母删除 在尾部添加一个字母  其中，$1 \leq n,m \leq 10^5$ 思路既然可以修改任意一个，或者修改（删除添加）末尾，那么直接统计在 $i:=0 \sim \min(n,m)$ 中s1[i]!=s2[i] 的个数（超过min(n,m)的直接删了，里面的修改），最后加上n和m的差输出即可 代码12345678910111213141516171819#include &lt;bits/stdc++.h&gt;using namespace std;int main()&#123;	ios::sync_with_stdio(false);	cin.tie(0);	int n,m; cin &gt;&gt; n...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/4a52651e.html" title="2025ICPC南京站游记">2025ICPC南京站游记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-09T15:49:28.000Z" title="发表于 2025-11-09 23:49:28">2025-11-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%B8%B8%E8%AE%B0/">游记</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/ICPC/">ICPC</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%84%9F%E6%82%9F/">感悟</a></span></div><div class="content">这是我第一次参加 ICPC 线下赛——2025 南京站的完整游记。记录了队伍在袋鼠站的紧张、失误与坚持，也记录了赛场内外的趣事、遗憾与成长。尽管结果并不理想…………希望未来的自己回头再看时，能记住此刻的不甘与热血。</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/6ecdd18f.html" title="WZU ACM集训队10.25训练D题补">WZU ACM集训队10.25训练D题补</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-10-27T07:13:47.000Z" title="发表于 2025-10-27 15:13:47">2025-10-27</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%AC%94%E8%AE%B0/%E9%A2%98%E8%A7%A3/">题解</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/C/">C++</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E9%A2%98%E8%A7%A3/">题解</a></span></div><div class="content">题目大意定义函数 $f(n)$ 为：  f(n)=\left\{\begin{matrix}  1 \ ,& if \ n = 0\\ f(n\pmod{10})^{f(n/10)} \ , &else. \end{matrix}\right.特别地 $0^0=1$  求对于 $n\in[2,1e9]$ 的 $f(n)\mod m$    思路对于题目的函数 $f(n)$，我们假设一个多位十进制数 (a_n a_{n-1} \cdots a_1 a_0)_{10} 那么对于该函数可以递归成以下形式：  f(n)= a_0^{a_1^{a_2^\cdots}} \mod m \tag{*}即求 $(*)$ 式的结果。 首先我们马上会想到用快速幂和记忆化存储 f(n)的值，但是这样递归很容易溢出，即使大数模拟也会超时，我们下面考虑如何用数论化简。 欧拉定理欧拉定理指出，对于整数 $m\gt0$ 和整数 $a$ ，且 $\mathbf{gcd}(a,m)=1$ ，有：  a^{\varphi(m)}\equiv 1 \pmod m下面我们给出该定理的应用，考虑这个数 $a^b\mod...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/f2a626f9.html" title="9宫格翻游戏的简单思考">9宫格翻游戏的简单思考</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-10-20T13:53:29.000Z" title="发表于 2025-10-20 21:53:29">2025-10-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%A6/">数学</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/">组合数学</a></span></div><div class="content">本博文仍在施工中，如果作者有时间的话。  用线性代数证明这是一个使用线性代数进行的证明。  设：状态空间为二元域 $\mathbb{F}_2 = {0, 1}$ 上的9维向量空间 $V = \mathbb{F}_2^9$，网格的初始状态为向量 $\vec{s} \in V$，则我们的目标状态（全1）为向量 $\vec{t} = (1, 1, 1, 1, 1, 1, 1, 1)^T \in V$。 又记按键操作为向量 $\vec{x} \in V$，其中 $x_i = 1$ 表示按了第 $i$ 个格子， $x_i = 0$ 表示未按。 令操作矩阵 A 中 $A_{ij}=1$ 当且仅当按第 j 个格子会翻转第 i 个格子。（例如，按第5个格子（中心）会翻转2, 4, 5, 6, 8，所以 A 的第5列为 (0,1,0,1,1,1,0,1,0)T）。 于是我们有：对初始状态 $\vec{s}$ 执行操作 $\vec{x}$，得到的最终状态 $\vec{s}_{final}$ 为： \vec{s}_{final} = \vec{s} + A\vec{x}   (所有运算均在...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/bfbde536.html" title="数字电路基础补完">数字电路基础补完</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-10-11T15:34:18.000Z" title="发表于 2025-10-11 23:34:18">2025-10-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF/">数字电路</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF/">数字电路</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/logisim/">logisim</a></span></div><div class="content">本博文仍在施工中，如果作者有时间的话。    There is no such thing as a random signal. Only insufficient knowledge. -Claude Shannon  逻辑门的构建在认识数字电路，我更偏向先简单学习逻辑门的构建。 开关假设我们有 TTL显然地，对于一个 </div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/4b32681.html" title="添加评论功能 | 右侧工具变为到底部 | 修复fontawesome的CDN">添加评论功能 | 右侧工具变为到底部 | 修复fontawesome的CDN</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-10-11T07:51:09.000Z" title="发表于 2025-10-11 15:51:09">2025-10-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF/hexo/">hexo</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%95%99%E7%A8%8B/">教程</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%97%A5%E5%BF%97/">日志</a></span></div><div class="content">本文介绍如何为 Hexo 博客修复 Font Awesome 图标加载问题、将右侧滚动按钮改为"回到底部"功能，以及集成基于 GitHub Discussions 的 Giscus 评论系统，提升博客的交互体验。</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/7c1672ff.html" title="求和录（一）">求和录（一）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-09-14T15:05:45.000Z" title="发表于 2025-09-14 23:05:45">2025-09-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%A6/">数学</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/">组合数学</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="content">本博文仍在施工中，如果作者有时间的话。  引子生活中无处不存在着求和问题，包括离散和 $\Sigma$ 和连续和 $\int$ ，本集合文章会收录本人在学习生活中遇到的一些求和问题，并加以总结。 一阶离散和和连续和的联系本节是作者在高中闲暇时间发现的离散序列中的类似 积分、求导、分部积分 等操作。 离散差分 &lt;——&gt; 导数对于一个序列 $a_1 \ , \ a_2 \ , \ a_3 \cdots a_n$ ， 我们定义向前差分为：  \Delta a_i = a_{i+1} - a_i \ , \ i1这里我们为了统一操作，我们只考虑向前差分，并记 $\Delta^0 a_i$ 为原序列。 如果将 $\Delta a_i$ 再次求差分，我们得到：  \Delta^2 a_i =\Delta(\Delta a_i) = \Delta a_{i+1} - \Delta a_i= a_{i+2} - 2a_{i+1} + a_i类似的我们有：  \begin{aligned} \Delta^3 a_i &= \Delta^2 a_{i+1} - \Delta^2 a_i...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/3538e23e.html" title="My acm-icpc template">My acm-icpc template</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-09-09T04:43:54.000Z" title="发表于 2025-09-09 12:43:54">2025-09-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%AC%94%E8%AE%B0/%E6%A8%A1%E6%9D%BF/">模板</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/C/">C++</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="content">前言由于本人实例还不能到cf青名，用不上jiangly哥哥的代码，暂时自己结合网上的代码和自己的理解写一个模板，日后再更新。  使用 pandoc My-acm-icpc-template.md -o My-acm-icpc-template.docx —toc —highlight-style=tango导出为word  头、编译、debug头12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667// O2 O3 优化#pragma GCC optimize(&quot;O2&quot;)#pragma GCC optimize(&quot;O3&quot;)#pragma GCC optimize(&quot;Ofast&quot;)#pragma GCC optimize(&quot;unroll-loops&quot;)// 头文件#include...</div></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/#content-inner">4</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/ee1dab94.html" title="概率论与数理统计期末复习">概率论与数理统计期末复习</a><time datetime="2026-01-17T12:43:34.000Z" title="发表于 2026-01-17 20:43:34">2026-01-17</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/"><span class="card-category-list-name">前端</span><span class="card-category-list-count">5</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/hexo/"><span class="card-category-list-name">hexo</span><span class="card-category-list-count">5</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/"><span class="card-category-list-name">后端</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%A4%A7%E5%88%9B/"><span class="card-category-list-name">大创</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%B8%B8%E8%AE%B0/"><span class="card-category-list-name">游记</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/"><span class="card-category-list-name">笔记</span><span class="card-category-list-count">27</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF/"><span class="card-category-list-name">数字电路</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%A6/"><span class="card-category-list-name">数学</span><span class="card-category-list-count">5</span></a></li></ul></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/ICPC/" style="font-size: 1.15em; color: rgb(50, 137, 50);">ICPC</a><a href="/tags/%E6%84%9F%E6%82%9F/" style="font-size: 1.15em; color: rgb(50, 105, 55);">感悟</a><a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.3em; color: rgb(138, 50, 160);">数学</a><a href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 1.22em; color: rgb(100, 126, 188);">组合数学</a><a href="/tags/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF/" style="font-size: 1.19em; color: rgb(133, 181, 147);">数字电路</a><a href="/tags/%E6%A8%A1%E6%8B%9F%E7%94%B5%E8%B7%AF/" style="font-size: 1.15em; color: rgb(50, 97, 115);">模拟电路</a><a href="/tags/EDA/" style="font-size: 1.15em; color: rgb(50, 104, 65);">EDA</a><a href="/tags/multisim/" style="font-size: 1.15em; color: rgb(50, 182, 168);">multisim</a><a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 1.3em; color: rgb(50, 96, 50);">教程</a><a href="/tags/%E6%97%A5%E5%BF%97/" style="font-size: 1.3em; color: rgb(172, 102, 104);">日志</a><a href="/tags/C/" style="font-size: 1.41em; color: rgb(177, 50, 83);">C++</a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.45em; color: rgb(182, 174, 187);">算法</a><a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.38em; color: rgb(157, 186, 50);">数据结构</a><a href="/tags/%E9%A2%98%E8%A7%A3/" style="font-size: 1.34em; color: rgb(144, 75, 118);">题解</a><a href="/tags/raylib/" style="font-size: 1.19em; color: rgb(85, 50, 50);">raylib</a><a href="/tags/%E6%B8%B8%E6%88%8F/" style="font-size: 1.15em; color: rgb(151, 148, 50);">游戏</a><a href="/tags/%E4%BD%8E%E7%A9%BA%E9%A3%9E%E8%A1%8C%E5%99%A8/" style="font-size: 1.15em; color: rgb(81, 116, 103);">低空飞行器</a><a href="/tags/%E6%A8%A1%E6%8B%9F/" style="font-size: 1.26em; color: rgb(185, 50, 50);">模拟</a><a href="/tags/%E7%89%A9%E7%90%86/" style="font-size: 1.22em; color: rgb(79, 50, 50);">物理</a><a href="/tags/%E6%97%85%E6%B8%B8/" style="font-size: 1.15em; color: rgb(50, 63, 132);">旅游</a><a href="/tags/%E6%88%B7%E5%A4%96/" style="font-size: 1.15em; color: rgb(96, 104, 161);">户外</a><a href="/tags/logisim/" style="font-size: 1.15em; color: rgb(110, 50, 66);">logisim</a><a href="/tags/C/" style="font-size: 1.34em; color: rgb(171, 165, 68);">C</a><a href="/tags/%E7%BE%A4%E8%AE%BA/" style="font-size: 1.15em; color: rgb(185, 162, 93);">群论</a><a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 1.15em; color: rgb(70, 180, 50);">概率论</a><a href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/" style="font-size: 1.15em; color: rgb(50, 50, 50);">统计学</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      <a class="card-more-btn" href="/archives/"
+            title="查看更多">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/01/">
+            <span class="card-archive-list-date">
+              一月 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/12/">
+            <span class="card-archive-list-date">
+              十二月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/11/">
+            <span class="card-archive-list-date">
+              十一月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/10/">
+            <span class="card-archive-list-date">
+              十月 2025
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/09/">
+            <span class="card-archive-list-date">
+              九月 2025
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/08/">
+            <span class="card-archive-list-date">
+              八月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/07/">
+            <span class="card-archive-list-date">
+              七月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/06/">
+            <span class="card-archive-list-date">
+              六月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">38</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">178.9k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-01-18T17:09:29.610Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><footer id="footer" style="background: transparent"><div id="footer_icons"><div><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://www.teslongxiao.cn/about" title="关于我"><i class="fa-solid fa-compass"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://res.abeim.cn/api/qq/?qq=2040426884" title="联系QQ"><i class="fa-brands fa-qq"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="mailto:2040426884@qq.com" title="发送邮件"><i class="fa-solid fa-envelope"></i></a></div><img class="footer_logo" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/aoao.gif" onclick="btf.scrollToDest(0,500)" title="返回顶部"/><div><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://github.com/META-Xiao" title="Github主页"><i class="fa-brands fa-github"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://space.bilibili.com/332124713" title="哔哩哔哩主页"><i class="fa-brands fa-bilibili"></i></a><a class="icon_link" href="/message/" title="留言"><i class="fa-solid fa-comment"></i></a></div><div id="footer_content"><div class="footer-group"><h3 class="footer-title"></h3><div class="footer-links"><a class="footer-item" href="undefined"></a></div></div></div></div><div id="footer-bottom"><div class="footer-bottom-content"><div class="footer-bottom-left"><span class="copyright">&copy;2024 - 2026 By <a target="_blank" rel="noopener" href="https://www.teslongxiao.cn" title="点击访问&quot;Meta&quot;的主页" style="margin-left:5px">Meta</a></span><div><a class="footer-bottom-link" target="_blank" href="https://icp.gov.moe/?keyword=20250061" rel="noopener external nofollow" title="萌ICP备20250061号">萌ICP备20250061号</a><a class="footer-bottom-link" target="_blank" href="https://v6.51.la/report/overview?comId=510796" rel="noopener external nofollow" title="51LA">统计信息</a></div></div><div class="footer-bottom-right"><div id="runtime" title="已运行时长">本站已运行：0 天 0 时 0 分 0 秒</div><div><a class="footer-bottom-link" target="_blank" href="https://hexo.io/zh-cn/" rel="noopener external nofollow" title="框架">Hexo</a><a class="footer-bottom-link" target="_blank" href="https://butterfly.js.org/" rel="noopener external nofollow" title="主题">Butterfly</a></div><script type="js" src="/js/footer.js"> </script></div></div></div></footer></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到底部"><span class="scroll-percent"></span><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: str => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: subtitleType => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js/dist/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  }
+}
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
+</script><script>function subtitleType () {
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      if (true) {
+        const from = '出自 ' + data.from
+        const sub = []
+        sub.unshift(data.hitokoto, from)
+        typedJSFn.init(sub)
+      } else {
+        document.getElementById('subtitle').textContent = data.hitokoto
+      }
+    })
+}
+typedJSFn.run(subtitleType)
+</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"3L3LMrlEa92UPmXV",ck:"3L3LMrlEa92UPmXV"})</script><script defer src="/js/footer.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["link[rel=\"canonical\"]","meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/posts/257e1115.html"]):not([href="/posts/928debf2.html"]):not([href="/posts/49f4a0d6.html"]):not([href="/posts/dec5d03c.html"]):not([href="/posts/b05b7d2d.html"]):not([href="/posts/5e8d613b.html"]):not([href="/posts/39efaf90.html"]):not([href="/project/"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start -->
+      <script data-pjax>
+        if (typeof window.recommend === 'undefined') {
+          window.recommend = {
+            hexo_butterfly_recommend_init: function() {
+              const $recommend = document.querySelector('#recommend');
+              if($recommend) return;
+              document.documentElement.style.setProperty('--recommend-main', '#409eff');
+              document.documentElement.style.setProperty('--recommend-deep', '#0075ffdd');
+              const hexo_butterfly_recommend_elist = 'null'.split(',');
+              var hexo_butterfly_recommend_cpage = location.pathname;
+              const hexo_butterfly_recommend_epage = '/';
+              var hexo_butterfly_recommend_flag = 0;
+        
+              for (var i = 0; i < hexo_butterfly_recommend_elist.length; i++) {
+                if (hexo_butterfly_recommend_cpage.includes(hexo_butterfly_recommend_elist[i])) {
+                  hexo_butterfly_recommend_flag++;
+                }
+              }
+              if ((hexo_butterfly_recommend_epage === 'all') && (hexo_butterfly_recommend_flag === 0)) {
+                window.recommend.hexo_butterfly_recommend_injector_config();
+              } else if (hexo_butterfly_recommend_epage === hexo_butterfly_recommend_cpage) {
+                window.recommend.hexo_butterfly_recommend_injector_config();
+              }
+            },
+            hexo_butterfly_recommend_injector_config: function() {
+              var parent_div_git = document.getElementById('content-inner');
+              var item_html = '<div class="recommend-right" id="recommend"><div id="recommend-content" onmousewheel="recommend.postScroll(this)"><div class="recommend-wrapper" id="recommend-banner"><div id="recommend-banner-wrapper"><div class="recommend-banner-title-wrapper"><div class="recommend-banner-title">Stay hungry</div><div class="recommend-banner-title">Stay foolish</div><div class="recommend-banner-title">www.teslongxiao.cn</div></div><div class="recommend-tags-all"><div class="recommend-tags-wrapper"><div class="recommend-tags-line"><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #f7cb4f"><i class="fa-brands fa-js" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #bd0102"><i class="fa-brands fa-angular" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #df5b40"><i class="fa-brands fa-git-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #f7cb4f"><i class="fa-brands fa-js" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #bd0102"><i class="fa-brands fa-angular" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #df5b40"><i class="fa-brands fa-git-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div></div><div class="recommend-tags-line"><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div></div></div></div><a id="recommend-banner-hover" onclick="recommend.toRandomPost()"><span class="recommend-banner-text">随便逛逛</span><i class="fas fa-arrow-right recommend-banner-righticon"></i></a></div><div id="recommend-category"><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;categories/精选&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #358bff, #15c6ff)"></div><span class="recommend-categoryItem-text">站长精选</span><i class="fa-solid fa-star"></i></a></div><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;categories&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #f65, #ffbf37)"></div><span class="recommend-categoryItem-text">文章分类</span><i class="fa-solid fa-book"></i></a></div><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;project&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #18e7ae, #1eebeb)"></div><span class="recommend-categoryItem-text">个人项目</span><i class="fa-solid fa-code"></i></a></div></div></div><div class="recommend-wrapper" id="recommend-post"><div class="recommend-post-main" id="recommend-post-main"><div class="recommend-post-cover" onclick="recommend.toPost(&quot;about&quot;)" style="background: var(--recommend-main) url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Light_up_Sky.gif) no-repeat center/cover"></div><div class="recommend-post-cover-wrapper"><div class="recommend-post-cover-info" onclick="recommend.toPost(&quot;about&quot;)"><div class="recommend-post-cover-subTitle">缥缃筆記</div><div class="recommend-post-cover-title">芸编偶拾 • 闲敲平仄煮时光</div></div><div class="recommend-post-cover-more" onclick="window.event.cancelBubble=true;recommend.hideCover();"><div class="recommend-post-cover-more-bg"></div><i class="fa-solid fa-circle-plus"></i><span>更多推荐</span></div></div></div><div class="recommend-post-list" onmouseleave="window.event.cancelBubble=true;recommend.showCover();"><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/f8e37cbd.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Oyama_Mahiro.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="生成函数笔记"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/f8e37cbd.html&quot;)" title="生成函数笔记">生成函数笔记</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/75364206.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Yanami_Anna.png" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="牛客小白月赛117题解"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/75364206.html&quot;)" title="牛客小白月赛117题解">牛客小白月赛117题解</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/fec4b5ee.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Konachan.com%20-%20368742%20sample.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="牛客2025秋季算法编程训练联赛5-基础组题解"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/fec4b5ee.html&quot;)" title="牛客2025秋季算法编程训练联赛5-基础组题解">牛客2025秋季算法编程训练联赛5-基础组题解</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/704d10ab.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/2025-03-12%20122109.png" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="火箭轨迹三维模拟（低空）"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/704d10ab.html&quot;)" title="火箭轨迹三维模拟（低空）">火箭轨迹三维模拟（低空）</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/6cc39754.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Tifa1.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="洛谷题解--记3月24日训练"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/6cc39754.html&quot;)" title="洛谷题解--记3月24日训练">洛谷题解--记3月24日训练</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/ee1dab94.html&quot;)"><img src="" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="概率论与数理统计期末复习"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/ee1dab94.html&quot;)" title="概率论与数理统计期末复习">概率论与数理统计期末复习</div></div></div></div></div></div>';
+              parent_div_git.insertAdjacentHTML("afterbegin",item_html);
+            },
+            toRandomPost: function() {
+              var posts_path = "posts/4a52651e.html,posts/f2a626f9.html,posts/73c6c6c9.html,posts/18120.html,posts/56011.html,posts/54962.html,posts/4b32681.html,posts/1baa34af.html,posts/3538e23e.html,posts/45c6e9dc.html,posts/6ecdd18f.html,posts/bb2feb5d.html,posts/16107.html,posts/d629c6d1.html,posts/7c1672ff.html,posts/96145f6d.html,posts/c43560d9.html,posts/e91093f0.html,posts/c72ae656.html,posts/5a9acf5a.html,posts/5e8d613b.html,posts/bfbde536.html,posts/623e9466.html,posts/928debf2.html,posts/49f4a0d6.html,posts/dec5d03c.html,posts/b05b7d2d.html,posts/257e1115.html,posts/39efaf90.html,posts/8f5e0b51.html,posts/b9a16b3b.html,posts/3de51743.html,posts/ee1dab94.html,posts/6cc39754.html,posts/704d10ab.html,posts/fec4b5ee.html,posts/75364206.html,posts/f8e37cbd.html".split(',');
+              var randomPost = posts_path[Math.floor(Math.random() * posts_path.length)];
+              window.recommend.toPost(randomPost);
+            },
+            toPost: function(href) {
+              if (typeof pjax !== 'undefined') pjax.loadUrl('/' + href);
+              else window.location.href = window.location.origin + (href.charAt(0) === '/' ? '' : '/') + href;
+            },
+            hideCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              $main.className = 'recommend-post-main recommend-hide';
+            },
+            showCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              if ($main) $main.className = 'recommend-post-main';
+            },
+            postScroll: function(dom) {
+              const e = window.event || arguments.callee.caller.arguments[0];
+              if (document.body.clientWidth <= 1200) {
+                let o = -e.wheelDelta / 2;
+                dom.scrollLeft += o;
+                e.preventDefault();
+              }
+            }
+          }
+          console.log(
+            "%c plugin ⭐ hexo_butterfly_recommend ⭐ https://github.com/weizwz/hexo-butterfly-recommend ",
+            "color: #fff; padding:3px; font-size:12px; background: linear-gradient(90deg, #358bff, #1eebeb);"
+          )
+        }
+        window.recommend.hexo_butterfly_recommend_init();
+      </script><!-- hexo injector body_end end --></body></html>

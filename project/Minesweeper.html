@@ -1,0 +1,1213 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>扫雷 | 浮生若梦</title><meta name="author" content="Meta Xiao"><meta name="copyright" content="Meta Xiao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="本项目是我去年12月份写的一个通过dfs算法实现的扫雷小游戏，当时在学习到dfs和bfs的地图遍历后，发现居然还有如此简洁的算法，又联想到扫雷揭开一片区域的过程，便萌生了写一个扫雷的想法。 当时的项目是用C语言来写的，这里用HTML和CSS重写，增添了其可视化和UI交互功能。        Minesweeper              .minesweeper-game {">
+<meta property="og:type" content="website">
+<meta property="og:title" content="扫雷">
+<meta property="og:url" content="https://www.teslongxiao.cn/project/Minesweeper.html">
+<meta property="og:site_name" content="浮生若梦">
+<meta property="og:description" content="本项目是我去年12月份写的一个通过dfs算法实现的扫雷小游戏，当时在学习到dfs和bfs的地图遍历后，发现居然还有如此简洁的算法，又联想到扫雷揭开一片区域的过程，便萌生了写一个扫雷的想法。 当时的项目是用C语言来写的，这里用HTML和CSS重写，增添了其可视化和UI交互功能。        Minesweeper              .minesweeper-game {">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/1737896078867.gif">
+<meta property="article:published_time" content="2026-01-18T17:08:36.739Z">
+<meta property="article:modified_time" content="2026-01-18T17:08:36.739Z">
+<meta property="article:author" content="Meta Xiao">
+<meta property="article:tag" content="study,life,share,techolgy,electronic,programming">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/1737896078867.gif"><link rel="shortcut icon" href="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/image.png"><link rel="canonical" href="https://www.teslongxiao.cn/project/Minesweeper.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="Qi_9CrV7lldy8VD7RIVN3Nb62FP7EmhAITFqplx0mzo"/><meta name="baidu-site-verification" content="codeva-nF4CVmePFG"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f6e1da')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":500,"languages":{"author":"作者: Meta Xiao","link":"链接: ","source":"来源: 浮生若梦","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '扫雷',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+
+<link rel="stylesheet" href="/css/recommend.css?v=1.1.2.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/css/flash.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-image: url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/subway_girl.gif);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/1737896078867.gif" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">38</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-tools"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-user"></i><span> 我的</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/talks/"><i class="fa-fw fas fa-coffee"></i><span> 动态</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/bar-logo.png" alt="Logo"><span class="site-name">浮生若梦</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-tools"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-user"></i><span> 我的</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/talks/"><i class="fa-fw fas fa-coffee"></i><span> 动态</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><h1 class="title-seo">扫雷</h1></header><main class="layout hide-aside" id="content-inner"><div id="page"><div class="page-title">扫雷</div><div class="container" id="article-container"><div class="note info no-icon flat"><p>本项目是我去年12月份写的一个通过<code>dfs</code>算法实现的扫雷小游戏，当时在学习到<code>dfs</code>和<code>bfs</code>的地图遍历后，发现居然还有如此简洁的算法，又联想到扫雷揭开一片区域的过程，便萌生了写一个扫雷的想法。</p>
+<p>当时的项目是用<code>C</code>语言来写的，这里用<code>HTML</code>和<code>CSS</code>重写，增添了其可视化和UI交互功能。</p>
+</div>
+<html>
+<head>
+    <title>Minesweeper</title>
+    <style>
+        .minesweeper-game {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --danger-color: #e74c3c;
+            --success-color: #27ae60;
+            --cell-size: 35px;
+            /* 黑暗模式变量 */
+            --dark-primary: #ecf0f1;
+            --dark-cell-hidden: #333;
+            --dark-cell-revealed: #444;
+            --dark-text: #f0f0f0;
+            --dark-controls-bg: rgba(40, 50, 70, 0.7); /* 黑偏蓝毛玻璃效果 */
+            --dark-counter-bg: #5d4037; /* 棕色 */
+            --dark-dialog-bg: #2d2d2d;
+        }
+        /* 严格限定作用域 */
+        .minesweeper-game,
+        .minesweeper-game * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        /* 主容器 */
+        .minesweeper-game {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            max-width: 100%;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            line-height: 1.6;
+            background: transparent;
+        }
+        /* 黑暗模式适配 */
+        .minesweeper-game[data-theme="dark"] {
+            background: transparent;
+            backdrop-filter: blur(10px);
+            box-shadow: none;
+        }
+        /* 主容器 */
+        .minesweeper-game {
+            background: transparent;
+        }
+        /* 控制面板 */
+        .minesweeper-game[data-theme="dark"] .msg-controls {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        /* 难度选择器 */
+        .minesweeper-game[data-theme="dark"] .msg-select {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: none;
+        }
+        .minesweeper-game[data-theme="dark"] .msg-select option {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        .minesweeper-game[data-theme="dark"] .msg-select:hover {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: none;
+        }
+        /* 棋盘网格 */
+        .minesweeper-game[data-theme="dark"] .msg-board {
+            background: transparent;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        /* 单元格 */
+        .minesweeper-game[data-theme="dark"] .msg-cell {
+            background: rgba(76, 77, 89); /* 加深未揭开单元格的背景颜色 */
+            color: var(--dark-text);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: none;
+        }
+        .minesweeper-game[data-theme="dark"] .msg-cell:hover {
+            background: rgba(51, 51, 51, 0.95); /* 深色hover效果 */
+            box-shadow: none;
+        }
+        .minesweeper-game[data-theme="dark"] .msg-cell:active {
+            background: rgba(51, 51, 51, 0.85); /* 深色active效果 */
+            box-shadow: none;
+        }
+        /* 已揭开单元格 */
+        .minesweeper-game[data-theme="dark"] .msg-cell.msg-revealed {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        /* 地雷单元格 */
+        .minesweeper-game[data-theme="dark"] .msg-cell.msg-mine {
+            background: rgba(231, 76, 60, 0.3);
+            color: white;
+            box-shadow: none;
+        }
+        /* 旗帜单元格 */
+        .minesweeper-game[data-theme="dark"] .msg-cell.msg-flag::after {
+            color: #f39c12;
+        }
+        /* 按钮和选择框 */
+        .minesweeper-game[data-theme="dark"] .msg-select,
+        .minesweeper-game[data-theme="dark"] .msg-button {
+            background: rgba(52, 152, 219, 0.2);
+            color: white;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            box-shadow: none;
+        }
+        .minesweeper-game[data-theme="dark"] .msg-select:hover,
+        .minesweeper-game[data-theme="dark"] .msg-button:hover {
+            background: rgba(52, 152, 219, 0.3);
+            box-shadow: none;
+        }
+        /* 地雷计数器 */
+        .minesweeper-game[data-theme="dark"] #msg-mines-counter {
+            background: rgba(93, 64, 55, 0.2);
+            color: #f0f0f0;
+            border: 1px solid rgba(93, 64, 55, 0.3);
+            box-shadow: none;
+        }
+        /* 对话框 */
+        .minesweeper-game[data-theme="dark"] .msg-dialog-content {
+            background: rgb(5 19 22 / 0.90);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        .minesweeper-game[data-theme="dark"] .msg-dialog-content input {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        /* 数字颜色 */
+        .minesweeper-game[data-theme="dark"] .msg-number-1 { color: #5dade2; }
+        .minesweeper-game[data-theme="dark"] .msg-number-2 { color: #58d68d; }
+        .minesweeper-game[data-theme="dark"] .msg-number-3 { color: #ec7063; }
+        .minesweeper-game[data-theme="dark"] .msg-number-4 { color: #af7ac5; }
+        .minesweeper-game[data-theme="dark"] .msg-number-5 { color: #f4d03f; }
+        .minesweeper-game[data-theme="dark"] .msg-number-6 { color: #45b39d; }
+        .minesweeper-game[data-theme="dark"] .msg-number-7 { color: #eb984e; }
+        .minesweeper-game[data-theme="dark"] .msg-number-8 { color: #5d6d7e; }
+        /* 加载状态 */
+        .minesweeper-game[data-theme="dark"] .msg-loading {
+            color: var(--dark-text);
+            text-shadow: none;
+        }
+        /* 头部样式 */
+        .msg-header {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .msg-header h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }    
+        .msg-header p {
+            color: #7f8c8d;
+            font-size: 1rem;
+        }
+        /* 控制面板 */
+        .msg-controls {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.9);
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 800px;
+            transition: all 0.3s ease;
+        }
+        /* 棋盘容器 */
+        .msg-board-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            padding: 0.5rem 0;
+            margin-bottom: 1rem;
+        }
+        /* 棋盘网格 */
+        .msg-board {
+            display: inline-grid;
+            gap: 2px;
+            background: var(--primary-color);
+            padding: 5px;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+        /* 单元格 */
+        .msg-cell {
+            width: var(--cell-size);
+            height: var(--cell-size);
+            background: #333333; /* 加深未揭开单元格的背景颜色 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            position: relative;
+            font-size: 1.1rem;
+        }
+        .msg-cell:hover {
+            background: #444444; /* 深色hover效果 */
+            transform: scale(1.05);
+            z-index: 2;
+        }
+        .msg-cell:active {
+            background: #555555; /* 深色active效果 */
+            transform: scale(0.98);
+        }
+        /* 已揭开单元格 */
+        .msg-cell.msg-revealed {
+            background: #fff; /* 保持已揭开单元格为白色 */
+            color: #333333; /* 文字颜色与背景形成对比 */
+        }
+        /* 地雷单元格 */
+        .msg-cell.msg-mine {
+            background: var(--danger-color);
+            color: white;
+        }
+        /* 旗帜单元格 */
+        .msg-cell.msg-flag::after {
+            content: "🚩";
+            display: block;
+        }
+        /* 数字颜色 */
+        .msg-number-1 { color: #3498db; }
+        .msg-number-2 { color: #2ecc71; }
+        .msg-number-3 { color: #e74c3c; }
+        .msg-number-4 { color: #9b59b6; }
+        .msg-number-5 { color: #f1c40f; }
+        .msg-number-6 { color: #1abc9c; }
+        .msg-number-7 { color: #e67e22; }
+        .msg-number-8 { color: #34495e; }
+        /* 黑暗模式数字颜色 */
+        .minesweeper-game[data-theme="dark"] .msg-number-1,
+        [data-theme="dark"] .minesweeper-game .msg-number-1 { color: #5dade2; }
+        .minesweeper-game[data-theme="dark"] .msg-number-2,
+        [data-theme="dark"] .minesweeper-game .msg-number-2 { color: #58d68d; }
+        .minesweeper-game[data-theme="dark"] .msg-number-3,
+        [data-theme="dark"] .minesweeper-game .msg-number-3 { color: #ec7063; }
+        .minesweeper-game[data-theme="dark"] .msg-number-4,
+        [data-theme="dark"] .minesweeper-game .msg-number-4 { color: #af7ac5; }
+        .minesweeper-game[data-theme="dark"] .msg-number-5,
+        [data-theme="dark"] .minesweeper-game .msg-number-5 { color: #f4d03f; }
+        .minesweeper-game[data-theme="dark"] .msg-number-6,
+        [data-theme="dark"] .minesweeper-game .msg-number-6 { color: #45b39d; }
+        .minesweeper-game[data-theme="dark"] .msg-number-7,
+        [data-theme="dark"] .minesweeper-game .msg-number-7 { color: #eb984e; }
+        .minesweeper-game[data-theme="dark"] .msg-number-8,
+        [data-theme="dark"] .minesweeper-game .msg-number-8 { color: #5d6d7e; }
+        /* 按钮和选择框 */
+        .msg-select, .msg-button {
+            padding: 0.6rem 1rem;
+            border: none;
+            border-radius: 20px;
+            background: var(--secondary-color);
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        .msg-select:hover, .msg-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(52, 152, 219, 0.3);
+        }
+        .msg-select:focus, .msg-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+        }
+        /* 地雷计数器 */
+        #msg-mines-counter {
+            font-weight: bold;
+            min-width: 100px;
+            text-align: center;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.6rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        /* 对话框 */
+        .msg-dialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        .msg-dialog-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 300px;
+            max-width: 90%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        .msg-dialog h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .msg-dialog-row {
+            margin: 0.8rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .msg-dialog-row label {
+            margin-right: 0.8rem;
+        }
+        .msg-dialog-row input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 70px;
+            text-align: center;
+        }
+        #msg-dialog-error {
+            color: var(--danger-color);
+            margin: 0.8rem 0;
+            min-height: 1.2rem;
+            font-size: 0.9rem;
+        }
+        /* 加载状态 */
+        .msg-loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 1rem;
+            color: var(--primary-color);
+        }
+        /* 新增计时器和提示按钮样式 */
+        #msg-timer {
+            font-weight: bold;
+            min-width: 100px;
+            text-align: center;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.6rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .minesweeper-game[data-theme="dark"] #msg-timer {
+            background: rgba(93, 64, 55, 0.2);
+            border: 1px solid rgba(93, 64, 55, 0.3);
+        }
+        #msg-hint {
+            background: var(--success-color);
+        }
+        .minesweeper-game[data-theme="dark"] #msg-hint {
+            background: rgba(39, 174, 96, 0.3);
+        }
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .minesweeper-game {
+                --cell-size: 30px;
+                padding: 0.8rem;
+            }
+            .msg-controls {
+                flex-direction: column;
+                gap: 0.6rem;
+            }
+            .msg-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .minesweeper-game {
+                --cell-size: 28px;
+                padding: 0.5rem;
+            }
+            .msg-select, .msg-button, #msg-mines-counter {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            .msg-dialog-content {
+                padding: 1rem;
+                min-width: 260px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="minesweeper-game">
+        <div class="msg-header">
+            <h1>Minesweeper 🕹️</h1>
+            <p>Classic bomb-defusing strategy game reborn! 💣</p>
+            <!-- <p> Track mines with military precision 🚩</p>
+            <p> Score chain reactions 🎯</p> -->
+        </div>
+        <div class="msg-controls">
+            <select id="msg-difficulty" class="msg-select">
+                <option value="beginner">Beginner (9×9, 10 mines)</option>
+                <option value="intermediate">Intermediate (16×16, 40 mines)</option>
+                <option value="expert">Expert (30×16, 99 mines)</option>
+                <option value="custom">Custom</option>
+            </select>
+            <button id="msg-new-game" class="msg-button">New Game</button>
+            <div id="msg-mines-counter">Mines: 0</div>
+            <div id="msg-timer">Time: 0:00</div>
+            <button id="msg-hint" class="msg-button">Hint (3 left)</button>
+        </div>
+        <div class="msg-board-container">
+            <div id="msg-board" class="msg-board">
+                <div class="msg-loading">Click "New Game" to start!</div>
+            </div>
+        </div>
+        <!-- 自定义游戏对话框 -->
+        <div id="msg-custom-dialog" class="msg-dialog">
+            <div class="msg-dialog-content">
+                <h3>Custom Game Settings</h3>
+                <div class="msg-dialog-row">
+                    <label>Width (5-50):</label>
+                    <input type="number" id="msg-dialog-width" class="msg-dialog-input" min="5" max="50" value="15">
+                </div>
+                <div class="msg-dialog-row">
+                    <label>Height (5-30):</label>
+                    <input type="number" id="msg-dialog-height" class="msg-dialog-input" min="5" max="30" value="15">
+                </div>
+                <div class="msg-dialog-row">
+                    <label>Mines:</label>
+                    <input type="number" id="msg-dialog-mines" class="msg-dialog-input" min="1" value="30">
+                </div>
+                <div id="msg-dialog-error"></div>
+                <button id="msg-dialog-start" class="msg-button">Start Game</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 游戏配置
+    const MS_CONFIGS = {
+        beginner: { width: 9, height: 9, mines: 10 },
+        intermediate: { width: 16, height: 16, mines: 40 },
+        expert: { width: 30, height: 16, mines: 99 }
+    };
+
+    const DIRECTIONS = [
+        [-1, -1], [-1, 0], [-1, 1],
+        [0, -1],          [0, 1],
+        [1, -1],  [1, 0], [1, 1]
+    ];
+
+    // 游戏状态
+    let gameState = {
+        board: [],
+        visible: [],
+        flags: [],
+        mines: [],
+        gameOver: false,
+        gameStarted: false,
+        firstClick: true,
+        hintsUsed: 0,
+        maxHints: 3,
+        config: {}
+    };
+
+    // 计时器相关
+    let timerInterval = null;
+    let currentTime = 0;
+
+    // 计时器功能
+    function updateTimerDisplay() {
+        const minutes = Math.floor(currentTime / 60);
+        const seconds = currentTime % 60;
+        document.getElementById('msg-timer').textContent = 
+            `Time: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+        if (!timerInterval) {
+            timerInterval = setInterval(() => {
+                currentTime++;
+                updateTimerDisplay();
+            }, 1000);
+        }
+    }
+
+    function resetTimer() {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        currentTime = 0;
+        updateTimerDisplay();
+    }
+
+    // 游戏初始化
+    function initGame() {
+        const difficulty = document.getElementById('msg-difficulty').value;
+
+        if (difficulty === 'custom') {
+            document.getElementById('msg-custom-dialog').style.display = 'flex';
+            return;
+        }
+
+        resetGame();
+        gameState.config = {...MS_CONFIGS[difficulty]};
+        startGame();
+    }
+
+    function resetGame() {
+        // 重置游戏状态
+        gameState = {
+            board: [],
+            visible: [],
+            flags: [],
+            mines: [],
+            gameOver: false,
+            gameStarted: false,
+            firstClick: true,
+            hintsUsed: 0,
+            maxHints: 15,
+            config: {...gameState.config}
+        };
+
+        // 重置UI
+        const boardElement = document.getElementById('msg-board');
+        boardElement.innerHTML = '<div class="msg-loading">Preparing game...</div>';
+
+        // 重置计时器和提示按钮
+        resetTimer();
+        document.getElementById('msg-hint').disabled = false;
+        document.getElementById('msg-hint').textContent = `Hint (${gameState.maxHints} left)`;
+
+        detectTheme();
+    }
+
+    // 检测黑暗模式
+    function detectTheme() {
+        const gameContainer = document.querySelector('.minesweeper-game');
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark' || 
+                      gameContainer.closest('[data-theme="dark"]');
+
+        if (isDark) {
+            gameContainer.setAttribute('data-theme', 'dark');
+        } else {
+            gameContainer.removeAttribute('data-theme');
+        }
+    }
+
+    // 开始游戏
+    function startGame() {
+        const { width, height, mines } = gameState.config;
+
+        const rows = height + 2;
+        const cols = width + 2;
+
+        gameState.board = Array(rows).fill().map(() => Array(cols).fill(0));
+        gameState.visible = Array(rows).fill().map(() => Array(cols).fill(false));
+        gameState.flags = Array(rows).fill().map(() => Array(cols).fill(false));
+        gameState.mines = Array(rows).fill().map(() => Array(cols).fill(false));
+        gameState.gameOver = false;
+        gameState.firstClick = true;
+
+        placeMines(mines);
+        calculateNumbers();
+        updateUI();
+    }
+
+    // 放置地雷
+    function placeMines(mineCount) {
+        const { width, height } = gameState.config;
+        let placed = 0;
+
+        while (placed < mineCount) {
+            const x = Math.floor(Math.random() * height) + 1;
+            const y = Math.floor(Math.random() * width) + 1;
+
+            if (!gameState.mines[x][y]) {
+                gameState.mines[x][y] = true;
+                placed++;
+            }
+        }
+    }
+
+    // 计算数字
+    function calculateNumbers() {
+        const { width, height } = gameState.config;
+
+        for (let x = 1; x <= height; x++) {
+            for (let y = 1; y <= width; y++) {
+                if (gameState.mines[x][y]) {
+                    gameState.board[x][y] = -1; // 地雷
+                } else {
+                    let count = 0;
+                    for (const [dx, dy] of DIRECTIONS) {
+                        if (gameState.mines[x + dx][y + dy]) count++;
+                    }
+                    gameState.board[x][y] = count;
+                }
+            }
+        }
+    }
+
+    // 更新UI
+    function updateUI() {
+        const { width, height } = gameState.config;
+        const boardElement = document.getElementById('msg-board');
+
+        // 设置网格布局
+        boardElement.style.gridTemplateColumns = `repeat(${width}, var(--cell-size))`;
+        boardElement.innerHTML = '';
+
+        // 计算剩余地雷数
+        const flagCount = gameState.flags.flat().filter(Boolean).length;
+        const minesLeft = gameState.config.mines - flagCount;
+        document.getElementById('msg-mines-counter').textContent = `Mines: ${minesLeft}`;
+
+        // 更新提示按钮
+        const hintButton = document.getElementById('msg-hint');
+        hintButton.textContent = `Hint (${gameState.maxHints - gameState.hintsUsed} left)`;
+        hintButton.disabled = gameState.hintsUsed >= gameState.maxHints || gameState.gameOver;
+
+        // 创建单元格
+        for (let x = 1; x <= height; x++) {
+            for (let y = 1; y <= width; y++) {
+                const cell = document.createElement('div');
+                cell.className = 'msg-cell';
+                cell.dataset.x = x;
+                cell.dataset.y = y;
+
+                if (gameState.visible[x][y]) {
+                    cell.classList.add('msg-revealed');
+                    const value = gameState.board[x][y];
+
+                    if (value === -1) {
+                        cell.classList.add('msg-mine');
+                        cell.textContent = '💣';
+                    } else if (value > 0) {
+                        cell.textContent = value;
+                        cell.classList.add(`msg-number-${value}`);
+                    }
+                } else if (gameState.flags[x][y]) {
+                    cell.classList.add('msg-flag');
+                }
+
+                // 修改此处：允许对未揭开的单元格（无论是否有旗标）绑定事件
+                if (!gameState.gameOver && !gameState.visible[x][y]) {
+                    cell.addEventListener('click', handleLeftClick);
+                    cell.addEventListener('contextmenu', handleRightClick);
+                }
+
+                boardElement.appendChild(cell);
+            }
+        }
+    }
+
+    // 左键点击处理
+    function handleLeftClick(e) {
+        if (gameState.gameOver) return;
+
+        const x = parseInt(e.target.dataset.x);
+        const y = parseInt(e.target.dataset.y);
+
+        if (gameState.flags[x][y]) return;
+
+        // 首次点击启动计时器
+        if (gameState.firstClick) {
+            gameState.firstClick = false;
+            gameState.gameStarted = true;
+            startTimer();
+        }
+
+        revealCell(x, y);
+
+        if (gameState.board[x][y] === -1) {
+            gameOver(false);
+        } else if (checkWin()) {
+            gameOver(true);
+        } else {
+            updateUI();
+        }
+    }
+
+    // 右键点击处理(插旗)
+    function handleRightClick(e) {
+        e.preventDefault();
+        if (gameState.gameOver) return;
+
+        const x = parseInt(e.target.dataset.x);
+        const y = parseInt(e.target.dataset.y);
+
+        if (gameState.visible[x][y]) return;
+
+        // 计算当前旗子数量
+        const flagCount = gameState.flags.flat().filter(Boolean).length;
+
+        // 切换旗子状态
+        if (!gameState.flags[x][y] && flagCount >= gameState.config.mines) {
+            alert(`You can't place more flags than mines (${gameState.config.mines})`);
+            return;
+        }
+
+        gameState.flags[x][y] = !gameState.flags[x][y];
+
+        // 检查是否获胜
+        if (checkWin()) {
+            gameOver(true);
+        } else {
+            updateUI();
+        }
+    }
+
+    // 揭开单元格
+    function revealCell(x, y) {
+        if (x < 1 || x > gameState.config.height || 
+            y < 1 || y > gameState.config.width ||
+            gameState.visible[x][y] || 
+            gameState.flags[x][y]) {
+            return;
+        }
+
+        gameState.visible[x][y] = true;
+
+        // 如果是空白单元格，递归揭开相邻单元格
+        if (gameState.board[x][y] === 0) {
+            for (const [dx, dy] of DIRECTIONS) {
+                revealCell(x + dx, y + dy);
+            }
+        }
+    }
+
+    // 检查是否获胜
+    function checkWin() {
+        const { width, height } = gameState.config;
+        for (let x = 1; x <= height; x++) {
+            for (let y = 1; y <= width; y++) {
+                if (!gameState.mines[x][y] && !gameState.visible[x][y]) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    // 游戏结束处理
+    function gameOver(isWin) {
+        gameState.gameOver = true;
+        clearInterval(timerInterval);
+
+        // 揭开所有地雷
+        const { width, height } = gameState.config;
+        for (let x = 1; x <= height; x++) {
+            for (let y = 1; y <= width; y++) {
+                if (gameState.mines[x][y]) {
+                    gameState.visible[x][y] = true;
+                }
+            }
+        }
+
+        updateUI();
+
+        // 显示结果
+        setTimeout(() => {
+            alert(isWin ? 'Congratulations! You won!' : 'Game Over! You hit a mine!');
+        }, 100);
+    }
+
+    // 提示功能
+    document.getElementById('msg-hint').addEventListener('click', function() {
+        if (gameState.gameOver || gameState.hintsUsed >= gameState.maxHints || !gameState.gameStarted) return;
+
+        const { width, height } = gameState.config;
+        const candidates = [];
+
+        // 查找所有符合条件的单元格
+        for (let x = 1; x <= height; x++) {
+            for (let y = 1; y <= width; y++) {
+                if (!gameState.visible[x][y] && 
+                    !gameState.flags[x][y] && 
+                    gameState.board[x][y] !== -1) {
+                    candidates.push([x, y]);
+                }
+            }
+        }
+
+        if (candidates.length === 0) return;
+
+        // 随机选择一个安全单元格
+        const [x, y] = candidates[Math.floor(Math.random() * candidates.length)];
+        revealCell(x, y);
+        gameState.hintsUsed++;
+
+        // 更新UI并检查游戏状态
+        updateUI();
+        if (checkWin()) gameOver(true);
+    });
+
+    // 自定义游戏对话框处理
+    document.getElementById('msg-dialog-start').addEventListener('click', function() {
+        const width = parseInt(document.getElementById('msg-dialog-width').value);
+        const height = parseInt(document.getElementById('msg-dialog-height').value);
+        const mines = parseInt(document.getElementById('msg-dialog-mines').value);
+        const maxMines = Math.floor(width * height * 0.75);
+        const errorElement = document.getElementById('msg-dialog-error');
+
+        // 验证输入
+        if (isNaN(width) || width < 5 || width > 50) {
+            errorElement.textContent = "Width must be 5-50";
+            return;
+        }
+
+        if (isNaN(height) || height < 5 || height > 30) {
+            errorElement.textContent = "Height must be 5-30";
+            return;
+        }
+
+        if (isNaN(mines) || mines < 1 || mines > maxMines) {
+            errorElement.textContent = `Mines must be 1-${maxMines}`;
+            return;
+        }
+
+        errorElement.textContent = '';
+        document.getElementById('msg-custom-dialog').style.display = 'none';
+
+        // 重置并开始新游戏
+        resetGame();
+        gameState.config = { width, height, mines };
+        startGame();
+    });
+
+    // 新游戏按钮
+    document.getElementById('msg-new-game').addEventListener('click', initGame);
+
+    // 主题变化监听
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.attributeName === 'data-theme') {
+                detectTheme();
+                updateUI();
+            }
+        });
+    });
+
+    observer.observe(document.documentElement, {
+        attributes: true
+    });
+
+    // 初始化游戏
+    initGame();
+});
+</script>
+<!-- hexo injector body_end start -->
+      <script data-pjax>
+        if (typeof window.recommend === 'undefined') {
+          window.recommend = {
+            hexo_butterfly_recommend_init: function() {
+              const $recommend = document.querySelector('#recommend');
+              if($recommend) return;
+              document.documentElement.style.setProperty('--recommend-main', '#409eff');
+              document.documentElement.style.setProperty('--recommend-deep', '#0075ffdd');
+              const hexo_butterfly_recommend_elist = 'null'.split(',');
+              var hexo_butterfly_recommend_cpage = location.pathname;
+              const hexo_butterfly_recommend_epage = '/';
+              var hexo_butterfly_recommend_flag = 0;
+        
+              for (var i = 0; i < hexo_butterfly_recommend_elist.length; i++) {
+                if (hexo_butterfly_recommend_cpage.includes(hexo_butterfly_recommend_elist[i])) {
+                  hexo_butterfly_recommend_flag++;
+                }
+              }
+              if ((hexo_butterfly_recommend_epage === 'all') && (hexo_butterfly_recommend_flag === 0)) {
+                window.recommend.hexo_butterfly_recommend_injector_config();
+              } else if (hexo_butterfly_recommend_epage === hexo_butterfly_recommend_cpage) {
+                window.recommend.hexo_butterfly_recommend_injector_config();
+              }
+            },
+            hexo_butterfly_recommend_injector_config: function() {
+              var parent_div_git = document.getElementById('content-inner');
+              var item_html = '<div class="recommend-right" id="recommend"><div id="recommend-content" onmousewheel="recommend.postScroll(this)"><div class="recommend-wrapper" id="recommend-banner"><div id="recommend-banner-wrapper"><div class="recommend-banner-title-wrapper"><div class="recommend-banner-title">Stay hungry</div><div class="recommend-banner-title">Stay foolish</div><div class="recommend-banner-title">www.teslongxiao.cn</div></div><div class="recommend-tags-all"><div class="recommend-tags-wrapper"><div class="recommend-tags-line"><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #f7cb4f"><i class="fa-brands fa-js" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #bd0102"><i class="fa-brands fa-angular" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #df5b40"><i class="fa-brands fa-git-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #f7cb4f"><i class="fa-brands fa-js" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #bd0102"><i class="fa-brands fa-angular" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #df5b40"><i class="fa-brands fa-git-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div></div><div class="recommend-tags-line"><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div></div></div></div><a id="recommend-banner-hover" onclick="recommend.toRandomPost()"><span class="recommend-banner-text">随便逛逛</span><i class="fas fa-arrow-right recommend-banner-righticon"></i></a></div><div id="recommend-category"><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;categories/精选&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #358bff, #15c6ff)"></div><span class="recommend-categoryItem-text">站长精选</span><i class="fa-solid fa-star"></i></a></div><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;categories&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #f65, #ffbf37)"></div><span class="recommend-categoryItem-text">文章分类</span><i class="fa-solid fa-book"></i></a></div><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;project&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #18e7ae, #1eebeb)"></div><span class="recommend-categoryItem-text">个人项目</span><i class="fa-solid fa-code"></i></a></div></div></div><div class="recommend-wrapper" id="recommend-post"><div class="recommend-post-main" id="recommend-post-main"><div class="recommend-post-cover" onclick="recommend.toPost(&quot;about&quot;)" style="background: var(--recommend-main) url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Light_up_Sky.gif) no-repeat center/cover"></div><div class="recommend-post-cover-wrapper"><div class="recommend-post-cover-info" onclick="recommend.toPost(&quot;about&quot;)"><div class="recommend-post-cover-subTitle">缥缃筆記</div><div class="recommend-post-cover-title">芸编偶拾 • 闲敲平仄煮时光</div></div><div class="recommend-post-cover-more" onclick="window.event.cancelBubble=true;recommend.hideCover();"><div class="recommend-post-cover-more-bg"></div><i class="fa-solid fa-circle-plus"></i><span>更多推荐</span></div></div></div><div class="recommend-post-list" onmouseleave="window.event.cancelBubble=true;recommend.showCover();"><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/f8e37cbd.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Oyama_Mahiro.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="生成函数笔记"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/f8e37cbd.html&quot;)" title="生成函数笔记">生成函数笔记</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/75364206.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Yanami_Anna.png" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="牛客小白月赛117题解"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/75364206.html&quot;)" title="牛客小白月赛117题解">牛客小白月赛117题解</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/fec4b5ee.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Konachan.com%20-%20368742%20sample.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="牛客2025秋季算法编程训练联赛5-基础组题解"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/fec4b5ee.html&quot;)" title="牛客2025秋季算法编程训练联赛5-基础组题解">牛客2025秋季算法编程训练联赛5-基础组题解</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/704d10ab.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/2025-03-12%20122109.png" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="火箭轨迹三维模拟（低空）"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/704d10ab.html&quot;)" title="火箭轨迹三维模拟（低空）">火箭轨迹三维模拟（低空）</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/6cc39754.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Tifa1.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="洛谷题解--记3月24日训练"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/6cc39754.html&quot;)" title="洛谷题解--记3月24日训练">洛谷题解--记3月24日训练</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/ee1dab94.html&quot;)"><img src="" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="概率论与数理统计期末复习"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/ee1dab94.html&quot;)" title="概率论与数理统计期末复习">概率论与数理统计期末复习</div></div></div></div></div></div>';
+              parent_div_git.insertAdjacentHTML("afterbegin",item_html);
+            },
+            toRandomPost: function() {
+              var posts_path = "posts/4a52651e.html,posts/f2a626f9.html,posts/73c6c6c9.html,posts/18120.html,posts/56011.html,posts/54962.html,posts/4b32681.html,posts/1baa34af.html,posts/3538e23e.html,posts/45c6e9dc.html,posts/6ecdd18f.html,posts/bb2feb5d.html,posts/16107.html,posts/d629c6d1.html,posts/7c1672ff.html,posts/96145f6d.html,posts/c43560d9.html,posts/e91093f0.html,posts/c72ae656.html,posts/5a9acf5a.html,posts/5e8d613b.html,posts/bfbde536.html,posts/623e9466.html,posts/928debf2.html,posts/49f4a0d6.html,posts/dec5d03c.html,posts/b05b7d2d.html,posts/257e1115.html,posts/39efaf90.html,posts/8f5e0b51.html,posts/b9a16b3b.html,posts/3de51743.html,posts/ee1dab94.html,posts/6cc39754.html,posts/704d10ab.html,posts/fec4b5ee.html,posts/75364206.html,posts/f8e37cbd.html".split(',');
+              var randomPost = posts_path[Math.floor(Math.random() * posts_path.length)];
+              window.recommend.toPost(randomPost);
+            },
+            toPost: function(href) {
+              if (typeof pjax !== 'undefined') pjax.loadUrl('/' + href);
+              else window.location.href = window.location.origin + (href.charAt(0) === '/' ? '' : '/') + href;
+            },
+            hideCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              $main.className = 'recommend-post-main recommend-hide';
+            },
+            showCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              if ($main) $main.className = 'recommend-post-main';
+            },
+            postScroll: function(dom) {
+              const e = window.event || arguments.callee.caller.arguments[0];
+              if (document.body.clientWidth <= 1200) {
+                let o = -e.wheelDelta / 2;
+                dom.scrollLeft += o;
+                e.preventDefault();
+              }
+            }
+          }
+          console.log(
+            "%c plugin ⭐ hexo_butterfly_recommend ⭐ https://github.com/weizwz/hexo-butterfly-recommend ",
+            "color: #fff; padding:3px; font-size:12px; background: linear-gradient(90deg, #358bff, #1eebeb);"
+          )
+        }
+        window.recommend.hexo_butterfly_recommend_init();
+      </script><!-- hexo injector body_end end --></body>
+</html>
+
+
+<div class="note warning no-icon flat"><p>如果游戏界面未加载，请刷新该页面</p>
+</div>
+<div class="timeline blue"><div class='timeline-item headline'>
+        <div class='timeline-item-title'>
+          <div class='item-circle'><p>2025</p>
+</div>
+        </div>
+      </div><div class='timeline-item'>
+        <div class='timeline-item-title'>
+          <div class='item-circle'><p>4-4</p>
+</div>
+        </div>
+        <div class='timeline-item-content'><p>完成对之前<code>C</code>语言项目扫雷的移植</p>
+</div>
+      </div><div class='timeline-item'>
+        <div class='timeline-item-title'>
+          <div class='item-circle'><p>4-5</p>
+</div>
+        </div>
+        <div class='timeline-item-content'><p>优化其<code>CSS</code>动画和<code>JavaScript</code>逻辑</p>
+</div>
+      </div></div>
+</div></div></main><footer id="footer" style="background: transparent"><footer id="footer" style="background: transparent"><div id="footer_icons"><div><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://www.teslongxiao.cn/about" title="关于我"><i class="fa-solid fa-compass"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://res.abeim.cn/api/qq/?qq=2040426884" title="联系QQ"><i class="fa-brands fa-qq"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="mailto:2040426884@qq.com" title="发送邮件"><i class="fa-solid fa-envelope"></i></a></div><img class="footer_logo" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/aoao.gif" onclick="btf.scrollToDest(0,500)" title="返回顶部"/><div><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://github.com/META-Xiao" title="Github主页"><i class="fa-brands fa-github"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://space.bilibili.com/332124713" title="哔哩哔哩主页"><i class="fa-brands fa-bilibili"></i></a><a class="icon_link" href="/message/" title="留言"><i class="fa-solid fa-comment"></i></a></div><div id="footer_content"><div class="footer-group"><h3 class="footer-title"></h3><div class="footer-links"><a class="footer-item" href="undefined"></a></div></div></div></div><div id="footer-bottom"><div class="footer-bottom-content"><div class="footer-bottom-left"><span class="copyright">&copy;2024 - 2026 By <a target="_blank" rel="noopener" href="https://www.teslongxiao.cn" title="点击访问&quot;Meta&quot;的主页" style="margin-left:5px">Meta</a></span><div><a class="footer-bottom-link" target="_blank" href="https://icp.gov.moe/?keyword=20250061" rel="noopener external nofollow" title="萌ICP备20250061号">萌ICP备20250061号</a><a class="footer-bottom-link" target="_blank" href="https://v6.51.la/report/overview?comId=510796" rel="noopener external nofollow" title="51LA">统计信息</a></div></div><div class="footer-bottom-right"><div id="runtime" title="已运行时长">本站已运行：0 天 0 时 0 分 0 秒</div><div><a class="footer-bottom-link" target="_blank" href="https://hexo.io/zh-cn/" rel="noopener external nofollow" title="框架">Hexo</a><a class="footer-bottom-link" target="_blank" href="https://butterfly.js.org/" rel="noopener external nofollow" title="主题">Butterfly</a></div><script type="js" src="/js/footer.js"> </script></div></div></div></footer></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到底部"><span class="scroll-percent"></span><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"3L3LMrlEa92UPmXV",ck:"3L3LMrlEa92UPmXV"})</script><script defer src="/js/footer.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["link[rel=\"canonical\"]","meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/posts/257e1115.html"]):not([href="/posts/928debf2.html"]):not([href="/posts/49f4a0d6.html"]):not([href="/posts/dec5d03c.html"]):not([href="/posts/b05b7d2d.html"]):not([href="/posts/5e8d613b.html"]):not([href="/posts/39efaf90.html"]):not([href="/project/"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

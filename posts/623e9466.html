@@ -1,0 +1,613 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>数据结构笔记--目录 | 浮生若梦</title><meta name="author" content="Meta Xiao"><meta name="copyright" content="Meta Xiao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content=".ds-unified-container {   --ds-light-bg: rgba(255, 255, 255, 0.8);   --ds-light-shadow: 0 5px 6px -5px rgba(133, 133, 133, 0.6);   --ds-dark-bg: rgba(24, 24, 30, 0.5);   --ds-accent: #7F5AF0;   --ds-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构笔记--目录">
+<meta property="og:url" content="https://www.teslongxiao.cn/posts/623e9466.html">
+<meta property="og:site_name" content="浮生若梦">
+<meta property="og:description" content=".ds-unified-container {   --ds-light-bg: rgba(255, 255, 255, 0.8);   --ds-light-shadow: 0 5px 6px -5px rgba(133, 133, 133, 0.6);   --ds-dark-bg: rgba(24, 24, 30, 0.5);   --ds-accent: #7F5AF0;   --ds-">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Frieren.jpg">
+<meta property="article:published_time" content="2025-04-28T12:47:36.000Z">
+<meta property="article:modified_time" content="2026-01-18T17:08:36.724Z">
+<meta property="article:author" content="Meta Xiao">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="C">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Frieren.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "数据结构笔记--目录",
+  "url": "https://www.teslongxiao.cn/posts/623e9466.html",
+  "image": "https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Frieren.jpg",
+  "datePublished": "2025-04-28T12:47:36.000Z",
+  "dateModified": "2026-01-18T17:08:36.724Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Meta Xiao",
+      "url": "https://www.teslongxiao.cn/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/image.png"><link rel="canonical" href="https://www.teslongxiao.cn/posts/623e9466.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="Qi_9CrV7lldy8VD7RIVN3Nb62FP7EmhAITFqplx0mzo"/><meta name="baidu-site-verification" content="codeva-nF4CVmePFG"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f6e1da')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":500,"languages":{"author":"作者: Meta Xiao","link":"链接: ","source":"来源: 浮生若梦","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '数据结构笔记--目录',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+
+<link rel="stylesheet" href="/css/recommend.css?v=1.1.2.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/css/flash.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-image: url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/subway_girl.gif);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/1737896078867.gif" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">38</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-tools"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-user"></i><span> 我的</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/talks/"><i class="fa-fw fas fa-coffee"></i><span> 动态</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Frieren.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/bar-logo.png" alt="Logo"><span class="site-name">浮生若梦</span></a><a class="nav-page-title" href="/"><span class="site-name">数据结构笔记--目录</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-tools"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-user"></i><span> 我的</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/talks/"><i class="fa-fw fas fa-coffee"></i><span> 动态</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">数据结构笔记--目录</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-28T12:47:36.000Z" title="发表于 2025-04-28 20:47:36">2025-04-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-18T17:08:36.724Z" title="更新于 2026-01-19 01:08:36">2026-01-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">375</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout hide-aside" id="content-inner"><div id="post"><div class="top-img gist" style="background-image: url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Frieren.jpg)"></div><article class="container post-content" id="article-container"><style>
+.ds-unified-container {
+  --ds-light-bg: rgba(255, 255, 255, 0.8);
+  --ds-light-shadow: 0 5px 6px -5px rgba(133, 133, 133, 0.6);
+  --ds-dark-bg: rgba(24, 24, 30, 0.5);
+  --ds-accent: #7F5AF0;
+  --ds-accent-hover: #6C4BD3;
+  --ds-text-light: #2D3748;
+  --ds-text-dark: #EDF2F7;
+}
+
+/* 基础样式 */
+.ds-unified-list {
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(7px);
+  transition: all 0.3s ease;
+}
+
+/* 明亮模式 */
+.ds-unified-list {
+  background: var(--ds-light-bg);
+  box-shadow: var(--ds-light-shadow);
+}
+
+/* 项目样式 */
+.ds-unified-item {
+  position: relative;
+  padding: 1rem 1.5rem;
+  margin: 0.8rem 0;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.ds-unified-item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--ds-accent);
+  transition: width 0.3s ease;
+}
+
+.ds-unified-item:hover {
+  transform: translateX(8px);
+}
+
+.ds-unified-item:hover::after {
+  width: 6px;
+}
+
+.ds-unified-link {
+  color: var(--ds-text-light);
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* 黑暗模式 */
+[data-theme="dark"] .ds-unified-list {
+  background: var(--ds-dark-bg);
+  box-shadow: none;
+  backdrop-filter: blur(10px) brightness(1.2);
+}
+
+[data-theme="dark"] .ds-unified-link {
+  color: var(--ds-text-dark);
+}
+
+[data-theme="dark"] .ds-unified-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* 动画效果 */
+@keyframes dsFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ds-unified-item {
+  animation: dsFadeIn 0.5s ease forwards;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .ds-unified-list {
+    padding: 1rem;
+  }
+
+  .ds-unified-item {
+    padding: 0.8rem 1rem;
+  }
+}
+
+/* 装饰元素 */
+.ds-unified-link::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--ds-accent));
+  opacity: 0.1;
+  transition: width 0.3s ease;
+}
+
+.ds-unified-item:hover .ds-unified-link::before {
+  width: 100%;
+  left: 0;
+  right: auto;
+}
+</style>
+
+<!-- 目录结构 -->
+<nav class="ds-unified-container">
+  <ul class="ds-unified-list">
+    <li class="ds-unified-item" style="animation-delay: 0.1s">
+      <a href="/posts/928debf2.html" class="ds-unified-link">
+        <span>📚</span> 数据结构--导论
+      </a>
+    </li>
+    <li class="ds-unified-item" style="animation-delay: 0.2s">
+      <a href="/posts/49f4a0d6.html" class="ds-unified-link">
+        <span>🧮</span> 数据结构--算法基础
+      </a>
+    </li>
+    <li class="ds-unified-item" style="animation-delay: 0.3s">
+      <a href="/posts/dec5d03c.html" class="ds-unified-link">
+        <span>📊</span> 数据结构--线性表
+      </a>
+    </li>
+    <li class="ds-unified-item" style="animation-delay: 0.2s">
+      <a href="/posts/b05b7d2d.html" class="ds-unified-link">
+        <span>🌲</span> 数据结构--树
+      </a>
+    </li>
+    <li class="ds-unified-item" style="animation-delay: 0.2s">
+      <a href="/posts/39efaf90.html" class="ds-unified-link">
+        <span>📦</span> 数据结构--并查集、哈希表、堆
+      </a>      
+    </li>
+    <li class="ds-unified-item" style="animation-delay: 0.2s">
+      <a href="/posts/257e1115.html" class="ds-unified-link">
+        <span>🧩</span> 数据结构--图
+      </a>
+  </ul>
+</nav></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.teslongxiao.cn">Meta Xiao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.teslongxiao.cn/posts/623e9466.html">https://www.teslongxiao.cn/posts/623e9466.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.teslongxiao.cn" target="_blank">浮生若梦</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C++</a><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><a class="post-meta__tags" href="/tags/C/">C</a></div><div class="post-share"><div class="social-share" data-image="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Frieren.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/928debf2.html" title="数据结构笔记--导论"><img class="cover" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Frieren.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-02</div><div class="info-item-2">数据结构笔记--导论</div></div><div class="info-2"><div class="info-item-1">系列文章目录：  数据结构—导论 数据结构—算法基础 数据结构—线性表 数据结构—树 数据结构—并查集、哈希表、堆 数据结构—图   数据结构的基本知识和导论 数据结构是计算机存储、组织数据的方式，数据结构是指相互之间存在一种或多种特定关系的数据元素的集合。  Nikolaus Wirth 在其著作《Algorithms + Data Structures =...</div></div></div></a><a class="pagination-related" href="/posts/49f4a0d6.html" title="数据结构笔记--算法基础"><img class="cover" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Frieren.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-28</div><div class="info-item-2">数据结构笔记--算法基础</div></div><div class="info-2"><div class="info-item-1">系列文章目录：  数据结构—导论 数据结构—算法基础 数据结构—线性表 数据结构—树 数据结构—并查集、哈希表、堆 数据结构—图   算法分析算法满足的五个基本特性：  输入：算法有零个或多个输入。 输出：算法有一个或多个输出。 确定性：算法的每一步骤都有确定的含义，不会出现二义性。 可行性：算法的每一步骤都是可行的，也就是说，每一步都能够通过执行有限次数完成。 有穷性：算法在执行有限步骤后，会自动结束而不会出现无限循环。  评价算法优劣的四个标准：  正确性：算法能够正确地解决实际问题。 可读性：算法应具有良好的可读性，以便于理解和维护。 健壮性：算法应能够对输入的非法数据进行检查，并作出相应的处理，而不是产生错误的结果。 效率与低存储量需求：算法应尽量减少计算时间和占用存储空间。  时间复杂度 Donald Ervin Knuth said: “Programs must be written for people to read, and only incidentally for machines to...</div></div></div></a><a class="pagination-related" href="/posts/dec5d03c.html" title="数据结构笔记--线性表"><img class="cover" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Frieren.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-28</div><div class="info-item-2">数据结构笔记--线性表</div></div><div class="info-2"><div class="info-item-1">系列文章目录：  数据结构—导论 数据结构—算法基础 数据结构—线性表 数据结构—树 数据结构—并查集、哈希表、堆 数据结构—图   线性表线性表就是一种线性结构，它是由 $n$ 个具有相同类型的数据元素组成的有限序列。 线性表的特点：  有序性：线性表中的数据元素存在一对一的线性关系，即除了第一个元素外，每个元素都有唯一的前驱元素；除了最后一个元素外，每个元素都有唯一的后继元素。 有限性：线性表中包含的数据元素个数是有限的，即线性表的长度是有限的。  线性表可以采用顺序存储结构或链式存储结构来表示。 顺序表顺序表是一种线性表的顺序存储结构，它使用一组连续的存储单元来存储线性表中的数据元素。 特点 顺序表中的数据元素在内存中是连续存储的，即每个元素都存储在相邻的存储单元中。 顺序表中的数据元素可以通过下标直接访问，即可以通过下标快速定位到指定的数据元素。        if (window.eChartecharts4073ResizeHandler) {     window.removeEventListener("resize",...</div></div></div></a><a class="pagination-related" href="/posts/b05b7d2d.html" title="数据结构笔记--树"><img class="cover" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Frieren.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-27</div><div class="info-item-2">数据结构笔记--树</div></div><div class="info-2"><div class="info-item-1">系列文章目录：  数据结构—导论 数据结构—算法基础 数据结构—线性表 数据结构—树 数据结构—并查集、哈希表、堆 数据结构—图   树树就是一种特殊的图，是一个无向图，是一种连通且无环的无向图。 含有以下内容：  树与二叉树的定义 二叉树的实现与遍历 树与森林 哈夫曼树与哈夫曼编码  树的定义：树是一个或者多个结点的有限集合，存在一个称为根的特定结点，其余结点分为若干个互不相交的集合，每个集合本身又是一棵树，这些树称为根的子树。如下图：              F            /   \          D       J        /   \    / \      B     E  G   K     / \             \    A   C             L      /  \  \     /  /  \     I    H   M  N  O    P 一些重要名词 结点： 树中的每一个独立单元。 结点的度： 结点拥有的子树个数。 树的度： 树中所有结点度的最大值。 叶子： 度为0的结点或者终端结点。 分支结点：...</div></div></div></a><a class="pagination-related" href="/posts/257e1115.html" title="数据结构笔记--图"><img class="cover" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Frieren.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-16</div><div class="info-item-2">数据结构笔记--图</div></div><div class="info-2"><div class="info-item-1">系列文章目录：  数据结构—导论 数据结构—算法基础 数据结构—线性表 数据结构—树 数据结构—并查集、哈希表、堆 数据结构—图   本博文仍在施工中，如果作者有时间的话。  图图（Graph）是一种由顶点和边组成的抽象数据结构，用于表示对象之间的连接关系。图中的顶点表示对象，边表示顶点之间的连接关系。 一般地，图这个集合用 $G(V,E)$ 表示，其中V是顶点（vertex）的集合，E是边（edge）的集合。 注意： 图的点是有穷非空集合，即顶点数是有限的，且至少有一个顶点，而边可以没有一条边。  图的分类有向图和无向图图按照边有无方向分为有向图和无向图，顾名思义有向图中的边是有方向的，而无向图中的边是没有方向的。  以下示例即为有向图： 有向图可以用集合表示为：  \begin{aligned} G&=(V,E) \\ V&= \{A,B,C,D,E,F\}\\ G&=\{,,,,,,,\}\subseteq V\times V \end{aligned}在有向图中，边也叫弧（arc），箭头指向的起点称弧尾（tail），箭头指向的终点称弧头（head）。   注意：...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div></main><footer id="footer" style="background: transparent"><footer id="footer" style="background: transparent"><div id="footer_icons"><div><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://www.teslongxiao.cn/about" title="关于我"><i class="fa-solid fa-compass"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://res.abeim.cn/api/qq/?qq=2040426884" title="联系QQ"><i class="fa-brands fa-qq"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="mailto:2040426884@qq.com" title="发送邮件"><i class="fa-solid fa-envelope"></i></a></div><img class="footer_logo" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/aoao.gif" onclick="btf.scrollToDest(0,500)" title="返回顶部"/><div><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://github.com/META-Xiao" title="Github主页"><i class="fa-brands fa-github"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://space.bilibili.com/332124713" title="哔哩哔哩主页"><i class="fa-brands fa-bilibili"></i></a><a class="icon_link" href="/message/" title="留言"><i class="fa-solid fa-comment"></i></a></div><div id="footer_content"><div class="footer-group"><h3 class="footer-title"></h3><div class="footer-links"><a class="footer-item" href="undefined"></a></div></div></div></div><div id="footer-bottom"><div class="footer-bottom-content"><div class="footer-bottom-left"><span class="copyright">&copy;2024 - 2026 By <a target="_blank" rel="noopener" href="https://www.teslongxiao.cn" title="点击访问&quot;Meta&quot;的主页" style="margin-left:5px">Meta</a></span><div><a class="footer-bottom-link" target="_blank" href="https://icp.gov.moe/?keyword=20250061" rel="noopener external nofollow" title="萌ICP备20250061号">萌ICP备20250061号</a><a class="footer-bottom-link" target="_blank" href="https://v6.51.la/report/overview?comId=510796" rel="noopener external nofollow" title="51LA">统计信息</a></div></div><div class="footer-bottom-right"><div id="runtime" title="已运行时长">本站已运行：0 天 0 时 0 分 0 秒</div><div><a class="footer-bottom-link" target="_blank" href="https://hexo.io/zh-cn/" rel="noopener external nofollow" title="框架">Hexo</a><a class="footer-bottom-link" target="_blank" href="https://butterfly.js.org/" rel="noopener external nofollow" title="主题">Butterfly</a></div><script type="js" src="/js/footer.js"> </script></div></div></div></footer></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到底部"><span class="scroll-percent"></span><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-strict":1,"data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"top","data-lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark_dimmed' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'META-Xiao/blog-comments',
+      'data-repo-id': 'R_kgDOQAXbjw',
+      'data-category-id': 'DIC_kwDOQAXbj84CwgFy',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"3L3LMrlEa92UPmXV",ck:"3L3LMrlEa92UPmXV"})</script><script defer src="/js/footer.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["link[rel=\"canonical\"]","meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/posts/257e1115.html"]):not([href="/posts/928debf2.html"]):not([href="/posts/49f4a0d6.html"]):not([href="/posts/dec5d03c.html"]):not([href="/posts/b05b7d2d.html"]):not([href="/posts/5e8d613b.html"]):not([href="/posts/39efaf90.html"]):not([href="/project/"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start -->
+      <script data-pjax>
+        if (typeof window.recommend === 'undefined') {
+          window.recommend = {
+            hexo_butterfly_recommend_init: function() {
+              const $recommend = document.querySelector('#recommend');
+              if($recommend) return;
+              document.documentElement.style.setProperty('--recommend-main', '#409eff');
+              document.documentElement.style.setProperty('--recommend-deep', '#0075ffdd');
+              const hexo_butterfly_recommend_elist = 'null'.split(',');
+              var hexo_butterfly_recommend_cpage = location.pathname;
+              const hexo_butterfly_recommend_epage = '/';
+              var hexo_butterfly_recommend_flag = 0;
+        
+              for (var i = 0; i < hexo_butterfly_recommend_elist.length; i++) {
+                if (hexo_butterfly_recommend_cpage.includes(hexo_butterfly_recommend_elist[i])) {
+                  hexo_butterfly_recommend_flag++;
+                }
+              }
+              if ((hexo_butterfly_recommend_epage === 'all') && (hexo_butterfly_recommend_flag === 0)) {
+                window.recommend.hexo_butterfly_recommend_injector_config();
+              } else if (hexo_butterfly_recommend_epage === hexo_butterfly_recommend_cpage) {
+                window.recommend.hexo_butterfly_recommend_injector_config();
+              }
+            },
+            hexo_butterfly_recommend_injector_config: function() {
+              var parent_div_git = document.getElementById('content-inner');
+              var item_html = '<div class="recommend-right" id="recommend"><div id="recommend-content" onmousewheel="recommend.postScroll(this)"><div class="recommend-wrapper" id="recommend-banner"><div id="recommend-banner-wrapper"><div class="recommend-banner-title-wrapper"><div class="recommend-banner-title">Stay hungry</div><div class="recommend-banner-title">Stay foolish</div><div class="recommend-banner-title">www.teslongxiao.cn</div></div><div class="recommend-tags-all"><div class="recommend-tags-wrapper"><div class="recommend-tags-line"><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #f7cb4f"><i class="fa-brands fa-js" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #bd0102"><i class="fa-brands fa-angular" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #df5b40"><i class="fa-brands fa-git-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #f7cb4f"><i class="fa-brands fa-js" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #bd0102"><i class="fa-brands fa-angular" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #df5b40"><i class="fa-brands fa-git-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div></div><div class="recommend-tags-line"><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div></div></div></div><a id="recommend-banner-hover" onclick="recommend.toRandomPost()"><span class="recommend-banner-text">随便逛逛</span><i class="fas fa-arrow-right recommend-banner-righticon"></i></a></div><div id="recommend-category"><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;categories/精选&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #358bff, #15c6ff)"></div><span class="recommend-categoryItem-text">站长精选</span><i class="fa-solid fa-star"></i></a></div><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;categories&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #f65, #ffbf37)"></div><span class="recommend-categoryItem-text">文章分类</span><i class="fa-solid fa-book"></i></a></div><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;project&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #18e7ae, #1eebeb)"></div><span class="recommend-categoryItem-text">个人项目</span><i class="fa-solid fa-code"></i></a></div></div></div><div class="recommend-wrapper" id="recommend-post"><div class="recommend-post-main" id="recommend-post-main"><div class="recommend-post-cover" onclick="recommend.toPost(&quot;about&quot;)" style="background: var(--recommend-main) url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Light_up_Sky.gif) no-repeat center/cover"></div><div class="recommend-post-cover-wrapper"><div class="recommend-post-cover-info" onclick="recommend.toPost(&quot;about&quot;)"><div class="recommend-post-cover-subTitle">缥缃筆記</div><div class="recommend-post-cover-title">芸编偶拾 • 闲敲平仄煮时光</div></div><div class="recommend-post-cover-more" onclick="window.event.cancelBubble=true;recommend.hideCover();"><div class="recommend-post-cover-more-bg"></div><i class="fa-solid fa-circle-plus"></i><span>更多推荐</span></div></div></div><div class="recommend-post-list" onmouseleave="window.event.cancelBubble=true;recommend.showCover();"><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/f8e37cbd.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Oyama_Mahiro.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="生成函数笔记"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/f8e37cbd.html&quot;)" title="生成函数笔记">生成函数笔记</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/75364206.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Yanami_Anna.png" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="牛客小白月赛117题解"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/75364206.html&quot;)" title="牛客小白月赛117题解">牛客小白月赛117题解</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/fec4b5ee.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Konachan.com%20-%20368742%20sample.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="牛客2025秋季算法编程训练联赛5-基础组题解"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/fec4b5ee.html&quot;)" title="牛客2025秋季算法编程训练联赛5-基础组题解">牛客2025秋季算法编程训练联赛5-基础组题解</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/704d10ab.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/2025-03-12%20122109.png" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="火箭轨迹三维模拟（低空）"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/704d10ab.html&quot;)" title="火箭轨迹三维模拟（低空）">火箭轨迹三维模拟（低空）</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/6cc39754.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Tifa1.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="洛谷题解--记3月24日训练"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/6cc39754.html&quot;)" title="洛谷题解--记3月24日训练">洛谷题解--记3月24日训练</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/ee1dab94.html&quot;)"><img src="" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="概率论与数理统计期末复习"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/ee1dab94.html&quot;)" title="概率论与数理统计期末复习">概率论与数理统计期末复习</div></div></div></div></div></div>';
+              parent_div_git.insertAdjacentHTML("afterbegin",item_html);
+            },
+            toRandomPost: function() {
+              var posts_path = "posts/4a52651e.html,posts/f2a626f9.html,posts/73c6c6c9.html,posts/18120.html,posts/56011.html,posts/54962.html,posts/4b32681.html,posts/1baa34af.html,posts/3538e23e.html,posts/45c6e9dc.html,posts/6ecdd18f.html,posts/bb2feb5d.html,posts/16107.html,posts/d629c6d1.html,posts/7c1672ff.html,posts/96145f6d.html,posts/c43560d9.html,posts/e91093f0.html,posts/c72ae656.html,posts/5a9acf5a.html,posts/5e8d613b.html,posts/bfbde536.html,posts/623e9466.html,posts/928debf2.html,posts/49f4a0d6.html,posts/dec5d03c.html,posts/b05b7d2d.html,posts/257e1115.html,posts/39efaf90.html,posts/8f5e0b51.html,posts/b9a16b3b.html,posts/3de51743.html,posts/ee1dab94.html,posts/6cc39754.html,posts/704d10ab.html,posts/fec4b5ee.html,posts/75364206.html,posts/f8e37cbd.html".split(',');
+              var randomPost = posts_path[Math.floor(Math.random() * posts_path.length)];
+              window.recommend.toPost(randomPost);
+            },
+            toPost: function(href) {
+              if (typeof pjax !== 'undefined') pjax.loadUrl('/' + href);
+              else window.location.href = window.location.origin + (href.charAt(0) === '/' ? '' : '/') + href;
+            },
+            hideCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              $main.className = 'recommend-post-main recommend-hide';
+            },
+            showCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              if ($main) $main.className = 'recommend-post-main';
+            },
+            postScroll: function(dom) {
+              const e = window.event || arguments.callee.caller.arguments[0];
+              if (document.body.clientWidth <= 1200) {
+                let o = -e.wheelDelta / 2;
+                dom.scrollLeft += o;
+                e.preventDefault();
+              }
+            }
+          }
+          console.log(
+            "%c plugin ⭐ hexo_butterfly_recommend ⭐ https://github.com/weizwz/hexo-butterfly-recommend ",
+            "color: #fff; padding:3px; font-size:12px; background: linear-gradient(90deg, #358bff, #1eebeb);"
+          )
+        }
+        window.recommend.hexo_butterfly_recommend_init();
+      </script><!-- hexo injector body_end end --></body></html>

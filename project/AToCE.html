@@ -1,0 +1,678 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>配平化学方程式 | 浮生若梦</title><meta name="author" content="Meta Xiao"><meta name="copyright" content="Meta Xiao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="本项目是我去年10月份国庆放假无聊写的，那时正好学习了线性代数，被这强大的数学工具深深吸引，于是想用做个项目练练手。 一时间，想到初高中时头疼的化学方程式配平，那是就想着能不能在化学式前设置系数，然后用不定方程组解出其中一个非零解，再约分，不久可以解出来了嘛，还要学这些奇怪的配平方式干嘛。 本项目是10月份的作品复刻，用与练习HTML、Js和CSS。         化学方程式配平工具">
+<meta property="og:type" content="website">
+<meta property="og:title" content="配平化学方程式">
+<meta property="og:url" content="https://www.teslongxiao.cn/project/AToCE.html">
+<meta property="og:site_name" content="浮生若梦">
+<meta property="og:description" content="本项目是我去年10月份国庆放假无聊写的，那时正好学习了线性代数，被这强大的数学工具深深吸引，于是想用做个项目练练手。 一时间，想到初高中时头疼的化学方程式配平，那是就想着能不能在化学式前设置系数，然后用不定方程组解出其中一个非零解，再约分，不久可以解出来了嘛，还要学这些奇怪的配平方式干嘛。 本项目是10月份的作品复刻，用与练习HTML、Js和CSS。         化学方程式配平工具">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/1737896078867.gif">
+<meta property="article:published_time" content="2026-01-18T17:08:36.739Z">
+<meta property="article:modified_time" content="2026-01-18T17:08:36.739Z">
+<meta property="article:author" content="Meta Xiao">
+<meta property="article:tag" content="study,life,share,techolgy,electronic,programming">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/1737896078867.gif"><link rel="shortcut icon" href="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/image.png"><link rel="canonical" href="https://www.teslongxiao.cn/project/AToCE.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="Qi_9CrV7lldy8VD7RIVN3Nb62FP7EmhAITFqplx0mzo"/><meta name="baidu-site-verification" content="codeva-nF4CVmePFG"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f6e1da')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":500,"languages":{"author":"作者: Meta Xiao","link":"链接: ","source":"来源: 浮生若梦","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '配平化学方程式',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+
+<link rel="stylesheet" href="/css/recommend.css?v=1.1.2.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/css/flash.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-image: url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/subway_girl.gif);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/1737896078867.gif" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">38</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-tools"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-user"></i><span> 我的</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/talks/"><i class="fa-fw fas fa-coffee"></i><span> 动态</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/bar-logo.png" alt="Logo"><span class="site-name">浮生若梦</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-tools"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-user"></i><span> 我的</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/talks/"><i class="fa-fw fas fa-coffee"></i><span> 动态</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><h1 class="title-seo">配平化学方程式</h1></header><main class="layout hide-aside" id="content-inner"><div id="page"><div class="page-title">配平化学方程式</div><div class="container" id="article-container"><div class="note info no-icon flat"><p>本项目是我去年10月份国庆放假无聊写的，那时正好学习了线性代数，被这强大的数学工具深深吸引，于是想用做个项目练练手。</p>
+<p>一时间，想到初高中时头疼的化学方程式配平，那是就想着能不能在化学式前设置系数，然后用不定方程组解出其中一个非零解，再约分，不久可以解出来了嘛，还要学这些奇怪的配平方式干嘛。</p>
+<p>本项目是10月份的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/META-Xiao/ATOCE">作品</a>复刻，用与练习<code>HTML</code>、<code>Js</code>和<code>CSS</code>。</p>
+</div>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>化学方程式配平工具</title>
+  <!-- 引入 math.js CDN 用于线性代数计算 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+  <style>
+  .atoce-body {
+    background: transparent !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  .atoce-container {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px) saturate(180%);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 680px;
+    transform: translateY(0);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-theme="dark"] .atoce-container {
+    background: rgba(24, 24, 30, 0.7);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+  .atoce-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 122, 204, 0.1);
+  }
+  .atoce-h1 {
+    color: var(--text-color);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    position: relative;
+    text-align: center;
+    background: linear-gradient(135deg, #007acc 0%, #00c7d9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .atoce-textarea {
+    width: 100%;
+    padding: 1.2rem;
+    border: 2px solid rgba(0, 122, 204, 0.1);
+    border-radius: 10px;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition: all 0.3s ease;
+    background: rgba(245, 248, 250, 0.8);
+    backdrop-filter: blur(4px);
+  }
+  .atoce-textarea:focus {
+    border-color: #007acc;
+    box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.2);
+    background: rgba(255, 255, 255, 0.95);
+  }
+  .atoce-button {
+    background: linear-gradient(135deg, #007acc 0%, #005fa3 100%);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    margin-top: 1.5rem;
+  }
+  .atoce-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: all 0.6s ease;
+  }
+  .atoce-button:hover::after {
+    left: 100%;
+  }
+  .atoce-button:active {
+    transform: scale(0.98);
+  }
+  /* 化学式特殊样式 */
+  .chemical-formula {
+    font-family: 'Fira Code', monospace;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    padding: 1rem;
+    background: rgba(0, 122, 204, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid #007acc;
+  }
+  [data-theme="dark"] .chemical-formula {
+    color: #e0e0e0;
+    background: rgba(0, 122, 204, 0.15);
+  }
+  /* 加载动画 */
+  @keyframes loading-wave {
+    0% { transform: scaleY(0.2) }
+    50% { transform: scaleY(1) }
+    100% { transform: scaleY(0.2) }
+  }
+  .loading-wave {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    height: 40px;
+  }
+  .loading-wave div {
+    width: 6px;
+    height: 100%;
+    background: #007acc;
+    animation: loading-wave 1.2s infinite ease-in-out;
+    border-radius: 2px;
+  }
+  .loading-wave div:nth-child(2) { animation-delay: -0.24s }
+  .loading-wave div:nth-child(3) { animation-delay: -0.12s }
+  </style>
+  <div class="atoce-container">
+    <h1 class="atoce-h1">⚗️ 化学方程式配平工具</h1>
+    <div class="atoce-input-group">
+      <textarea 
+        class="atoce-textarea"
+        id="equationInput"
+        rows="3"
+        placeholder="请输入化学方程式，例如：
+  H2O + H2SO4 + [Cu(NH3)4]SO4 → (NH4)2SO4 + [Cu(H2O)4]SO4
+  离子方程式示例：Fe + H{1+} → H2 + Fe{2+}"
+      ></textarea>
+    </div>
+    <button class="atoce-button" id="balanceBtn">
+      <span class="button-text">⚖️ 立即配平</span>
+    </button>
+    <div id="output">
+      <!-- 结果示例 -->
+      <div class="result-card">
+        <div class="chemical-formula">
+          4 H₂O + 2 H₂SO₄ + [Cu(NH₃)₄]SO₄ → 2 (NH₄)₂SO₄ + [Cu(H₂O)₄]SO₄
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // 解析化学式，返回元素及其数量的字典（对象）
+    function parseCompound(compound) {
+      let counts = { 'e': 0 };
+      let i = 0;
+      while (i < compound.length) {
+        let substr = compound.substring(i);
+        // 匹配括号表达式，如：(NH3)4
+        let parenRegex = /^\(([^()]*)\)(\d*)/;
+        let match = substr.match(parenRegex);
+        if (match) {
+          let group = match[1];
+          let number = match[2] ? parseInt(match[2]) : 1;
+          let subCounts = parseCompound(group);
+          for (let element in subCounts) {
+            counts[element] = (counts[element] || 0) + subCounts[element] * number;
+          }
+          i += match[0].length;
+          continue;
+        }
+        // 匹配元素表达式，如：H2, Fe, Cu 或带电荷标记的离子 Fe{2+}
+        let elementRegex = /^([A-Z][a-z]?)(\{\d+[+-]?\})?(\d*)/;
+        match = substr.match(elementRegex);
+        if (match) {
+          let element = match[1];
+          let charge = match[2];  // 包含大括号，如 {1+} 或 {2-}
+          let numStr = match[3];
+          let number = numStr ? parseInt(numStr) : 1;
+          if (charge) {
+            // 提取电荷数：去掉{和+或-符号}
+            let sign = charge.includes('-') ? -1 : 1;
+            // 去除大括号和符号，注意 charge 形如 {1+} 或 {2-}
+            let ionCharge = parseInt(charge.slice(1, charge.length - 2));
+            // 更新电子数（正电荷减少电子，负电荷增加电子）
+            counts['e'] += (sign === -1 ? ionCharge : -ionCharge) * number;
+          }
+          counts[element] = (counts[element] || 0) + number;
+          i += match[0].length;
+          continue;
+        }
+        // 如果无法匹配则跳过一个字符
+        i++;
+      }
+      return counts;
+    }
+    // 计算一组数字的最小公倍数
+    function findLCM(numbers) {
+      function lcm(a, b) {
+        return Math.abs(a * b) / math.gcd(a, b);
+      }
+      let result = numbers[0];
+      for (let i = 1; i < numbers.length; i++) {
+        result = lcm(result, numbers[i]);
+      }
+      return result;
+    }
+    // 将系数插入到化学方程式中
+    function insertCoefficients(reactants, products, coefficients) {
+      let newReactants = reactants.map((r, idx) => coefficients[idx] !== 1 ? coefficients[idx] + " " + r.trim() : r.trim());
+      let newProducts = products.map((p, idx) => coefficients[reactants.length + idx] !== 1 ? coefficients[reactants.length + idx] + " " + p.trim() : p.trim());
+      return newReactants.join(" + ") + " = " + newProducts.join(" + ");
+    }
+    // 检查化学方程式格式
+    function checkEquationFormat(equation) {
+      if (!equation.includes("=")) {
+        return { valid: false, error: "╰（‵□′）╯方程式没有等号（=），请检查输入。" };
+      }
+      if (!equation.includes("+")) {
+        return { valid: false, error: "╰（‵□′）╯方程式没有加号（+），请检查输入。" };
+      }
+      return { valid: true };
+    }
+    // 解析化学方程式，返回反应物、生成物、各自的元素计数以及所有出现的元素
+    function analyzeChemicalEquation(equation) {
+      let formatCheck = checkEquationFormat(equation);
+      if (!formatCheck.valid) return { error: formatCheck.error };
+      let sides = equation.split("=");
+      let reactants = sides[0].split("+").map(s => s.trim());
+      let products = sides[1].split("+").map(s => s.trim());
+      let reactantCounts = reactants.map(r => parseCompound(r));
+      let productCounts = products.map(p => parseCompound(p));
+      let allElements = new Set();
+      reactantCounts.forEach(counts => {
+        Object.keys(counts).forEach(e => allElements.add(e));
+      });
+      productCounts.forEach(counts => {
+        Object.keys(counts).forEach(e => allElements.add(e));
+      });
+      return { reactants, products, reactantCounts, productCounts, allElements: Array.from(allElements) };
+    }
+    // 配平化学方程式
+    function balanceChemicalEquation(equation) {
+      let analysis = analyzeChemicalEquation(equation);
+      if (analysis.error) return { error: analysis.error };
+      let { reactants, products, reactantCounts, productCounts, allElements } = analysis;
+      // 可选：检查两侧元素守恒（此处略过针对电子的细致判断）
+      // 构建系数矩阵 A，每行代表一个元素，前面 reactants 列，后面 products 列取负值
+      let A = [];
+      allElements.forEach(element => {
+        let row = [];
+        reactantCounts.forEach(counts => {
+          row.push(counts[element] || 0);
+        });
+        productCounts.forEach(counts => {
+          row.push(- (counts[element] || 0));
+        });
+        // 仅保留非零行
+        if (row.some(x => x !== 0)) {
+          A.push(row);
+        }
+      });
+      // 若矩阵为空，说明方程式不合法
+      if (A.length === 0) return { error: "无法解析方程式中的元素。" };
+      // 将 A 转换为 math.js 的矩阵
+      let A_mat = math.matrix(A);
+      let numCols = A[0].length;
+      // 选择一个固定变量（选取非零最多的列）
+      let nonZeroCounts = [];
+      for (let j = 0; j < numCols; j++) {
+        let count = 0;
+        for (let i = 0; i < A.length; i++) {
+          if (A[i][j] !== 0) count++;
+        }
+        nonZeroCounts.push(count);
+      }
+      let fixedPoint = nonZeroCounts.indexOf(Math.max(...nonZeroCounts));
+      // 构造 A_new（去掉固定列）和 B_new = -A[:, fixedPoint]
+      let A_new = [];
+      let B_new = [];
+      for (let i = 0; i < A.length; i++) {
+        let row = [];
+        for (let j = 0; j < numCols; j++) {
+          if (j !== fixedPoint) row.push(A[i][j]);
+        }
+        A_new.push(row);
+        B_new.push(-A[i][fixedPoint]);
+      }
+      // 尝试求解线性方程组 A_new * x = B_new
+      let solution;
+      try {
+        // 若方阵则直接求逆
+        if (A_new.length === A_new[0].length) {
+          let A_new_inv = math.inv(A_new);
+          solution = math.multiply(A_new_inv, B_new);
+          solution = solution.valueOf();
+        } else {
+          // 使用最小二乘法求解（伪逆）
+          let A_new_T = math.transpose(A_new);
+          let pseudoInv = math.multiply(
+            math.inv(math.multiply(A_new_T, A_new)),
+            A_new_T
+          );
+          solution = math.multiply(pseudoInv, B_new);
+          solution = solution.valueOf();
+        }
+      } catch (err) {
+        return { error: "无法配平方程式。可能是因为提供的方程式格式不正确或者方程式本身无法配平。" };
+      }
+      // 插入固定变量（系数定为1）
+      let fullSolution = [];
+      let solIndex = 0;
+      for (let j = 0; j < numCols; j++) {
+        if (j === fixedPoint) {
+          fullSolution.push(1);
+        } else {
+          fullSolution.push(Math.abs(solution[solIndex]));
+          solIndex++;
+        }
+      }
+      // 转换为分数形式，并求最小公倍数使其整数化
+      let fractions = fullSolution.map(x => math.fraction(x));
+      let denominators = fractions.map(frac => frac.d);
+      let lcmVal = findLCM(denominators);
+      let coefficients = fractions.map(frac => math.number(math.multiply(frac, lcmVal)));
+      // 四舍五入取整
+      coefficients = coefficients.map(c => Math.round(c));
+      let balancedEq = insertCoefficients(reactants, products, coefficients);
+      return { coefficients, balancedEq };
+    }
+    // 绑定交互事件
+    document.getElementById("balanceBtn").addEventListener("click", function() {
+      let equation = document.getElementById("equationInput").value.trim();
+      let outputDiv = document.getElementById("output");
+      outputDiv.innerHTML = "";
+      if (!equation) {
+        outputDiv.innerHTML = `<div class="error">请输入化学方程式。</div>`;
+        return;
+      }
+      let result = balanceChemicalEquation(equation);
+      if (result.error) {
+        outputDiv.innerHTML = `<div class="error">${result.error}</div>`;
+      } else {
+        outputDiv.innerHTML = `<div class="result">配平结果：<br>${result.balancedEq}</div>`;
+      }
+    });
+  </script>
+<!-- hexo injector body_end start -->
+      <script data-pjax>
+        if (typeof window.recommend === 'undefined') {
+          window.recommend = {
+            hexo_butterfly_recommend_init: function() {
+              const $recommend = document.querySelector('#recommend');
+              if($recommend) return;
+              document.documentElement.style.setProperty('--recommend-main', '#409eff');
+              document.documentElement.style.setProperty('--recommend-deep', '#0075ffdd');
+              const hexo_butterfly_recommend_elist = 'null'.split(',');
+              var hexo_butterfly_recommend_cpage = location.pathname;
+              const hexo_butterfly_recommend_epage = '/';
+              var hexo_butterfly_recommend_flag = 0;
+        
+              for (var i = 0; i < hexo_butterfly_recommend_elist.length; i++) {
+                if (hexo_butterfly_recommend_cpage.includes(hexo_butterfly_recommend_elist[i])) {
+                  hexo_butterfly_recommend_flag++;
+                }
+              }
+              if ((hexo_butterfly_recommend_epage === 'all') && (hexo_butterfly_recommend_flag === 0)) {
+                window.recommend.hexo_butterfly_recommend_injector_config();
+              } else if (hexo_butterfly_recommend_epage === hexo_butterfly_recommend_cpage) {
+                window.recommend.hexo_butterfly_recommend_injector_config();
+              }
+            },
+            hexo_butterfly_recommend_injector_config: function() {
+              var parent_div_git = document.getElementById('content-inner');
+              var item_html = '<div class="recommend-right" id="recommend"><div id="recommend-content" onmousewheel="recommend.postScroll(this)"><div class="recommend-wrapper" id="recommend-banner"><div id="recommend-banner-wrapper"><div class="recommend-banner-title-wrapper"><div class="recommend-banner-title">Stay hungry</div><div class="recommend-banner-title">Stay foolish</div><div class="recommend-banner-title">www.teslongxiao.cn</div></div><div class="recommend-tags-all"><div class="recommend-tags-wrapper"><div class="recommend-tags-line"><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #f7cb4f"><i class="fa-brands fa-js" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #bd0102"><i class="fa-brands fa-angular" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #df5b40"><i class="fa-brands fa-git-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #f7cb4f"><i class="fa-brands fa-js" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #bd0102"><i class="fa-brands fa-angular" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #df5b40"><i class="fa-brands fa-git-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div></div><div class="recommend-tags-line"><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div></div></div></div><a id="recommend-banner-hover" onclick="recommend.toRandomPost()"><span class="recommend-banner-text">随便逛逛</span><i class="fas fa-arrow-right recommend-banner-righticon"></i></a></div><div id="recommend-category"><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;categories/精选&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #358bff, #15c6ff)"></div><span class="recommend-categoryItem-text">站长精选</span><i class="fa-solid fa-star"></i></a></div><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;categories&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #f65, #ffbf37)"></div><span class="recommend-categoryItem-text">文章分类</span><i class="fa-solid fa-book"></i></a></div><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;project&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #18e7ae, #1eebeb)"></div><span class="recommend-categoryItem-text">个人项目</span><i class="fa-solid fa-code"></i></a></div></div></div><div class="recommend-wrapper" id="recommend-post"><div class="recommend-post-main" id="recommend-post-main"><div class="recommend-post-cover" onclick="recommend.toPost(&quot;about&quot;)" style="background: var(--recommend-main) url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Light_up_Sky.gif) no-repeat center/cover"></div><div class="recommend-post-cover-wrapper"><div class="recommend-post-cover-info" onclick="recommend.toPost(&quot;about&quot;)"><div class="recommend-post-cover-subTitle">缥缃筆記</div><div class="recommend-post-cover-title">芸编偶拾 • 闲敲平仄煮时光</div></div><div class="recommend-post-cover-more" onclick="window.event.cancelBubble=true;recommend.hideCover();"><div class="recommend-post-cover-more-bg"></div><i class="fa-solid fa-circle-plus"></i><span>更多推荐</span></div></div></div><div class="recommend-post-list" onmouseleave="window.event.cancelBubble=true;recommend.showCover();"><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/f8e37cbd.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Oyama_Mahiro.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="生成函数笔记"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/f8e37cbd.html&quot;)" title="生成函数笔记">生成函数笔记</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/75364206.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Yanami_Anna.png" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="牛客小白月赛117题解"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/75364206.html&quot;)" title="牛客小白月赛117题解">牛客小白月赛117题解</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/fec4b5ee.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Konachan.com%20-%20368742%20sample.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="牛客2025秋季算法编程训练联赛5-基础组题解"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/fec4b5ee.html&quot;)" title="牛客2025秋季算法编程训练联赛5-基础组题解">牛客2025秋季算法编程训练联赛5-基础组题解</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/704d10ab.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/2025-03-12%20122109.png" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="火箭轨迹三维模拟（低空）"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/704d10ab.html&quot;)" title="火箭轨迹三维模拟（低空）">火箭轨迹三维模拟（低空）</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/6cc39754.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Tifa1.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="洛谷题解--记3月24日训练"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/6cc39754.html&quot;)" title="洛谷题解--记3月24日训练">洛谷题解--记3月24日训练</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/ee1dab94.html&quot;)"><img src="" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="概率论与数理统计期末复习"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/ee1dab94.html&quot;)" title="概率论与数理统计期末复习">概率论与数理统计期末复习</div></div></div></div></div></div>';
+              parent_div_git.insertAdjacentHTML("afterbegin",item_html);
+            },
+            toRandomPost: function() {
+              var posts_path = "posts/4a52651e.html,posts/f2a626f9.html,posts/73c6c6c9.html,posts/18120.html,posts/56011.html,posts/54962.html,posts/4b32681.html,posts/1baa34af.html,posts/3538e23e.html,posts/45c6e9dc.html,posts/6ecdd18f.html,posts/bb2feb5d.html,posts/16107.html,posts/d629c6d1.html,posts/7c1672ff.html,posts/96145f6d.html,posts/c43560d9.html,posts/e91093f0.html,posts/c72ae656.html,posts/5a9acf5a.html,posts/5e8d613b.html,posts/bfbde536.html,posts/623e9466.html,posts/928debf2.html,posts/49f4a0d6.html,posts/dec5d03c.html,posts/b05b7d2d.html,posts/257e1115.html,posts/39efaf90.html,posts/8f5e0b51.html,posts/b9a16b3b.html,posts/3de51743.html,posts/ee1dab94.html,posts/6cc39754.html,posts/704d10ab.html,posts/fec4b5ee.html,posts/75364206.html,posts/f8e37cbd.html".split(',');
+              var randomPost = posts_path[Math.floor(Math.random() * posts_path.length)];
+              window.recommend.toPost(randomPost);
+            },
+            toPost: function(href) {
+              if (typeof pjax !== 'undefined') pjax.loadUrl('/' + href);
+              else window.location.href = window.location.origin + (href.charAt(0) === '/' ? '' : '/') + href;
+            },
+            hideCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              $main.className = 'recommend-post-main recommend-hide';
+            },
+            showCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              if ($main) $main.className = 'recommend-post-main';
+            },
+            postScroll: function(dom) {
+              const e = window.event || arguments.callee.caller.arguments[0];
+              if (document.body.clientWidth <= 1200) {
+                let o = -e.wheelDelta / 2;
+                dom.scrollLeft += o;
+                e.preventDefault();
+              }
+            }
+          }
+          console.log(
+            "%c plugin ⭐ hexo_butterfly_recommend ⭐ https://github.com/weizwz/hexo-butterfly-recommend ",
+            "color: #fff; padding:3px; font-size:12px; background: linear-gradient(90deg, #358bff, #1eebeb);"
+          )
+        }
+        window.recommend.hexo_butterfly_recommend_init();
+      </script><!-- hexo injector body_end end --></body>
+</html>
+</div></div></main><footer id="footer" style="background: transparent"><footer id="footer" style="background: transparent"><div id="footer_icons"><div><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://www.teslongxiao.cn/about" title="关于我"><i class="fa-solid fa-compass"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://res.abeim.cn/api/qq/?qq=2040426884" title="联系QQ"><i class="fa-brands fa-qq"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="mailto:2040426884@qq.com" title="发送邮件"><i class="fa-solid fa-envelope"></i></a></div><img class="footer_logo" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/aoao.gif" onclick="btf.scrollToDest(0,500)" title="返回顶部"/><div><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://github.com/META-Xiao" title="Github主页"><i class="fa-brands fa-github"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://space.bilibili.com/332124713" title="哔哩哔哩主页"><i class="fa-brands fa-bilibili"></i></a><a class="icon_link" href="/message/" title="留言"><i class="fa-solid fa-comment"></i></a></div><div id="footer_content"><div class="footer-group"><h3 class="footer-title"></h3><div class="footer-links"><a class="footer-item" href="undefined"></a></div></div></div></div><div id="footer-bottom"><div class="footer-bottom-content"><div class="footer-bottom-left"><span class="copyright">&copy;2024 - 2026 By <a target="_blank" rel="noopener" href="https://www.teslongxiao.cn" title="点击访问&quot;Meta&quot;的主页" style="margin-left:5px">Meta</a></span><div><a class="footer-bottom-link" target="_blank" href="https://icp.gov.moe/?keyword=20250061" rel="noopener external nofollow" title="萌ICP备20250061号">萌ICP备20250061号</a><a class="footer-bottom-link" target="_blank" href="https://v6.51.la/report/overview?comId=510796" rel="noopener external nofollow" title="51LA">统计信息</a></div></div><div class="footer-bottom-right"><div id="runtime" title="已运行时长">本站已运行：0 天 0 时 0 分 0 秒</div><div><a class="footer-bottom-link" target="_blank" href="https://hexo.io/zh-cn/" rel="noopener external nofollow" title="框架">Hexo</a><a class="footer-bottom-link" target="_blank" href="https://butterfly.js.org/" rel="noopener external nofollow" title="主题">Butterfly</a></div><script type="js" src="/js/footer.js"> </script></div></div></div></footer></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到底部"><span class="scroll-percent"></span><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"3L3LMrlEa92UPmXV",ck:"3L3LMrlEa92UPmXV"})</script><script defer src="/js/footer.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["link[rel=\"canonical\"]","meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/posts/257e1115.html"]):not([href="/posts/928debf2.html"]):not([href="/posts/49f4a0d6.html"]):not([href="/posts/dec5d03c.html"]):not([href="/posts/b05b7d2d.html"]):not([href="/posts/5e8d613b.html"]):not([href="/posts/39efaf90.html"]):not([href="/project/"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

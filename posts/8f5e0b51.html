@@ -1,0 +1,799 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>旋转、旋转矩阵、四元数的推导和证明 | 浮生若梦</title><meta name="author" content="Meta Xiao"><meta name="copyright" content="Meta Xiao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="旋转的表达从二维开始从高中学圆锥曲线时，老师提过爱心曲线的表达为：  x^{2}-\left|x\right|y+y^{2}&#x3D;1即两个分别旋转了45°和-45°的椭圆 $x^2+3y^2&#x3D;1$ 的叠加。 那时我们就知道，在坐标系上的一个点，绕原点逆时针旋转 $\theta$ 角后，坐标变换为：  \begin{aligned} \left\{\begin{matrix} x&#39;&#x3D;x\cos\thet">
+<meta property="og:type" content="article">
+<meta property="og:title" content="旋转、旋转矩阵、四元数的推导和证明">
+<meta property="og:url" content="https://www.teslongxiao.cn/posts/8f5e0b51.html">
+<meta property="og:site_name" content="浮生若梦">
+<meta property="og:description" content="旋转的表达从二维开始从高中学圆锥曲线时，老师提过爱心曲线的表达为：  x^{2}-\left|x\right|y+y^{2}&#x3D;1即两个分别旋转了45°和-45°的椭圆 $x^2+3y^2&#x3D;1$ 的叠加。 那时我们就知道，在坐标系上的一个点，绕原点逆时针旋转 $\theta$ 角后，坐标变换为：  \begin{aligned} \left\{\begin{matrix} x&#39;&#x3D;x\cos\thet">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Euler2a.gif">
+<meta property="article:published_time" content="2025-07-10T07:54:24.000Z">
+<meta property="article:modified_time" content="2026-01-18T17:08:36.725Z">
+<meta property="article:author" content="Meta Xiao">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="物理">
+<meta property="article:tag" content="群论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Euler2a.gif"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "旋转、旋转矩阵、四元数的推导和证明",
+  "url": "https://www.teslongxiao.cn/posts/8f5e0b51.html",
+  "image": "https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Euler2a.gif",
+  "datePublished": "2025-07-10T07:54:24.000Z",
+  "dateModified": "2026-01-18T17:08:36.725Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Meta Xiao",
+      "url": "https://www.teslongxiao.cn/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/image.png"><link rel="canonical" href="https://www.teslongxiao.cn/posts/8f5e0b51.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="Qi_9CrV7lldy8VD7RIVN3Nb62FP7EmhAITFqplx0mzo"/><meta name="baidu-site-verification" content="codeva-nF4CVmePFG"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f6e1da')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":500,"languages":{"author":"作者: Meta Xiao","link":"链接: ","source":"来源: 浮生若梦","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '旋转、旋转矩阵、四元数的推导和证明',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+
+<link rel="stylesheet" href="/css/recommend.css?v=1.1.2.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/css/flash.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-image: url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/subway_girl.gif);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/1737896078867.gif" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">38</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-tools"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-user"></i><span> 我的</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/talks/"><i class="fa-fw fas fa-coffee"></i><span> 动态</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Euler2a.gif);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/bar-logo.png" alt="Logo"><span class="site-name">浮生若梦</span></a><a class="nav-page-title" href="/"><span class="site-name">旋转、旋转矩阵、四元数的推导和证明</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-tools"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-user"></i><span> 我的</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/talks/"><i class="fa-fw fas fa-coffee"></i><span> 动态</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">旋转、旋转矩阵、四元数的推导和证明</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-10T07:54:24.000Z" title="发表于 2025-07-10 15:54:24">2025-07-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-18T17:08:36.725Z" title="更新于 2026-01-19 01:08:36">2026-01-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%A6/">数学</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">5.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>28分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img gist" style="background-image: url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Euler2a.gif)"></div><article class="container post-content" id="article-container"><h1 id="旋转的表达"><a href="#旋转的表达" class="headerlink" title="旋转的表达"></a>旋转的表达</h1><h2 id="从二维开始"><a href="#从二维开始" class="headerlink" title="从二维开始"></a>从二维开始</h2><p>从高中学圆锥曲线时，老师提过爱心曲线的表达为：</p>
+<script type="math/tex; mode=display">
+x^{2}-\left|x\right|y+y^{2}=1</script><p>即两个分别旋转了45°和-45°的椭圆 $x^2+3y^2=1$ 的叠加。</p>
+<p>那时我们就知道，在坐标系上的一个点，绕原点逆时针旋转 $\theta$ 角后，坐标变换为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\left\{\begin{matrix}
+x'=x\cos\theta-y\sin\theta\\
+y'=x\sin\theta+y\cos\theta
+\end{matrix}\right.
+\end{aligned}</script><div class="note primary no-icon flat"><p>在学习了线性代数后，我们知道，这个变换可以表示为矩阵乘法：</p>
+<script type="math/tex; mode=display">
+\begin{pmatrix}
+x'\\
+y'
+\end{pmatrix}=\begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix}\begin{pmatrix}
+x\\
+y
+\end{pmatrix}</script></div>
+<p>类似地，在之后学习到复数后，我们知道，复数的乘法可以表示为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+z_1z_2&=r_1r_2(\cos(\theta_1+\theta_2)+i\sin(\theta_1+\theta_2))\\
+&=r_1r_2e^{i(\theta_1+\theta_2)}
+\end{aligned}</script><p>那么，我们可以将旋转看作是复数的乘法，比如对于某个复数z，其旋转 $\theta$ 角后，可以表示为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+z'&=e^{i\theta}z\\
+&=(\cos \theta + i \sin \theta)(x+iy)\\
+&=(x\cos \theta - y \sin \theta) + i(x\sin \theta + y \cos \theta)
+\end{aligned}</script><p>当然，有了复平面的表达方式，我们可以推导出在二维平面上向量 $\mathbf v$ ，绕点 $\mathbf k=(x_k,y_k)$ 旋转 $\theta$ 角后的向量：</p>
+<ul>
+<li>先把 $\mathbf v$ 平移到原点，然后绕原点旋转 $\theta$ 角，最后再平移回 $\mathbf k$ 即可得到：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf v'&=\mathbf k+e^{i\theta}(\mathbf v-\mathbf k)\\
+&=x_k+iy_k+(\cos \theta + i \sin \theta)(x_v-x_k+ix_v-iy_k)\\
+&=(x_v-x_k)\cos \theta - (y_v-y_k)\sin \theta + x_k+ i[(x_v-x_k)\sin \theta + (y_v-y_k)\cos \theta + y_k]\\
+\end{aligned}</script><h2 id="到三维"><a href="#到三维" class="headerlink" title="到三维"></a>到三维</h2><h3 id="各个坐标轴的旋转矩阵（欧拉角）"><a href="#各个坐标轴的旋转矩阵（欧拉角）" class="headerlink" title="各个坐标轴的旋转矩阵（欧拉角）"></a>各个坐标轴的旋转矩阵（欧拉角）</h3><p>我们先考虑只绕一个旋转轴旋转的情况，我们先求绕 $z$ 轴旋转：</p>
+<p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Screenshot%202025-07-10%20164136.png" alt="绕z轴旋转"></p>
+<p>如图所示，对于向量 $\vec{a}=(x,y,z)$，绕 $z$ 轴旋转 $\theta$ 角后，z轴的坐标不变，那么不妨做向量在xOy平面的投影，如下图：</p>
+<p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Screenshot%202025-07-10%20164503.png" alt="绕z轴旋转在xOy平面的投影"></p>
+<p>不难看出，实际上即是在二维平面xOy上，将向量 $\vec{a}$ 绕原点旋转 $\theta$ 角，即其旋转矩阵T为：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+ \cos\theta  & -\sin\theta \\
+ \sin\theta  & \cos \theta
+\end{bmatrix}</script><p>那么，对于三维空间中的向量 $\vec{a}$，其旋转矩阵R为：</p>
+<script type="math/tex; mode=display">
+R_z(\theta_z)=
+\begin{bmatrix}
+ \cos \theta_z  & -\sin \theta_z  & 0 \\
+ \sin \theta_z  & \cos \theta_z  & 0 \\
+ 0 & 0 & 1
+\end{bmatrix}</script><p>相似地，对于绕 $y$ 和 $x$ 轴旋转，其旋转矩阵T为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+R_y(\theta_y)&=
+\begin{bmatrix}
+\cos \theta_y  & 0 & \sin \theta_y \\
+0 & 1 & 0 \\
+-\sin \theta_y & 0 & \cos \theta_y
+\end{bmatrix}\\
+R_x(\theta_x)&=
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & \cos \theta_x  & -\sin \theta_x \\
+0 & \sin \theta_x  & \cos \theta_x
+\end{bmatrix}
+\end{aligned}</script><p>以上角都按照<strong>右手螺旋法则</strong>的旋转方向取正。</p>
+<p>如果分别用 $\alpha \ , \ \beta \  , \ \gamma $ 取代 $\theta_x \ , \ \theta_y \ , \ \theta_z$ 即为欧拉角，按照右手螺旋定则有下图：</p>
+<p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Screenshot%202025-07-10%20212022.png" alt="alt text"></p>
+<p>那么按照 $R_z(\gamma)R_y(\beta)R_x(\alpha)$ 的xyz顺序旋转，即得到欧拉角旋转矩阵：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf R(\alpha,\beta,\gamma)&=
+\mathbf R_z(\gamma) \mathbf R_y(\beta) \mathbf R_x(\alpha)\\
+&=
+\begin{bmatrix}
+\cos \gamma & -\sin \gamma  & 0 \\
+\sin \gamma  & \cos \gamma  & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+\cos \beta  & 0 & \sin \beta \\
+0 & 1 & 0 \\
+-\sin \beta  & 0 & \cos \beta
+\end{bmatrix}
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & \cos \alpha  & -\sin \alpha \\
+0 & \sin \alpha  & \cos \alpha
+\end{bmatrix}\\
+&=
+\begin{bmatrix}
+\cos \beta \cos \gamma & -\sin \gamma & \cos \gamma \sin \beta \\
+\sin \gamma \cos \beta & \cos \gamma & \sin \gamma \sin \beta \\
+-\sin \beta & 0 & \cos \beta
+\end{bmatrix}
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & \cos \alpha  & -\sin \alpha \\
+0 & \sin \alpha  & \cos \alpha
+\end{bmatrix}\\
+&=
+\begin{bmatrix}
+\cos \gamma \cos \beta & -\sin \gamma \cos \alpha + \cos \gamma \sin \beta \sin \alpha & \sin \gamma \sin \alpha + \cos \gamma \sin \beta \cos \alpha \\
+\sin \gamma \cos \beta & \cos \gamma \cos \alpha + \sin \gamma \sin \beta \sin \alpha & -\cos \gamma \sin \alpha + \sin \gamma \sin \beta \cos \alpha \\
+-\sin \beta & \cos \beta \sin \alpha & \cos \beta \cos \alpha
+\end{bmatrix}
+\end{aligned}</script><p>该旋转是按照zyx顺序旋转的，即先绕x轴旋转 $\alpha$ 角，再绕y轴旋转 $\beta$ 角，最后绕z轴旋转 $\gamma$ 角。</p>
+<p>还可以按照zxz’的顺序旋转，即先绕z轴旋转 $\gamma$ 角，再绕x轴旋转 $\alpha$ 角，最后绕z轴旋转 $\gamma’$ 角，那么旋转矩阵为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf R(\alpha,\beta,\gamma')&=
+\mathbf R_z(\gamma') \mathbf R_x(\alpha) \mathbf R_z(\gamma)\\
+&=
+\begin{bmatrix}
+\cos \gamma & -\sin \gamma  & 0 \\
+\sin \gamma  & \cos \gamma  & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & \cos \alpha  & -\sin \alpha \\
+0 & \sin \alpha  & \cos \alpha
+\end{bmatrix}
+\begin{bmatrix}
+\cos \gamma' & -\sin \gamma'  & 0 \\
+\sin \gamma'  & \cos \gamma'  & 0 \\
+0 & 0 & 1
+\end{bmatrix}\\
+&=
+\begin{bmatrix}
+\cos \gamma \cos \gamma' & -\cos \gamma \sin \gamma' - \cos \alpha \cos \gamma' \sin \alpha & \sin \gamma \sin \alpha \\
+\cos \gamma' \sin \gamma & \cos \gamma \cos \alpha \cos \gamma' - \sin \gamma' \sin \gamma & -\cos \gamma \sin \alpha \\
+\sin \alpha \sin \gamma' & \cos \gamma' \sin \alpha & \cos \alpha
+\end{bmatrix}
+\end{aligned}</script><p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Euler2a.gif" alt="alt text"></p>
+<p>如上图所示，这个就是zxz’顺序旋转的变换结果。</p>
+<p>以下是按照不同的旋转顺序旋转后的结果：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Proper Euler angles</th>
+<th style="text-align:center">Tait–Bryan angles</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><script type="math/tex">\mathbf X_\alpha \mathbf Z_\beta \mathbf X_\gamma=\begin{bmatrix} c_\beta & -c_\gamma s_\beta & s_\beta s_\gamma \\ c_\alpha s_\beta & c_\alpha c_\beta c_\gamma - s_\alpha s_\gamma & -c_\gamma s_\alpha - c_\alpha c_\beta s_\gamma \\ s_\alpha s_\beta & c_\alpha s_\gamma + c_\beta c_\gamma s_\alpha & c_\alpha c_\gamma - c_\beta s_\alpha s_\gamma \end{bmatrix}</script></td>
+<td style="text-align:center"><script type="math/tex">\mathbf X_\alpha \mathbf Z_\beta \mathbf Y_\gamma=\begin{bmatrix} c_\beta c_\gamma & -s_\beta & c_\beta s_\gamma \\ s_\alpha s_\gamma + c_\alpha c_\gamma s_\beta & c_\alpha c_\beta & c_\alpha s_\beta s_\gamma - c_\gamma s_\alpha \\ c_\gamma s_\alpha s_\beta - c_\alpha s_\gamma & c_\beta s_\alpha & c_\alpha c_\gamma + s_\alpha s_\beta s_\gamma \end{bmatrix}</script></td>
+</tr>
+<tr>
+<td style="text-align:center"><script type="math/tex">\mathbf X_\alpha \mathbf Y_\beta \mathbf X_\gamma=\begin{bmatrix} c_\beta & s_\beta s_\gamma & c_\gamma s_\beta \\ s_\alpha s_\beta & c_\alpha c_\gamma - c_\beta s_\alpha s_\gamma & -c_\alpha s_\gamma - c_\beta c_\gamma s_\alpha \\ -c_\alpha s_\beta & c_\gamma s_\alpha + c_\alpha c_\beta s_\gamma & c_\alpha c_\beta c_\gamma - s_\alpha s_\gamma \end{bmatrix}</script></td>
+<td style="text-align:center"><script type="math/tex">\mathbf X_\alpha \mathbf Y_\beta \mathbf Z_\gamma=\begin{bmatrix} c_\beta c_\gamma & -c_\beta s_\gamma & s_\beta \\ c_\alpha s_\gamma + c_\gamma s_\alpha s_\beta & c_\alpha c_\gamma - s_\alpha s_\beta s_\gamma & -c_\beta s_\alpha \\ s_\alpha s_\gamma - c_\alpha c_\gamma s_\beta & c_\gamma s_\alpha + c_\alpha s_\beta s_\gamma & c_\alpha c_\beta \end{bmatrix}</script></td>
+</tr>
+<tr>
+<td style="text-align:center"><script type="math/tex">\mathbf Y_\alpha \mathbf X_\beta \mathbf Y_\gamma=\begin{bmatrix} c_\alpha c_\gamma - c_\beta s_\alpha s_\gamma & s_\alpha s_\beta & c_\alpha s_\gamma + c_\beta c_\gamma s_\alpha \\ s_\beta s_\gamma & c_\beta & -c_\gamma s_\beta \\ -c_\gamma s_\alpha - c_\alpha c_\beta s_\gamma & c_\alpha s_\beta & c_\alpha c_\beta c_\gamma - s_\alpha s_\gamma \end{bmatrix}</script></td>
+<td style="text-align:center"><script type="math/tex">\mathbf Y_\alpha \mathbf X_\beta \mathbf Z_\gamma=\begin{bmatrix} c_\alpha c_\gamma + s_\alpha s_\beta s_\gamma & c_\gamma s_\alpha s_\beta - c_\alpha s_\gamma & c_\beta s_\alpha \\ c_\beta s_\gamma & c_\beta c_\gamma & -s_\beta \\ c_\alpha s_\beta s_\gamma - c_\gamma s_\alpha & c_\alpha c_\gamma s_\beta + s_\alpha s_\gamma & c_\alpha c_\beta \end{bmatrix}</script></td>
+</tr>
+<tr>
+<td style="text-align:center"><script type="math/tex">\mathbf Y_\alpha \mathbf Z_\beta \mathbf Y_\gamma=\begin{bmatrix} c_\alpha c_\beta c_\gamma - s_\alpha s_\gamma & -c_\alpha s_\beta & c_\gamma s_\alpha + c_\alpha c_\beta s_\gamma \\ c_\gamma s_\beta & c_\beta & s_\beta s_\gamma \\ -c_\alpha s_\gamma - c_\beta c_\gamma s_\alpha & s_\alpha s_\beta & c_\alpha c_\gamma - c_\beta s_\alpha s_\gamma \end{bmatrix}</script></td>
+<td style="text-align:center"><script type="math/tex">\mathbf Y_\alpha \mathbf Z_\beta \mathbf X_\gamma=\begin{bmatrix} c_\alpha c_\beta & s_\alpha s_\gamma - c_\alpha c_\gamma s_\beta & c_\gamma s_\alpha + c_\alpha s_\beta s_\gamma \\ s_\beta & c_\beta c_\gamma & -c_\beta s_\gamma \\ -c_\beta s_\alpha & c_\alpha s_\gamma + c_\gamma s_\alpha s_\beta & c_\alpha c_\gamma - s_\alpha s_\beta s_\gamma \end{bmatrix}</script></td>
+</tr>
+<tr>
+<td style="text-align:center"><script type="math/tex">\mathbf Z_\alpha \mathbf Y_\beta \mathbf Z_\gamma=\begin{bmatrix} c_\alpha c_\beta c_\gamma - s_\alpha s_\gamma & -c_\gamma s_\alpha - c_\alpha c_\beta s_\gamma & c_\alpha s_\beta \\ c_\alpha s_\gamma + c_\beta c_\gamma s_\alpha & c_\alpha c_\gamma - c_\beta s_\alpha s_\gamma & s_\alpha s_\beta \\ -c_\gamma s_\beta & s_\beta s_\gamma & c_\beta \end{bmatrix}</script></td>
+<td style="text-align:center"><script type="math/tex">\mathbf Z_\alpha \mathbf Y_\beta \mathbf X_\gamma=\begin{bmatrix} c_\alpha c_\beta & c_\alpha s_\beta s_\gamma - c_\gamma s_\alpha & s_\alpha s_\gamma + c_\alpha c_\gamma s_\beta \\ c_\beta s_\alpha & c_\alpha c_\gamma + s_\alpha s_\beta s_\gamma & c_\gamma s_\alpha s_\beta - c_\alpha s_\gamma \\ -s_\beta & c_\beta s_\gamma & c_\beta c_\gamma \end{bmatrix}</script></td>
+</tr>
+<tr>
+<td style="text-align:center"><script type="math/tex">\mathbf Z_\alpha \mathbf X_\beta \mathbf Z_\gamma=\begin{bmatrix} c_\alpha c_\gamma - c_\beta s_\alpha s_\gamma & -c_\alpha s_\gamma - c_\beta c_\gamma s_\alpha & s_\alpha s_\beta \\ c_\gamma s_\alpha + c_\alpha c_\beta s_\gamma & c_\alpha c_\beta c_\gamma - s_\alpha s_\gamma & -c_\alpha s_\beta \\ s_\beta s_\gamma & c_\gamma s_\beta & c_\beta \end{bmatrix}</script></td>
+<td style="text-align:center"><script type="math/tex">\mathbf Z_\alpha \mathbf X_\beta \mathbf Y_\gamma=\begin{bmatrix} c_\alpha c_\gamma - s_\alpha s_\beta s_\gamma & -c_\beta s_\alpha & c_\alpha s_\gamma + c_\gamma s_\alpha s_\beta \\ c_\gamma s_\alpha + c_\alpha s_\beta s_\gamma & c_\alpha c_\beta & s_\alpha s_\gamma - c_\alpha c_\gamma s_\beta \\ -c_\beta s_\gamma & s_\beta & c_\beta c_\gamma \end{bmatrix}</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="note danger no-icon flat"><p>一定要注意，旋转的变换矩阵是右乘的，即 $\mathbf v’=\mathbf R \mathbf v$ （即左乘），多次按照 $\mathbf R_1 \mathbf R_2 \cdots \mathbf R_n$ 的顺序旋转后，坐标变换为：</p>
+<script type="math/tex; mode=display">
+\mathbf v'=\mathbf R_n \mathbf R_{n-1} \cdots \mathbf R_1 \mathbf v</script><p>旋转矩阵的变换描述的是是旋转的结果，并不是旋转的过程。</p>
+<p>并且正交旋转矩阵满足：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+ |\mathbf R| &=1 \\
+ \mathbf R \mathbf R^T &= \mathbf E \\
+ \mathbf R_1 \mathbf R_2 (\mathbf R_1 \mathbf R_2)^T &= \mathbf R_1 \mathbf R_2 \mathbf R_2^T \mathbf R_1^T = \mathbf E \\
+ \mathbf R_1 (\mathbf R_2 \mathbf R_3) &= (\mathbf R_1 \mathbf R_2) \mathbf R_3 \\
+ |\mathbf R_1 \mathbf R_2| &= |\mathbf R_1| |\mathbf R_2| = 1
+\end{aligned}</script></div>
+<h3 id="某个定轴的旋转矩阵（轴-角）"><a href="#某个定轴的旋转矩阵（轴-角）" class="headerlink" title="某个定轴的旋转矩阵（轴-角）"></a>某个定轴的旋转矩阵（轴-角）</h3><div class="note success no-icon flat"><p>以下推理内容参考至<a class="btn-beautify outline green" target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula" title="Rodrigues' rotation formula"><span>Rodrigues’ rotation formula</span></a></p>
+</div>
+<p>我们设向量 $\mathbf v$ 绕某一定轴 $\mathbf k$ 逆时针旋转 $\theta$ 角（其中 $\mathbf k$ 为单位向量），下面来推导旋转后向量 $\mathbf v’$ 的表达式。</p>
+<p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Screenshot%202025-07-10%20171126.png" alt="alt text"></p>
+<p>如上图我们可以知道，向量 $\mathbf v$ 可以沿着 $\mathbf k$ 的平行方向和其平面方向分解为两个向量 <script type="math/tex">\mathbf v_\parallel</script> 和 <script type="math/tex">\mathbf v_\perp</script> ： </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf v &=\mathbf v_\parallel+\mathbf v_\perp \\ 
+&=\lambda \mathbf k+(\mathbf k \times \mathbf a)\times\mathbf k \\
+&=|\mathbf v| \cos \varphi \mathbf k+(\mathbf k \times \mathbf v)\times\mathbf k\\
+&=(\mathbf k \cdot \mathbf v) \mathbf k+(\mathbf k \times \mathbf v)\times\mathbf k
+\end{aligned}</script><p>类似的对于旋转后的向量 $\mathbf v’$ 由平行方向的分量不变，我们可以得到：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf v' &=\mathbf v_\parallel+\mathbf v'_\perp \\
+&=(\mathbf v \cdot \mathbf k)\mathbf k + \mathbf v'_\perp
+\end{aligned}</script><p>那么，我们只需要求出 $\mathbf v’_\perp$ 即可，如下图，由向量旋转有：</p>
+<p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Screenshot%202025-07-10%20185003.png" alt="alt text"></p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf v'_\perp&=\lambda_1 \mathbf v_\perp+\lambda_2 \mathbf k\times\mathbf v \\
+&= \cos \theta \mathbf v_\perp + \sin \theta \mathbf k\times\mathbf v\\
+&= \cos \theta (\mathbf k \times \mathbf v)\times\mathbf k + \sin \theta \mathbf k\times\mathbf v
+\end{aligned}</script><p>那么，我们可以得到：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf v'&=(\mathbf k \cdot \mathbf v)\mathbf k + \cos \theta (\mathbf k \times \mathbf v)\times\mathbf k + \sin \theta \mathbf k\times\mathbf v\\
+&=\mathbf v + \sin \theta \mathbf k\times\mathbf v + (1-\cos \theta)\mathbf k\times(\mathbf k \times \mathbf v)\\
+&=\cos \theta \mathbf v + \sin \theta \mathbf k\times\mathbf v + (1-\cos \theta)(\mathbf k \cdot \mathbf v)\mathbf k\\
+\end{aligned}</script><p>如果在直角坐标系中，$\mathbf k=(k_x,k_y,k_z)$，$\mathbf v=(v_x,v_y,v_z)$，那么 $\mathbf k \times \mathbf v$ 用矩阵可以表示为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\begin{bmatrix}
+(\mathbf k \times \mathbf v)_x \\
+(\mathbf k \times \mathbf v)_y \\
+(\mathbf k \times \mathbf v)_z
+\end{bmatrix}
+=
+\begin{bmatrix}
+ 0 & -k_z & k_y \\
+ k_z & 0 & -k_x \\
+ -k_y & k_x & 0
+\end{bmatrix}
+\begin{bmatrix}
+v_x \\
+v_y \\
+v_z
+\end{bmatrix}
+\end{aligned}</script><p>又令叉乘矩阵，</p>
+<script type="math/tex; mode=display">
+\mathbf K=
+\begin{bmatrix}
+ 0 & -k_z & k_y \\
+ k_z & 0 & -k_x \\
+ -k_y & k_x & 0
+\end{bmatrix}</script><p>于是有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\mathbf k \times \mathbf v =\mathbf K \mathbf v \\
+&\mathbf k \times (\mathbf k \times \mathbf v) =\mathbf K^2 \mathbf v
+\end{aligned}</script><p>于是，我们可以得到：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf v'&=\mathbf v + \sin \theta \mathbf k\times\mathbf v + (1-\cos \theta)\mathbf k\times(\mathbf k \times \mathbf v)\\
+&=\mathbf v + \sin \theta \mathbf K \mathbf v + (1-\cos \theta)\mathbf K^2 \mathbf v\\
+&=\mathbf R \mathbf v
+\end{aligned}</script><p>其中，旋转矩阵 $\mathbf R = \mathbf E+\sin \theta \mathbf K+(1-\cos \theta)\mathbf K^2$ 为：</p>
+<script type="math/tex; mode=display">
+\mathbf R(\mathbf k,\theta)=
+\begin{bmatrix}
+\cos \theta + (1-\cos\theta)k_x^2 & (1-\cos\theta)k_x k_y - \sin\theta k_z & (1-\cos\theta)k_x k_z + \sin\theta k_y \\
+(1-\cos\theta)k_x k_y + \sin\theta k_z & \cos \theta + (1-\cos\theta)k_y^2 & (1-\cos\theta)k_y k_z - \sin\theta k_x \\
+(1-\cos\theta)k_x k_z - \sin\theta k_y & (1-\cos\theta)k_y k_z + \sin\theta k_x & \cos \theta + (1-\cos\theta)k_z^2
+\end{bmatrix}</script><div class="note primary no-icon flat"><p>实际上用欧拉角和这个定轴旋转的方法是等效的，我们取 $\mathbf R(\alpha,\beta,\gamma)$ 最左下角的元素 $-\sin \beta$，在 $\mathbf R(\mathbf k,\theta)$ 中也取一样的元素 ：</p>
+<script type="math/tex; mode=display">
+-\sin \beta = (1-\cos\theta)k_x k_z - \sin\theta k_y</script><p>就可以在给定 $\mathbf k$ 和 $\theta$ 的情况下求出 $\beta$ ，然后就可以求出 $\mathbf R(\alpha,\beta,\gamma)$ 。反过来，我们也可以在给定 $\mathbf R(\alpha,\beta,\gamma)$ 的情况下求出 $\mathbf k$ 和 $\theta$ 。</p>
+</div>
+<h3 id="从欧拉角表示到轴角表示"><a href="#从欧拉角表示到轴角表示" class="headerlink" title="从欧拉角表示到轴角表示"></a>从欧拉角表示到轴角表示</h3><p>给定zyx顺序的欧拉角 $\mathbf R(\alpha,\beta,\gamma)$ ，我们可以求出旋转轴 $\mathbf k = (k_z,k_y,k_x)^T$ 和旋转角 $\theta$ ：</p>
+<p>我们知道zyx顺序的欧拉角：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf R(\alpha,\beta,\gamma)&=\mathbf Z_\alpha \mathbf X_\beta \mathbf Y_\gamma\\
+&=\begin{bmatrix} c_\alpha c_\gamma - s_\alpha s_\beta s_\gamma & -c_\beta s_\alpha & c_\alpha s_\gamma + c_\gamma s_\alpha s_\beta \\ c_\gamma s_\alpha + c_\alpha s_\beta s_\gamma & c_\alpha c_\beta & s_\alpha s_\gamma - c_\alpha c_\gamma s_\beta \\ -c_\beta s_\gamma & s_\beta & c_\beta c_\gamma \end{bmatrix}
+\end{aligned}</script><p>先计算zyx旋转矩阵的迹：</p>
+<script type="math/tex; mode=display">
+tr(\mathbf R)=R_{11}+R_{22}+R_{33}=c_\alpha c_\gamma - s_\alpha s_\beta s_\gamma + c_\alpha c_\beta + c_\beta c_\gamma</script><p>轴-角旋转矩阵的迹：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+tr(\mathbf R)&=\cos \theta + (1-\cos\theta)k_x^2+\cos \theta + (1-\cos\theta)k_y^2 + \cos \theta + (1-\cos\theta)k_z^2\\
+&= 3\cos \theta + (1-\cos\theta)(k_x^2+k_y^2+k_z^2)\\
+&= 3\cos \theta + (1-\cos\theta)\\
+&= 1+2\cos \theta 
+\end{aligned}</script><p>于是，我们可以得到旋转角 $\theta$ ：</p>
+<script type="math/tex; mode=display">
+\theta = \arccos\left(\frac{tr(\mathbf R)-1}{2}\right)</script><p>于是旋转轴 $\mathbf k$ 可以由下面的公式计算：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+k_x&=± \sqrt{\frac{R_{11}+1}{2}}\\
+k_y&=± \sqrt{\frac{R_{22}+1}{2}}\\
+k_z&=± \sqrt{\frac{R_{33}+1}{2}}
+\end{aligned}</script><h3 id="四元数"><a href="#四元数" class="headerlink" title="四元数"></a>四元数</h3><p>四元数是一种复数，其形式为 $q = w + xi + yj + zk$ ，其中 $w,x,y,z$ 为实数，$i,j,k$ 为虚数单位，满足 $i^2 = j^2 = k^2 = ijk = -1$ 。</p>
+<div class="note primary no-icon flat"><p>四元数为什么可以表示三维的旋转呢？为什么不是三元呢？</p>
+<p>这里引入一个Frobenius 定理（1878），在实数域上，有限维可除代数（即乘法、可逆、结合律）有且仅有三种：</p>
+<ul>
+<li>实数域</li>
+<li>复数域</li>
+<li>四元数域</li>
+</ul>
+<p>表示的旋转的3个自由度是单位四元数的3个自由度，单位四元数的极坐标[1,(α,β,γ)]，也只有3个自由度Δ(α,β,γ)，每个点[r,(α,β,γ)]在具有3维表面的光滑四维球面做无穷小旋转d(α,β,γ)的时候，近似于沿着4维空间中相切的3维超平面移动了rd(α,β,γ)，有3个自由度(dα,dβ,dγ)。或者设想在无穷远处，四维球近似变成3维超平面。</p>
+<p>或者说，平时说的三维旋转并不是真正的三维旋转，是多个二维平面的旋转叠加在之前的<code>### 各个坐标轴的旋转矩阵（欧拉角）</code>这一节就有体现。</p>
+<p>在使用四元数进行三维旋转时，其实部即a，并不会改变，而虚部即i，j，k才会改变，而i，j，k正是三维空间中的旋转轴，所以四元数可以表示三维空间中的旋转。</p>
+<p>如果要强行使用 $a+bi+cj$ 来表示三维的旋转在做乘法时，请问ij等于多少？如果直接定义为0，那么ij就失去了旋转的意义，如果ij不等于0，那么ij就变成了一个三维向量，那么这个三维向量又代表了什么？所以，三维的旋转必须使用四元数 $a+bi+cj+dk$ 来表示。</p>
+</div>
+<h4 id="四元数的定轴旋转"><a href="#四元数的定轴旋转" class="headerlink" title="四元数的定轴旋转"></a>四元数的定轴旋转</h4><p>给定旋转轴 $\mathbf k = (k_x,k_y,k_z)^T$ 和旋转角 $\theta$ ，我们可以得到旋转四元数 $q = \cos \frac{\theta}{2} + \sin \frac{\theta}{2} \mathbf k$ 。</p>
+<p>给定旋转四元数 $q = w + xi + yj + zk$ ，我们可以得到旋转轴 $\mathbf k = (k_x,k_y,k_z)^T$ 和旋转角 $\theta$ ：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf k&=\frac{q}{\|q\|}=\frac{1}{\sqrt{w^2+k_x^2+k_y^2+k_z^2}}(k_x,k_y,k_z)^T\\
+\theta&=2\arccos w
+\end{aligned}</script><h4 id="四元数与旋转矩阵的转换"><a href="#四元数与旋转矩阵的转换" class="headerlink" title="四元数与旋转矩阵的转换"></a>四元数与旋转矩阵的转换</h4><p>给定旋转四元数 $q = w + xi + yj + zk$ ，我们可以得到旋转矩阵 $\mathbf R$ ：</p>
+<script type="math/tex; mode=display">
+\mathbf R=\begin{bmatrix}
+w^2+k_x^2-k_y^2-k_z^2 & 2(k_x k_y - w k_z) & 2(k_x k_z + w k_y) \\
+2(k_x k_y + w k_z) & w^2-k_x^2+k_y^2-k_z^2 & 2(k_y k_z - w k_x) \\
+2(k_x k_z - w k_y) & 2(k_y k_z + w k_x) & w^2-k_x^2-k_y^2+k_z^2
+\end{bmatrix}</script><p>给定旋转矩阵 $\mathbf R$ ，我们可以得到旋转四元数 $q = w + xi + yj + zk$ ：</p>
+<script type="math/tex; mode=display">
+\begin{equation*}
+\begin{aligned}
+w &= \frac{1}{2} \sqrt{\text{tr}(\mathbf{R}) + 1} \\
+x = \frac{R_{32} - R_{23}}{2w}, \quad y &= \frac{R_{13} - R_{31}}{2w}, \quad z = \frac{R_{21} - R_{12}}{2w}
+\end{aligned}
+\end{equation*}</script><h4 id="四元数与欧拉角的转换"><a href="#四元数与欧拉角的转换" class="headerlink" title="四元数与欧拉角的转换"></a>四元数与欧拉角的转换</h4><p>给定旋转四元数 $q = w + xi + yj + zk$ ，我们可以得到欧拉角 $\mathbf R(\alpha,\beta,\gamma)$ ：</p>
+<script type="math/tex; mode=display">
+\mathbf R(\alpha,\beta,\gamma)=
+\begin{bmatrix}
+
+\cos \beta \cos \gamma & \cos \beta \sin \gamma & -\sin \beta \\
+\sin \alpha \sin \beta \cos \gamma + \cos \alpha \sin \gamma & \sin \alpha \sin \beta \sin \gamma - \cos \alpha \cos \gamma & \sin \alpha \cos \beta \\
+\cos \alpha \sin \beta \cos \gamma - \sin \alpha \sin \gamma & \cos \alpha \sin \beta \sin \gamma + \sin \alpha \cos \gamma & \cos \alpha \cos \beta
+\end{bmatrix}</script><p>给定欧拉角 $\mathbf R(\alpha,\beta,\gamma)$ ，我们可以得到旋转四元数 $q = w + xi + yj + zk$ ：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+w&=\cos \frac{\alpha}{2} \cos \frac{\beta}{2} \cos \frac{\gamma}{2}\\
+x&=\sin \frac{\alpha}{2} \cos \frac{\beta}{2} \cos \frac{\gamma}{2}\\
+y&=\cos \frac{\alpha}{2} \sin \frac{\beta}{2} \cos \frac{\gamma}{2}\\
+z&=\cos \frac{\alpha}{2} \cos \frac{\beta}{2} \sin \frac{\gamma}{2}
+\end{aligned}</script><div class="note success no-icon flat"><p>实际上四元数这种，方便解决问题，但不好直观描述的数学结构。我反正是更喜欢用矩阵😾</p>
+</div>
+<h1 id="写到最后"><a href="#写到最后" class="headerlink" title="写到最后"></a>写到最后</h1><div class="note primary no-icon flat"><p>由于本人对旋转群和李群的理解还不够深入，暂时对于四元数的推导和证明就不再深入了，以后有机会再补充。</p>
+<p>而且，写这个博客主要是为了学习处理传感器数据时的坐标变换，所以旋转矩阵和欧拉角就足够了。</p>
+</div>
+<p>以下是我用于接收传感器数据的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/home/META_Pi/LoRAcom/env/bin/python</span></span><br><span class="line"><span class="keyword">import</span> serial</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> lru_cache</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">P0 = <span class="number">101325.0</span>  <span class="comment"># Sea level pressure in Pa</span></span><br><span class="line">T0 = <span class="number">288.15</span>    <span class="comment"># Sea level temperature in K</span></span><br><span class="line">L = <span class="number">0.0065</span></span><br><span class="line">g = <span class="number">9.81</span>       <span class="comment"># Gravity acceleration in m/s²</span></span><br><span class="line">M = <span class="number">0.029</span></span><br><span class="line">R = <span class="number">8.314</span></span><br><span class="line">exponent = g * M / (R * L)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ser = serial.Serial(<span class="string">&#x27;/dev/ttyAMA0&#x27;</span>, <span class="number">115200</span>, timeout=<span class="number">1</span>)</span><br><span class="line">data_storage = []</span><br><span class="line">exit_flag = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">prev_time = time.time()</span><br><span class="line">prev_velocity = &#123;<span class="string">&#x27;x&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;y&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;z&#x27;</span>: <span class="number">0</span>&#125;</span><br><span class="line">prev_angle_velocity = &#123;<span class="string">&#x27;x&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;y&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;z&#x27;</span>: <span class="number">0</span>&#125;</span><br><span class="line">prev_angle = &#123;<span class="string">&#x27;x&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;y&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;z&#x27;</span>: <span class="number">0</span>&#125;</span><br><span class="line">prev_position = &#123;<span class="string">&#x27;x&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;y&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;z&#x27;</span>: <span class="number">0</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Calibration values for accelerometer bias (should be determined at startup)</span></span><br><span class="line">accel_bias = &#123;<span class="string">&#x27;x&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;y&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;z&#x27;</span>: <span class="number">0</span>&#125;</span><br><span class="line">is_calibrated = <span class="literal">False</span></span><br><span class="line">calibration_samples = []</span><br><span class="line">CALIBRATION_SAMPLES_NEEDED = <span class="number">50</span></span><br><span class="line">ACCEL_STATIONARY_THRESHOLD = <span class="number">0.1</span>  <span class="comment"># m/s²</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Cache rotation matrices for faster computation</span></span><br><span class="line"><span class="meta">@lru_cache(<span class="params">maxsize=<span class="number">128</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rotation_matrix</span>(<span class="params">angle_x, angle_y, angle_z</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Create rotation matrix from Euler angles (in degrees)</span></span><br><span class="line"><span class="string">    Using the ZYX rotation order (yaw-pitch-roll)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># Convert angles from degrees to radians</span></span><br><span class="line">    angle_x_rad = math.radians(angle_x)</span><br><span class="line">    angle_y_rad = math.radians(angle_y)</span><br><span class="line">    angle_z_rad = math.radians(angle_z)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Pre-compute sine and cosine values</span></span><br><span class="line">    cos_x, sin_x = math.cos(angle_x_rad), math.sin(angle_x_rad)</span><br><span class="line">    cos_y, sin_y = math.cos(angle_y_rad), math.sin(angle_y_rad)</span><br><span class="line">    cos_z, sin_z = math.cos(angle_z_rad), math.sin(angle_z_rad)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Direct computation of combined rotation matrix</span></span><br><span class="line">    <span class="comment"># This is more efficient than creating 3 matrices and multiplying them</span></span><br><span class="line">    r00 = cos_y * cos_z</span><br><span class="line">    r01 = sin_x * sin_y * cos_z - cos_x * sin_z</span><br><span class="line">    r02 = cos_x * sin_y * cos_z + sin_x * sin_z</span><br><span class="line"></span><br><span class="line">    r10 = cos_y * sin_z</span><br><span class="line">    r11 = sin_x * sin_y * sin_z + cos_x * cos_z</span><br><span class="line">    r12 = cos_x * sin_y * sin_z - sin_x * cos_z</span><br><span class="line"></span><br><span class="line">    r20 = -sin_y</span><br><span class="line">    r21 = sin_x * cos_y</span><br><span class="line">    r22 = cos_x * cos_y</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> np.array([</span><br><span class="line">        [r00, r01, r02],</span><br><span class="line">        [r10, r11, r12],</span><br><span class="line">        [r20, r21, r22]</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">transform_acceleration</span>(<span class="params">accel_x, accel_y, accel_z, angle_x, angle_y, angle_z</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Transform acceleration from sensor&#x27;s local coordinate system to global coordinate system</span></span><br><span class="line"><span class="string">    and remove gravity component</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># Use high precision for angles to ensure accurate transformation</span></span><br><span class="line">    angle_x_rounded = <span class="built_in">round</span>(angle_x, <span class="number">5</span>)</span><br><span class="line">    angle_y_rounded = <span class="built_in">round</span>(angle_y, <span class="number">5</span>)</span><br><span class="line">    angle_z_rounded = <span class="built_in">round</span>(angle_z, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">    R = rotation_matrix(angle_x_rounded, angle_y_rounded, angle_z_rounded)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Transform sensor accelerations to global frame</span></span><br><span class="line">    accel_global_x = R[<span class="number">0</span>, <span class="number">0</span>] * accel_x + R[<span class="number">0</span>, <span class="number">1</span>] * accel_y + R[<span class="number">0</span>, <span class="number">2</span>] * accel_z</span><br><span class="line">    accel_global_y = R[<span class="number">1</span>, <span class="number">0</span>] * accel_x + R[<span class="number">1</span>, <span class="number">1</span>] * accel_y + R[<span class="number">1</span>, <span class="number">2</span>] * accel_z</span><br><span class="line">    accel_global_z = R[<span class="number">2</span>, <span class="number">0</span>] * accel_x + R[<span class="number">2</span>, <span class="number">1</span>] * accel_y + R[<span class="number">2</span>, <span class="number">2</span>] * accel_z</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Remove gravity component (gravity points in -z direction in global frame)</span></span><br><span class="line">    accel_global_z += g</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Remove calibrated bias</span></span><br><span class="line">    <span class="keyword">if</span> is_calibrated:</span><br><span class="line">        accel_global_x -= accel_bias[<span class="string">&#x27;x&#x27;</span>]</span><br><span class="line">        accel_global_y -= accel_bias[<span class="string">&#x27;y&#x27;</span>]</span><br><span class="line">        accel_global_z -= accel_bias[<span class="string">&#x27;z&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> accel_global_x, accel_global_y, accel_global_z</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">is_stationary</span>(<span class="params">accel_x, accel_y, accel_z</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Detect if the sensor is stationary based on acceleration magnitude</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    accel_magnitude = math.sqrt(accel_x**<span class="number">2</span> + accel_y**<span class="number">2</span> + accel_z**<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">return</span> accel_magnitude &lt; ACCEL_STATIONARY_THRESHOLD</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calibrate_accelerometer</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Calibrate the accelerometer by averaging readings when stationary</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">global</span> accel_bias, is_calibrated, calibration_samples</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(calibration_samples) &gt;= CALIBRATION_SAMPLES_NEEDED:</span><br><span class="line">        <span class="comment"># Calculate average acceleration in global frame</span></span><br><span class="line">        avg_x = <span class="built_in">sum</span>(sample[<span class="string">&#x27;x&#x27;</span>] <span class="keyword">for</span> sample <span class="keyword">in</span> calibration_samples) / <span class="built_in">len</span>(calibration_samples)</span><br><span class="line">        avg_y = <span class="built_in">sum</span>(sample[<span class="string">&#x27;y&#x27;</span>] <span class="keyword">for</span> sample <span class="keyword">in</span> calibration_samples) / <span class="built_in">len</span>(calibration_samples)</span><br><span class="line">        avg_z = <span class="built_in">sum</span>(sample[<span class="string">&#x27;z&#x27;</span>] <span class="keyword">for</span> sample <span class="keyword">in</span> calibration_samples) / <span class="built_in">len</span>(calibration_samples)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Set bias values</span></span><br><span class="line">        accel_bias = &#123;<span class="string">&#x27;x&#x27;</span>: avg_x, <span class="string">&#x27;y&#x27;</span>: avg_y, <span class="string">&#x27;z&#x27;</span>: avg_z&#125;</span><br><span class="line">        is_calibrated = <span class="literal">True</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Accelerometer calibrated. Bias: x=<span class="subst">&#123;avg_x:<span class="number">.6</span>f&#125;</span>, y=<span class="subst">&#123;avg_y:<span class="number">.6</span>f&#125;</span>, z=<span class="subst">&#123;avg_z:<span class="number">.6</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">listen_for_input</span>():</span><br><span class="line">    <span class="keyword">global</span> exit_flag</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> exit_flag:</span><br><span class="line">        user_input = <span class="built_in">input</span>()</span><br><span class="line">        <span class="keyword">if</span> user_input == <span class="string">&#x27;&#x27;</span>:</span><br><span class="line">            exit_flag = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">input_thread = threading.Thread(target=listen_for_input)</span><br><span class="line">input_thread.daemon = <span class="literal">True</span></span><br><span class="line">input_thread.start()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ser.is_open:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;ONline\n&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;====== Start loading data ======&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Calibrating accelerometer, please keep the sensor stationary...&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> exit_flag:</span><br><span class="line">        <span class="keyword">if</span> ser.in_waiting &gt; <span class="number">0</span>:</span><br><span class="line">            data = ser.readline().decode(<span class="string">&#x27;utf-8&#x27;</span>, errors=<span class="string">&#x27;ignore&#x27;</span>).strip()</span><br><span class="line">            cur_time = time.strftime(<span class="string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>, time.localtime()) + <span class="string">f&quot;.<span class="subst">&#123;<span class="built_in">int</span>(time.time() * <span class="number">1000</span>) % <span class="number">1000</span>&#125;</span>&quot;</span></span><br><span class="line">            process_start_time = time.time()</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                parts = data.split(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">                p = <span class="built_in">float</span>(parts[<span class="number">6</span>])  <span class="comment"># Pressure</span></span><br><span class="line">                h = (T0 / L) * (<span class="number">1</span> - math.exp(math.log(p / P0) / exponent))</span><br><span class="line"></span><br><span class="line">                <span class="comment"># Raw sensor data (angles in degrees, acceleration in m/s²)</span></span><br><span class="line">                angle_x = <span class="built_in">float</span>(parts[<span class="number">0</span>])</span><br><span class="line">                angle_y = <span class="built_in">float</span>(parts[<span class="number">1</span>])</span><br><span class="line">                angle_z = <span class="built_in">float</span>(parts[<span class="number">2</span>])</span><br><span class="line">                accel_x_sensor = <span class="built_in">float</span>(parts[<span class="number">3</span>])</span><br><span class="line">                accel_y_sensor = <span class="built_in">float</span>(parts[<span class="number">4</span>])</span><br><span class="line">                accel_z_sensor = <span class="built_in">float</span>(parts[<span class="number">5</span>])</span><br><span class="line"></span><br><span class="line">                <span class="comment"># Transform acceleration to global coordinates and remove gravity</span></span><br><span class="line">                accel_x, accel_y, accel_z = transform_acceleration(</span><br><span class="line">                    accel_x_sensor, accel_y_sensor, accel_z_sensor,</span><br><span class="line">                    angle_x, angle_y, angle_z</span><br><span class="line">                )</span><br><span class="line"></span><br><span class="line">                <span class="comment"># If not calibrated yet, collect calibration samples</span></span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> is_calibrated:</span><br><span class="line">                    <span class="keyword">if</span> <span class="built_in">len</span>(calibration_samples) &lt; CALIBRATION_SAMPLES_NEEDED:</span><br><span class="line">                        <span class="comment"># Add transformed acceleration to calibration samples</span></span><br><span class="line">                        calibration_samples.append(&#123;<span class="string">&#x27;x&#x27;</span>: accel_x, <span class="string">&#x27;y&#x27;</span>: accel_y, <span class="string">&#x27;z&#x27;</span>: accel_z&#125;)</span><br><span class="line">                        <span class="keyword">if</span> <span class="built_in">len</span>(calibration_samples) &gt;= CALIBRATION_SAMPLES_NEEDED:</span><br><span class="line">                            calibrate_accelerometer()</span><br><span class="line">                    <span class="keyword">continue</span>  <span class="comment"># Skip integration during calibration</span></span><br><span class="line"></span><br><span class="line">                cur_time_seconds = time.time()</span><br><span class="line">                delta_t = cur_time_seconds - prev_time</span><br><span class="line">                prev_time = cur_time_seconds</span><br><span class="line"></span><br><span class="line">                <span class="comment"># Check if sensor is stationary</span></span><br><span class="line">                <span class="keyword">if</span> is_stationary(accel_x, accel_y, accel_z):</span><br><span class="line">                    <span class="comment"># Reset velocity when stationary to prevent drift</span></span><br><span class="line">                    velocity_x = <span class="number">0</span></span><br><span class="line">                    velocity_y = <span class="number">0</span></span><br><span class="line">                    velocity_z = <span class="number">0</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="comment"># Integrate acceleration to get velocity (in global coordinates)</span></span><br><span class="line">                    velocity_x = prev_velocity[<span class="string">&#x27;x&#x27;</span>] + accel_x * delta_t</span><br><span class="line">                    velocity_y = prev_velocity[<span class="string">&#x27;y&#x27;</span>] + accel_y * delta_t</span><br><span class="line">                    velocity_z = prev_velocity[<span class="string">&#x27;z&#x27;</span>] + accel_z * delta_t</span><br><span class="line"></span><br><span class="line">                <span class="comment"># Integrate velocity to get position (in global coordinates)</span></span><br><span class="line">                position_x = prev_position[<span class="string">&#x27;x&#x27;</span>] + velocity_x * delta_t</span><br><span class="line">                position_y = prev_position[<span class="string">&#x27;y&#x27;</span>] + velocity_y * delta_t</span><br><span class="line">                position_z = prev_position[<span class="string">&#x27;z&#x27;</span>] + velocity_z * delta_t</span><br><span class="line"></span><br><span class="line">                data_storage.append(&#123;</span><br><span class="line">                    <span class="string">&#x27;cur_time&#x27;</span>: cur_time,</span><br><span class="line">                    <span class="string">&#x27;Accel_x_sensor&#x27;</span>: accel_x_sensor, <span class="string">&#x27;Accel_y_sensor&#x27;</span>: accel_y_sensor, <span class="string">&#x27;Accel_z_sensor&#x27;</span>: accel_z_sensor,</span><br><span class="line">                    <span class="string">&#x27;Accel_x&#x27;</span>: accel_x, <span class="string">&#x27;Accel_y&#x27;</span>: accel_y, <span class="string">&#x27;Accel_z&#x27;</span>: accel_z,</span><br><span class="line">                    <span class="string">&#x27;Velocity_x&#x27;</span>: velocity_x, <span class="string">&#x27;Velocity_y&#x27;</span>: velocity_y, <span class="string">&#x27;Velocity_z&#x27;</span>: velocity_z,</span><br><span class="line">                    <span class="string">&#x27;Position_x&#x27;</span>: position_x, <span class="string">&#x27;Position_y&#x27;</span>: position_y, <span class="string">&#x27;Position_z&#x27;</span>: position_z,</span><br><span class="line">                    <span class="string">&#x27;Angle_x&#x27;</span>: angle_x, <span class="string">&#x27;Angle_y&#x27;</span>: angle_y, <span class="string">&#x27;Angle_z&#x27;</span>: angle_z,</span><br><span class="line">                    <span class="string">&#x27;Pressure&#x27;</span>: p,</span><br><span class="line">                    <span class="string">&#x27;Height&#x27;</span>: h,</span><br><span class="line">                    <span class="string">&#x27;Is_stationary&#x27;</span>: is_stationary(accel_x, accel_y, accel_z)</span><br><span class="line">                &#125;)</span><br><span class="line"></span><br><span class="line">                <span class="comment"># Update previous values for the next iteration</span></span><br><span class="line">                prev_velocity = &#123;<span class="string">&#x27;x&#x27;</span>: velocity_x, <span class="string">&#x27;y&#x27;</span>: velocity_y, <span class="string">&#x27;z&#x27;</span>: velocity_z&#125;</span><br><span class="line">                prev_position = &#123;<span class="string">&#x27;x&#x27;</span>: position_x, <span class="string">&#x27;y&#x27;</span>: position_y, <span class="string">&#x27;z&#x27;</span>: position_z&#125;</span><br><span class="line"></span><br><span class="line">                process_end_time = time.time()</span><br><span class="line">                process_time_ms = (process_end_time - process_start_time) * <span class="number">1000</span></span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&quot;[<span class="subst">&#123;cur_time&#125;</span>] received: <span class="subst">&#123;data&#125;</span> (processed in <span class="subst">&#123;process_time_ms:<span class="number">.2</span>f&#125;</span>ms)&quot;</span>)</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> process_time_ms &gt; <span class="number">1.0</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&quot;WARNING: Processing time exceeded 1ms threshold: <span class="subst">&#123;process_time_ms:<span class="number">.2</span>f&#125;</span>ms&quot;</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&quot;ERROR ON <span class="subst">&#123;data&#125;</span>, LOG: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Offline&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Saving data to Excel</span></span><br><span class="line">over_time = time.strftime(<span class="string">&quot;%Y-%m-%d %H-%M-%S&quot;</span>, time.localtime())</span><br><span class="line">df = pd.DataFrame(data_storage)</span><br><span class="line">df.to_excel(<span class="string">f&#x27;<span class="subst">&#123;over_time&#125;</span>.xlsx&#x27;</span>, index=<span class="literal">False</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\n===== Data was stored in Excel =====&quot;</span>)</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.teslongxiao.cn">Meta Xiao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.teslongxiao.cn/posts/8f5e0b51.html">https://www.teslongxiao.cn/posts/8f5e0b51.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.teslongxiao.cn" target="_blank">浮生若梦</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a><a class="post-meta__tags" href="/tags/%E7%89%A9%E7%90%86/">物理</a><a class="post-meta__tags" href="/tags/%E7%BE%A4%E8%AE%BA/">群论</a></div><div class="post-share"><div class="social-share" data-image="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Euler2a.gif" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/5a9acf5a.html" title="大物复习"><img class="cover" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/wallhaven-gpvyv7.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-26</div><div class="info-item-2">大物复习</div></div><div class="info-2"><div class="info-item-1">大物笔记精粹要期末考了😭，整理下笔记。 第一章——质点运动学位置矢量物理学中用一个位置矢量来描述质点的位置，记作 $\mathbf{r}$ ，其大小为 $|\mathbf{r}|$ ，方向为 $\mathbf{e_r}$ 的方向。笛卡尔坐标系中，位置矢量可以表示为 $\mathbf{r} = x \mathbf{e_x} + y \mathbf{e_y} + z \mathbf{e_z}$ ，其中 $x, y, z$ 分别为质点在三个坐标轴上的坐标。 如果位置矢量写成含时的函数，即 $\mathbf{r} = \mathbf{r}(t)$ ，则可以表示质点随时间变化的轨迹，如 $\mathbf{r}(t)=\cos{t}\mathbf{i}+\sin{t}\mathbf{j}$ 。如果消去其中的时间 $t$ ，则可以得到质点运动的轨迹方程，如 $\mathbf{r}(t)=\cos{t}\mathbf{i}+\sin{t}\mathbf{j}$ 可以表示为 $x^2+y^2=1$ 。 位移位置矢量的差记为位移，即 $\Delta...</div></div></div></a><a class="pagination-related" href="/posts/f2a626f9.html" title="9宫格翻游戏的简单思考"><img class="cover" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Konachan.com%20-%20388779%20sample.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-20</div><div class="info-item-2">9宫格翻游戏的简单思考</div></div><div class="info-2"><div class="info-item-1">本博文仍在施工中，如果作者有时间的话。  用线性代数证明这是一个使用线性代数进行的证明。  设：状态空间为二元域 $\mathbb{F}_2 = {0, 1}$ 上的9维向量空间 $V = \mathbb{F}_2^9$，网格的初始状态为向量 $\vec{s} \in V$，则我们的目标状态（全1）为向量 $\vec{t} = (1, 1, 1, 1, 1, 1, 1, 1)^T \in V$。 又记按键操作为向量 $\vec{x} \in V$，其中 $x_i = 1$ 表示按了第 $i$ 个格子， $x_i = 0$ 表示未按。 令操作矩阵 A 中 $A_{ij}=1$ 当且仅当按第 j 个格子会翻转第 i 个格子。（例如，按第5个格子（中心）会翻转2, 4, 5, 6, 8，所以 A 的第5列为 (0,1,0,1,1,1,0,1,0)T）。 于是我们有：对初始状态 $\vec{s}$ 执行操作 $\vec{x}$，得到的最终状态 $\vec{s}_{final}$ 为： \vec{s}_{final} = \vec{s} + A\vec{x}   (所有运算均在...</div></div></div></a><a class="pagination-related" href="/posts/7c1672ff.html" title="求和录（一）"><img class="cover" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Konachan.com%20-%20388779%20sample.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-14</div><div class="info-item-2">求和录（一）</div></div><div class="info-2"><div class="info-item-1">本博文仍在施工中，如果作者有时间的话。  引子生活中无处不存在着求和问题，包括离散和 $\Sigma$ 和连续和 $\int$ ，本集合文章会收录本人在学习生活中遇到的一些求和问题，并加以总结。 一阶离散和和连续和的联系本节是作者在高中闲暇时间发现的离散序列中的类似 积分、求导、分部积分 等操作。 离散差分 &lt;——&gt; 导数对于一个序列 $a_1 \ , \ a_2 \ , \ a_3 \cdots a_n$ ， 我们定义向前差分为：  \Delta a_i = a_{i+1} - a_i \ , \ i1这里我们为了统一操作，我们只考虑向前差分，并记 $\Delta^0 a_i$ 为原序列。 如果将 $\Delta a_i$ 再次求差分，我们得到：  \Delta^2 a_i =\Delta(\Delta a_i) = \Delta a_{i+1} - \Delta a_i= a_{i+2} - 2a_{i+1} + a_i类似的我们有：  \begin{aligned} \Delta^3 a_i &= \Delta^2 a_{i+1} - \Delta^2 a_i...</div></div></div></a><a class="pagination-related" href="/posts/ee1dab94.html" title="概率论与数理统计期末复习"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-17</div><div class="info-item-2">概率论与数理统计期末复习</div></div><div class="info-2"><div class="info-item-1">前言卧槽后天就要考概率论惹😫趁现在抄书复习一下 ~~ 还来得及嘛 ~~ 基本名词 样本空间：所有可能结果组成的集合 样本点：样本空间中的元素 样本：从总体中抽取的样本点组成的集合 随机事件（事件）：样本空间中的子集 必然事件： 样本空间 $\Omega$ 不可能事件：空集 $\emptyset$  相等事件：若 $A \subseteq B \wedge B \subseteq A$，则称 $A$ 与 $B$ 相等，记为 $A = B$ 互斥事件：若 $A \cap B = \emptyset$，则称 $A$ 与 $B$ 互斥（不相容） 对立事件（逆事件）： 若 $A \cup B = \Omega \wedge A \cap B = \emptyset$，则称 $A$ 与 $B$ 对立，记为 $A \oplus B$ 或 $\bar{A} = B$ 和事件：$A \cup B$ 或者 $A + B$ 积事件：$A \cap B$ 或者 $AB$ 差事件：$A - B ={x| x \in A \wedge x \notin B}$ 随机变量： 样本空间 $\Omega$...</div></div></div></a><a class="pagination-related" href="/posts/f8e37cbd.html" title="生成函数笔记"><img class="cover" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Oyama_Mahiro.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-15</div><div class="info-item-2">生成函数笔记</div></div><div class="info-2"><div class="info-item-1">引入我们中学在学习多项式和数列时，知道二项式 $(1+x)^n$ 展开后每一项的系数都是 $C_n^i$ ， 对应着数列 $a_i=C_n^i$ 。那么，我们是否可以构造一个函数 $f(x)$ ，使得 $f(x)$ 的系数对应着数列 $a_i$ ，从而可以方便地研究数列的性质呢？ 这个能生成出数列的函数 $f(x)$ 就被称为生成函数。生成函数是组合数学中一个非常重要的工具，可以方便地研究数列的性质。 定义实数序列 $a_0,a_1,\cdots ,a_k, \cdots$ 的生成函数（Generating function）是无穷级数  G(x)=a_0+a_1x+a_2x^2+\cdots+a_kx^k+\cdots=\sum_{k=0}^\infty a_kx^k例如，数列 a_k=2^{k-1} 的生成函数为 \sum_{k=0}^\infty 2^{k-1}x^k=\frac{1}{1-2x} 、数列 a_k=C_n^k 的生成函数为 \sum_{k=0}^\infty C_n^kx^k=(1+x)^n 、 数列 a_k=\frac{1}{k!} 的生成函数为...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%97%8B%E8%BD%AC%E7%9A%84%E8%A1%A8%E8%BE%BE"><span class="toc-number">1.</span> <span class="toc-text">旋转的表达</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E4%BA%8C%E7%BB%B4%E5%BC%80%E5%A7%8B"><span class="toc-number">1.1.</span> <span class="toc-text">从二维开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%B0%E4%B8%89%E7%BB%B4"><span class="toc-number">1.2.</span> <span class="toc-text">到三维</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E4%B8%AA%E5%9D%90%E6%A0%87%E8%BD%B4%E7%9A%84%E6%97%8B%E8%BD%AC%E7%9F%A9%E9%98%B5%EF%BC%88%E6%AC%A7%E6%8B%89%E8%A7%92%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">各个坐标轴的旋转矩阵（欧拉角）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%90%E4%B8%AA%E5%AE%9A%E8%BD%B4%E7%9A%84%E6%97%8B%E8%BD%AC%E7%9F%A9%E9%98%B5%EF%BC%88%E8%BD%B4-%E8%A7%92%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">某个定轴的旋转矩阵（轴-角）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E6%AC%A7%E6%8B%89%E8%A7%92%E8%A1%A8%E7%A4%BA%E5%88%B0%E8%BD%B4%E8%A7%92%E8%A1%A8%E7%A4%BA"><span class="toc-number">1.2.3.</span> <span class="toc-text">从欧拉角表示到轴角表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E5%85%83%E6%95%B0"><span class="toc-number">1.2.4.</span> <span class="toc-text">四元数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B%E5%85%83%E6%95%B0%E7%9A%84%E5%AE%9A%E8%BD%B4%E6%97%8B%E8%BD%AC"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">四元数的定轴旋转</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B%E5%85%83%E6%95%B0%E4%B8%8E%E6%97%8B%E8%BD%AC%E7%9F%A9%E9%98%B5%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.2.4.2.</span> <span class="toc-text">四元数与旋转矩阵的转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B%E5%85%83%E6%95%B0%E4%B8%8E%E6%AC%A7%E6%8B%89%E8%A7%92%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.2.4.3.</span> <span class="toc-text">四元数与欧拉角的转换</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%99%E5%88%B0%E6%9C%80%E5%90%8E"><span class="toc-number">2.</span> <span class="toc-text">写到最后</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/ee1dab94.html" title="概率论与数理统计期末复习">概率论与数理统计期末复习</a><time datetime="2026-01-17T12:43:34.000Z" title="发表于 2026-01-17 20:43:34">2026-01-17</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><footer id="footer" style="background: transparent"><div id="footer_icons"><div><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://www.teslongxiao.cn/about" title="关于我"><i class="fa-solid fa-compass"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://res.abeim.cn/api/qq/?qq=2040426884" title="联系QQ"><i class="fa-brands fa-qq"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="mailto:2040426884@qq.com" title="发送邮件"><i class="fa-solid fa-envelope"></i></a></div><img class="footer_logo" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/aoao.gif" onclick="btf.scrollToDest(0,500)" title="返回顶部"/><div><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://github.com/META-Xiao" title="Github主页"><i class="fa-brands fa-github"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://space.bilibili.com/332124713" title="哔哩哔哩主页"><i class="fa-brands fa-bilibili"></i></a><a class="icon_link" href="/message/" title="留言"><i class="fa-solid fa-comment"></i></a></div><div id="footer_content"><div class="footer-group"><h3 class="footer-title"></h3><div class="footer-links"><a class="footer-item" href="undefined"></a></div></div></div></div><div id="footer-bottom"><div class="footer-bottom-content"><div class="footer-bottom-left"><span class="copyright">&copy;2024 - 2026 By <a target="_blank" rel="noopener" href="https://www.teslongxiao.cn" title="点击访问&quot;Meta&quot;的主页" style="margin-left:5px">Meta</a></span><div><a class="footer-bottom-link" target="_blank" href="https://icp.gov.moe/?keyword=20250061" rel="noopener external nofollow" title="萌ICP备20250061号">萌ICP备20250061号</a><a class="footer-bottom-link" target="_blank" href="https://v6.51.la/report/overview?comId=510796" rel="noopener external nofollow" title="51LA">统计信息</a></div></div><div class="footer-bottom-right"><div id="runtime" title="已运行时长">本站已运行：0 天 0 时 0 分 0 秒</div><div><a class="footer-bottom-link" target="_blank" href="https://hexo.io/zh-cn/" rel="noopener external nofollow" title="框架">Hexo</a><a class="footer-bottom-link" target="_blank" href="https://butterfly.js.org/" rel="noopener external nofollow" title="主题">Butterfly</a></div><script type="js" src="/js/footer.js"> </script></div></div></div></footer></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到底部"><span class="scroll-percent"></span><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-strict":1,"data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"top","data-lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark_dimmed' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'META-Xiao/blog-comments',
+      'data-repo-id': 'R_kgDOQAXbjw',
+      'data-category-id': 'DIC_kwDOQAXbj84CwgFy',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"3L3LMrlEa92UPmXV",ck:"3L3LMrlEa92UPmXV"})</script><script defer src="/js/footer.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["link[rel=\"canonical\"]","meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/posts/257e1115.html"]):not([href="/posts/928debf2.html"]):not([href="/posts/49f4a0d6.html"]):not([href="/posts/dec5d03c.html"]):not([href="/posts/b05b7d2d.html"]):not([href="/posts/5e8d613b.html"]):not([href="/posts/39efaf90.html"]):not([href="/project/"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start -->
+      <script data-pjax>
+        if (typeof window.recommend === 'undefined') {
+          window.recommend = {
+            hexo_butterfly_recommend_init: function() {
+              const $recommend = document.querySelector('#recommend');
+              if($recommend) return;
+              document.documentElement.style.setProperty('--recommend-main', '#409eff');
+              document.documentElement.style.setProperty('--recommend-deep', '#0075ffdd');
+              const hexo_butterfly_recommend_elist = 'null'.split(',');
+              var hexo_butterfly_recommend_cpage = location.pathname;
+              const hexo_butterfly_recommend_epage = '/';
+              var hexo_butterfly_recommend_flag = 0;
+        
+              for (var i = 0; i < hexo_butterfly_recommend_elist.length; i++) {
+                if (hexo_butterfly_recommend_cpage.includes(hexo_butterfly_recommend_elist[i])) {
+                  hexo_butterfly_recommend_flag++;
+                }
+              }
+              if ((hexo_butterfly_recommend_epage === 'all') && (hexo_butterfly_recommend_flag === 0)) {
+                window.recommend.hexo_butterfly_recommend_injector_config();
+              } else if (hexo_butterfly_recommend_epage === hexo_butterfly_recommend_cpage) {
+                window.recommend.hexo_butterfly_recommend_injector_config();
+              }
+            },
+            hexo_butterfly_recommend_injector_config: function() {
+              var parent_div_git = document.getElementById('content-inner');
+              var item_html = '<div class="recommend-right" id="recommend"><div id="recommend-content" onmousewheel="recommend.postScroll(this)"><div class="recommend-wrapper" id="recommend-banner"><div id="recommend-banner-wrapper"><div class="recommend-banner-title-wrapper"><div class="recommend-banner-title">Stay hungry</div><div class="recommend-banner-title">Stay foolish</div><div class="recommend-banner-title">www.teslongxiao.cn</div></div><div class="recommend-tags-all"><div class="recommend-tags-wrapper"><div class="recommend-tags-line"><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #f7cb4f"><i class="fa-brands fa-js" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #bd0102"><i class="fa-brands fa-angular" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #df5b40"><i class="fa-brands fa-git-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #f7cb4f"><i class="fa-brands fa-js" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #bd0102"><i class="fa-brands fa-angular" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #df5b40"><i class="fa-brands fa-git-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div></div><div class="recommend-tags-line"><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div></div></div></div><a id="recommend-banner-hover" onclick="recommend.toRandomPost()"><span class="recommend-banner-text">随便逛逛</span><i class="fas fa-arrow-right recommend-banner-righticon"></i></a></div><div id="recommend-category"><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;categories/精选&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #358bff, #15c6ff)"></div><span class="recommend-categoryItem-text">站长精选</span><i class="fa-solid fa-star"></i></a></div><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;categories&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #f65, #ffbf37)"></div><span class="recommend-categoryItem-text">文章分类</span><i class="fa-solid fa-book"></i></a></div><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;project&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #18e7ae, #1eebeb)"></div><span class="recommend-categoryItem-text">个人项目</span><i class="fa-solid fa-code"></i></a></div></div></div><div class="recommend-wrapper" id="recommend-post"><div class="recommend-post-main" id="recommend-post-main"><div class="recommend-post-cover" onclick="recommend.toPost(&quot;about&quot;)" style="background: var(--recommend-main) url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Light_up_Sky.gif) no-repeat center/cover"></div><div class="recommend-post-cover-wrapper"><div class="recommend-post-cover-info" onclick="recommend.toPost(&quot;about&quot;)"><div class="recommend-post-cover-subTitle">缥缃筆記</div><div class="recommend-post-cover-title">芸编偶拾 • 闲敲平仄煮时光</div></div><div class="recommend-post-cover-more" onclick="window.event.cancelBubble=true;recommend.hideCover();"><div class="recommend-post-cover-more-bg"></div><i class="fa-solid fa-circle-plus"></i><span>更多推荐</span></div></div></div><div class="recommend-post-list" onmouseleave="window.event.cancelBubble=true;recommend.showCover();"><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/f8e37cbd.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Oyama_Mahiro.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="生成函数笔记"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/f8e37cbd.html&quot;)" title="生成函数笔记">生成函数笔记</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/75364206.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Yanami_Anna.png" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="牛客小白月赛117题解"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/75364206.html&quot;)" title="牛客小白月赛117题解">牛客小白月赛117题解</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/fec4b5ee.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Konachan.com%20-%20368742%20sample.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="牛客2025秋季算法编程训练联赛5-基础组题解"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/fec4b5ee.html&quot;)" title="牛客2025秋季算法编程训练联赛5-基础组题解">牛客2025秋季算法编程训练联赛5-基础组题解</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/704d10ab.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/2025-03-12%20122109.png" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="火箭轨迹三维模拟（低空）"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/704d10ab.html&quot;)" title="火箭轨迹三维模拟（低空）">火箭轨迹三维模拟（低空）</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/6cc39754.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Tifa1.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="洛谷题解--记3月24日训练"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/6cc39754.html&quot;)" title="洛谷题解--记3月24日训练">洛谷题解--记3月24日训练</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/ee1dab94.html&quot;)"><img src="" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="概率论与数理统计期末复习"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/ee1dab94.html&quot;)" title="概率论与数理统计期末复习">概率论与数理统计期末复习</div></div></div></div></div></div>';
+              parent_div_git.insertAdjacentHTML("afterbegin",item_html);
+            },
+            toRandomPost: function() {
+              var posts_path = "posts/4a52651e.html,posts/f2a626f9.html,posts/73c6c6c9.html,posts/18120.html,posts/56011.html,posts/54962.html,posts/4b32681.html,posts/1baa34af.html,posts/3538e23e.html,posts/45c6e9dc.html,posts/6ecdd18f.html,posts/bb2feb5d.html,posts/16107.html,posts/d629c6d1.html,posts/7c1672ff.html,posts/96145f6d.html,posts/c43560d9.html,posts/e91093f0.html,posts/c72ae656.html,posts/5a9acf5a.html,posts/5e8d613b.html,posts/bfbde536.html,posts/623e9466.html,posts/928debf2.html,posts/49f4a0d6.html,posts/dec5d03c.html,posts/b05b7d2d.html,posts/257e1115.html,posts/39efaf90.html,posts/8f5e0b51.html,posts/b9a16b3b.html,posts/3de51743.html,posts/ee1dab94.html,posts/6cc39754.html,posts/704d10ab.html,posts/fec4b5ee.html,posts/75364206.html,posts/f8e37cbd.html".split(',');
+              var randomPost = posts_path[Math.floor(Math.random() * posts_path.length)];
+              window.recommend.toPost(randomPost);
+            },
+            toPost: function(href) {
+              if (typeof pjax !== 'undefined') pjax.loadUrl('/' + href);
+              else window.location.href = window.location.origin + (href.charAt(0) === '/' ? '' : '/') + href;
+            },
+            hideCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              $main.className = 'recommend-post-main recommend-hide';
+            },
+            showCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              if ($main) $main.className = 'recommend-post-main';
+            },
+            postScroll: function(dom) {
+              const e = window.event || arguments.callee.caller.arguments[0];
+              if (document.body.clientWidth <= 1200) {
+                let o = -e.wheelDelta / 2;
+                dom.scrollLeft += o;
+                e.preventDefault();
+              }
+            }
+          }
+          console.log(
+            "%c plugin ⭐ hexo_butterfly_recommend ⭐ https://github.com/weizwz/hexo-butterfly-recommend ",
+            "color: #fff; padding:3px; font-size:12px; background: linear-gradient(90deg, #358bff, #1eebeb);"
+          )
+        }
+        window.recommend.hexo_butterfly_recommend_init();
+      </script><!-- hexo injector body_end end --></body></html>

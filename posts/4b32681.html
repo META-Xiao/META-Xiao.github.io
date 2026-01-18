@@ -1,0 +1,594 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>添加评论功能 | 右侧工具变为到底部 | 修复fontawesome的CDN | 浮生若梦</title><meta name="author" content="Meta Xiao"><meta name="copyright" content="Meta Xiao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="本文介绍如何为 Hexo 博客修复 Font Awesome 图标加载问题、将右侧滚动按钮改为&quot;回到底部&quot;功能，以及集成基于 GitHub Discussions 的 Giscus 评论系统，提升博客的交互体验。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="添加评论功能 | 右侧工具变为到底部 | 修复fontawesome的CDN">
+<meta property="og:url" content="https://www.teslongxiao.cn/posts/4b32681.html">
+<meta property="og:site_name" content="浮生若梦">
+<meta property="og:description" content="本文介绍如何为 Hexo 博客修复 Font Awesome 图标加载问题、将右侧滚动按钮改为&quot;回到底部&quot;功能，以及集成基于 GitHub Discussions 的 Giscus 评论系统，提升博客的交互体验。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Konachan.com%20-%20394276%20sample.jpg">
+<meta property="article:published_time" content="2025-10-11T07:51:09.000Z">
+<meta property="article:modified_time" content="2026-01-18T17:08:36.722Z">
+<meta property="article:author" content="Meta Xiao">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="日志">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Konachan.com%20-%20394276%20sample.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "添加评论功能 | 右侧工具变为到底部 | 修复fontawesome的CDN",
+  "url": "https://www.teslongxiao.cn/posts/4b32681.html",
+  "image": "https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Konachan.com%20-%20394276%20sample.jpg",
+  "datePublished": "2025-10-11T07:51:09.000Z",
+  "dateModified": "2026-01-18T17:08:36.722Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Meta Xiao",
+      "url": "https://www.teslongxiao.cn/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/image.png"><link rel="canonical" href="https://www.teslongxiao.cn/posts/4b32681.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="Qi_9CrV7lldy8VD7RIVN3Nb62FP7EmhAITFqplx0mzo"/><meta name="baidu-site-verification" content="codeva-nF4CVmePFG"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f6e1da')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":500,"languages":{"author":"作者: Meta Xiao","link":"链接: ","source":"来源: 浮生若梦","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '添加评论功能 | 右侧工具变为到底部 | 修复fontawesome的CDN',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+
+<link rel="stylesheet" href="/css/recommend.css?v=1.1.2.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/css/flash.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-image: url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/subway_girl.gif);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/1737896078867.gif" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">38</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-tools"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-user"></i><span> 我的</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/talks/"><i class="fa-fw fas fa-coffee"></i><span> 动态</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Konachan.com%20-%20394276%20sample.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/bar-logo.png" alt="Logo"><span class="site-name">浮生若梦</span></a><a class="nav-page-title" href="/"><span class="site-name">添加评论功能 | 右侧工具变为到底部 | 修复fontawesome的CDN</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-tools"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-user"></i><span> 我的</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/talks/"><i class="fa-fw fas fa-coffee"></i><span> 动态</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">添加评论功能 | 右侧工具变为到底部 | 修复fontawesome的CDN</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-11T07:51:09.000Z" title="发表于 2025-10-11 15:51:09">2025-10-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-18T17:08:36.722Z" title="更新于 2026-01-19 01:08:36">2026-01-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/hexo/">hexo</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img gist" style="background-image: url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Konachan.com%20-%20394276%20sample.jpg)"></div><article class="container post-content" id="article-container"><h1 id="修复-Font-Awesome-图标无法显示问题"><a href="#修复-Font-Awesome-图标无法显示问题" class="headerlink" title="修复 Font Awesome 图标无法显示问题"></a>修复 Font Awesome 图标无法显示问题</h1><div class="note danger no-icon flat"><p><strong>问题描述：</strong><br>博客的标题图标（如 h1、h2 前的图标）、hr 分割线的美化标记、以及菜单图标等 Font Awesome 图标无法正常显示。</p>
+<p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/CDNerror20251011.png" alt="wrong show"></p>
+</div>
+<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>Butterfly 主题默认使用 <strong>jsDelivr CDN</strong> 加载 Font Awesome：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>由于 jsDelivr 在国内访问不稳定，经常被墙或速度很慢，导致字体文件无法正常加载，从而使图标显示为空白或乱码。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>将 Font Awesome CDN 更换为国内访问更稳定的 <strong>Cloudflare CDN</strong>。</p>
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><p>打开 <code>themes/butterfly/_config.yml</code>，找到 CDN 配置部分（大约在 1180 行左右）：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">CDN:</span></span><br><span class="line">  <span class="comment"># The CDN provider for internal and third-party scripts</span></span><br><span class="line">  <span class="attr">internal_provider:</span> <span class="string">local</span></span><br><span class="line">  <span class="attr">third_party_provider:</span> <span class="string">jsdelivr</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">option:</span></span><br><span class="line">    <span class="comment"># ... 其他配置 ...</span></span><br><span class="line">    <span class="comment"># fontawesome:</span></span><br></pre></td></tr></table></figure>
+<p>修改为：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">CDN:</span></span><br><span class="line">  <span class="attr">internal_provider:</span> <span class="string">local</span></span><br><span class="line">  <span class="attr">third_party_provider:</span> <span class="string">jsdelivr</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">option:</span></span><br><span class="line">    <span class="comment"># ... 其他配置 ...</span></span><br><span class="line">    <span class="attr">fontawesome:</span> <span class="string">https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css</span></span><br></pre></td></tr></table></figure>
+<h3 id="其他可选-CDN-方案"><a href="#其他可选-CDN-方案" class="headerlink" title="其他可选 CDN 方案"></a>其他可选 CDN 方案</h3><p>如果 Cloudflare 仍不稳定，可以尝试以下国内 CDN：</p>
+<p><strong>BootCDN（国内推荐）</strong>：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">fontawesome:</span> <span class="string">https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>字节跳动 CDN</strong>：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">fontawesome:</span> <span class="string">https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>七牛云 CDN</strong>：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">fontawesome:</span> <span class="string">https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="修改右侧滚动按钮为”回到底部”"><a href="#修改右侧滚动按钮为”回到底部”" class="headerlink" title="修改右侧滚动按钮为”回到底部”"></a>修改右侧滚动按钮为”回到底部”</h1><div class="note info no-icon flat"><p>默认的 Butterfly 主题右下角按钮功能是”回到顶部”，这个和<code>footer</code>的返回顶部功能重复了，本人不太喜欢😫，本节将介绍如何将其改为”回到底部”功能，并在接近底部时自动隐藏按钮🤗。</p>
+</div>
+<h2 id="修改步骤"><a href="#修改步骤" class="headerlink" title="修改步骤"></a>修改步骤</h2><h3 id="1-修改按钮点击行为"><a href="#1-修改按钮点击行为" class="headerlink" title="1. 修改按钮点击行为"></a>1. 修改按钮点击行为</h3><p>打开 <code>themes/butterfly/source/js/main.js</code>，找到大约 630 行的 <code>go-up</code> 函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;go-up&#x27;</span>: <span class="function">() =&gt;</span> &#123; <span class="comment">// Back to top</span></span><br><span class="line">  btf.<span class="title function_">scrollToDest</span>(<span class="number">0</span>, <span class="number">500</span>)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>修改为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;go-up&#x27;</span>: <span class="function">() =&gt;</span> &#123; <span class="comment">// Back to bottom</span></span><br><span class="line">  <span class="keyword">const</span> scrollHeight = <span class="title class_">Math</span>.<span class="title function_">max</span>(</span><br><span class="line">    <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollHeight</span>,</span><br><span class="line">    <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">scrollHeight</span>,</span><br><span class="line">    <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">offsetHeight</span>,</span><br><span class="line">    <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">offsetHeight</span>,</span><br><span class="line">    <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">clientHeight</span>,</span><br><span class="line">    <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">clientHeight</span></span><br><span class="line">  )</span><br><span class="line">  btf.<span class="title function_">scrollToDest</span>(scrollHeight, <span class="number">500</span>)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h3 id="2-修改按钮图标和提示文字"><a href="#2-修改按钮图标和提示文字" class="headerlink" title="2. 修改按钮图标和提示文字"></a>2. 修改按钮图标和提示文字</h3><p>打开 <code>themes/butterfly/layout/includes/rightside.pug</code>，找到大约 59 行的按钮定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">button#go-up(type=&quot;button&quot; title=_p(&quot;rightside.back_to_top&quot;))</span><br><span class="line">  span.scroll-percent</span><br><span class="line">  i.fas.fa-arrow-up</span><br></pre></td></tr></table></figure>
+<p>修改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">button#go-up(type=&quot;button&quot; title=_p(&quot;rightside.back_to_bottom&quot;))</span><br><span class="line">  span.scroll-percent</span><br><span class="line">  i.fas.fa-arrow-down</span><br></pre></td></tr></table></figure>
+<h3 id="3-添加中文提示文字"><a href="#3-添加中文提示文字" class="headerlink" title="3. 添加中文提示文字"></a>3. 添加中文提示文字</h3><p>打开 <code>themes/butterfly/languages/zh-CN.yml</code>，在 <code>rightside</code> 部分添加：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rightside:</span></span><br><span class="line">  <span class="attr">readmode_title:</span> <span class="string">阅读模式</span></span><br><span class="line">  <span class="attr">translate_title:</span> <span class="string">简繁转换</span></span><br><span class="line">  <span class="attr">night_mode_title:</span> <span class="string">日间和夜间模式切换</span></span><br><span class="line">  <span class="attr">back_to_top:</span> <span class="string">回到顶部</span></span><br><span class="line">  <span class="attr">back_to_bottom:</span> <span class="string">回到底部</span>  <span class="comment"># 添加这一行</span></span><br><span class="line">  <span class="attr">toc:</span> <span class="string">目录</span></span><br><span class="line">  <span class="attr">scroll_to_comment:</span> <span class="string">前往评论</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-优化按钮显示逻辑（可选）"><a href="#4-优化按钮显示逻辑（可选）" class="headerlink" title="4. 优化按钮显示逻辑（可选）"></a>4. 优化按钮显示逻辑（可选）</h3><p>在 <code>themes/butterfly/source/js/main.js</code> 中，找到 <code>scrollTask</code> 函数（大约 424 行），可以添加以下逻辑让按钮在接近底部时自动隐藏：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">const</span> scrollTask = btf.<span class="title function_">throttle</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> currentTop = <span class="variable language_">window</span>.<span class="property">scrollY</span> || <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">scrollTop</span></span><br><span class="line">  <span class="keyword">const</span> isDown = <span class="title function_">scrollDirection</span>(currentTop)</span><br><span class="line">  <span class="keyword">const</span> scrollHeight = <span class="title class_">Math</span>.<span class="title function_">max</span>(<span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollHeight</span>, <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">scrollHeight</span>)</span><br><span class="line">  <span class="keyword">const</span> isNearBottom = currentTop + <span class="variable language_">window</span>.<span class="property">innerHeight</span> &gt;= scrollHeight - <span class="number">100</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (currentTop &gt; <span class="number">56</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (flag === <span class="string">&#x27;&#x27;</span>) &#123;</span><br><span class="line">      $header.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;nav-fixed&#x27;</span>)</span><br><span class="line">      <span class="keyword">if</span> (!isNearBottom) &#123;</span><br><span class="line">        $rightside.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;rightside-show&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isDown) &#123;</span><br><span class="line">      <span class="keyword">if</span> (flag !== <span class="string">&#x27;down&#x27;</span>) &#123;</span><br><span class="line">        $header.<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&#x27;nav-visible&#x27;</span>)</span><br><span class="line">        isChatBtn &amp;&amp; <span class="variable language_">window</span>.<span class="property">chatBtn</span>.<span class="title function_">hide</span>()</span><br><span class="line">        flag = <span class="string">&#x27;down&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (flag !== <span class="string">&#x27;up&#x27;</span>) &#123;</span><br><span class="line">        $header.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;nav-visible&#x27;</span>)</span><br><span class="line">        isChatBtn &amp;&amp; <span class="variable language_">window</span>.<span class="property">chatBtn</span>.<span class="title function_">show</span>()</span><br><span class="line">        flag = <span class="string">&#x27;up&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">if</span> (currentTop === <span class="number">0</span>) &#123;</span><br><span class="line">      $header.<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&#x27;nav-fixed&#x27;</span>, <span class="string">&#x27;nav-visible&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    $rightside.<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&#x27;rightside-show&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 在接近底部时隐藏按钮，其他地方显示按钮</span></span><br><span class="line">  <span class="keyword">if</span> (isNearBottom &amp;&amp; currentTop &gt; <span class="number">56</span>) &#123;</span><br><span class="line">    $rightside.<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&#x27;rightside-show&#x27;</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currentTop &gt; <span class="number">56</span>) &#123;</span><br><span class="line">    $rightside.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;rightside-show&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  isShowPercent &amp;&amp; <span class="title function_">rightsideScrollPercent</span>(currentTop)</span><br><span class="line">  <span class="title function_">checkDocumentHeight</span>()</span><br><span class="line">&#125;, <span class="number">300</span>)</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="添加-Giscus-评论系统"><a href="#添加-Giscus-评论系统" class="headerlink" title="添加 Giscus 评论系统"></a>添加 Giscus 评论系统</h1><div class="note purple no-icon flat"><h3 style="color: rgba(35, 104, 81, 0.77);">为什么选择 Giscus？</h3>
+
+<p>Giscus 是基于 GitHub Discussions 的评论系统，相比其他评论系统有以下优势：</p>
+<ol>
+<li><strong>GitHub 原生风格</strong>：与 GitHub 完美融合，界面统一美观</li>
+<li><strong>OAuth 登录</strong>：使用 GitHub 账号登录，安全可靠</li>
+<li><strong>Markdown 支持</strong>：完整支持 Markdown 语法和代码高亮</li>
+<li><strong>表情反应</strong>：支持 GitHub 表情 👍 ❤️ 😄</li>
+<li><strong>永久存储</strong>：评论存储在 GitHub，永不丢失</li>
+<li><strong>免费开源</strong>：完全免费，无广告</li>
+<li><strong>主题自适应</strong>：自动跟随博客日间/夜间模式</li>
+</ol>
+<p>实现效果如下：</p>
+<p><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Screenshot%202025-10-12%20192129.png" alt="res show"></p>
+</div>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>这里我选择再创建一个新的仓库用于存评论</p>
+<h3 id="1-创建评论专用仓库"><a href="#1-创建评论专用仓库" class="headerlink" title="1. 创建评论专用仓库"></a>1. 创建评论专用仓库</h3><p>访问 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/new">https://github.com/new</a> 创建新仓库：</p>
+<ul>
+<li><strong>Repository name</strong>: <code>blog-comments</code></li>
+<li><strong>Description</strong>: <code>Comments for my blog powered by Giscus</code></li>
+<li><strong>Visibility</strong>: ✅ <strong>Public</strong>（必须是公开的）</li>
+<li>✅ 勾选 <strong>Add a README file</strong></li>
+</ul>
+<h3 id="2-启用-Discussions-功能"><a href="#2-启用-Discussions-功能" class="headerlink" title="2. 启用 Discussions 功能"></a>2. 启用 Discussions 功能</h3><ol>
+<li>进入刚创建的仓库</li>
+<li>点击 <strong>Settings</strong> 标签</li>
+<li>向下滚动到 <strong>Features</strong> 部分</li>
+<li>勾选 ✅ <strong>Discussions</strong></li>
+<li>点击 <strong>Save changes</strong></li>
+</ol>
+<h3 id="3-安装-Giscus-App"><a href="#3-安装-Giscus-App" class="headerlink" title="3. 安装 Giscus App"></a>3. 安装 Giscus App</h3><ol>
+<li>访问：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/apps/giscus">https://github.com/apps/giscus</a></li>
+<li>点击绿色的 <strong>Install</strong> 按钮</li>
+<li>选择 <strong>Only select repositories</strong></li>
+<li>在下拉菜单中选择 <code>blog-comments</code></li>
+<li>点击 <strong>Install</strong></li>
+</ol>
+<h2 id="获取配置参数"><a href="#获取配置参数" class="headerlink" title="获取配置参数"></a>获取配置参数</h2><h3 id="访问-Giscus-配置页面"><a href="#访问-Giscus-配置页面" class="headerlink" title="访问 Giscus 配置页面"></a>访问 Giscus 配置页面</h3><p>访问：<strong><a target="_blank" rel="noopener external nofollow noreferrer" href="https://giscus.app/zh-CN">https://giscus.app/zh-CN</a></strong></p>
+<h3 id="填写配置信息"><a href="#填写配置信息" class="headerlink" title="填写配置信息"></a>填写配置信息</h3><ol>
+<li><p><strong>语言</strong>：选择 <code>简体中文</code></p>
+</li>
+<li><p><strong>仓库</strong>：填写 <code>你的GitHub用户名/blog-comments</code></p>
+<ul>
+<li>等待验证通过（会显示绿色的 ✅）</li>
+</ul>
+</li>
+<li><p><strong>页面 ↔️ discussion 映射关系</strong>：</p>
+<ul>
+<li>选择 <code>Discussion 的标题包含页面的 pathname</code> ⭐ 推荐</li>
+<li>✅ 勾选 <strong>使用严格的标题匹配</strong></li>
+</ul>
+</li>
+</ol>
+<div class="note warning modern"><p><strong>为什么选择 pathname？</strong></p>
+<p>因为你的博客使用了 <code>hexo-abbrlink</code> 插件，每篇文章有固定的短链接（如 <code>/posts/bb2feb5d.html</code>）。使用 pathname 映射可以确保：</p>
+<ul>
+<li>修改文章标题不会影响评论</li>
+<li>每篇文章有唯一的评论讨论</li>
+<li>本地测试和线上环境都能正常工作</li>
+</ul>
+</div>
+<ol>
+<li><p><strong>Discussion 分类</strong>：选择 <code>Announcements</code> 📣</p>
+</li>
+<li><p><strong>特性</strong>：</p>
+<ul>
+<li>✅ 启用主帖子上的反应</li>
+<li>✅ 将输入框放在评论上方</li>
+<li>✅ 按时间倒序加载评论</li>
+</ul>
+</li>
+<li><p><strong>主题</strong>：</p>
+<ul>
+<li>选择 <code>light</code>（浅色模式，这个只是预览，实际会自动切换）</li>
+</ul>
+</li>
+</ol>
+<h3 id="获取配置参数-1"><a href="#获取配置参数-1" class="headerlink" title="获取配置参数"></a>获取配置参数</h3><p>页面底部会生成类似这样的代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://giscus.app/client.js&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">data-repo</span>=<span class="string">&quot;你的用户名/blog-comments&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">data-repo-id</span>=<span class="string">&quot;R_kgDOQAXbjw&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">data-category</span>=<span class="string">&quot;Announcements&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">data-category-id</span>=<span class="string">&quot;DIC_kwDOQAXbj84CwgFy&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">data-mapping</span>=<span class="string">&quot;pathname&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">data-strict</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">data-reactions-enabled</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">data-emit-metadata</span>=<span class="string">&quot;0&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">data-input-position</span>=<span class="string">&quot;top&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">data-theme</span>=<span class="string">&quot;light&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">data-lang</span>=<span class="string">&quot;zh-CN&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">crossorigin</span>=<span class="string">&quot;anonymous&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">async</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>记录下这两个重要参数：</p>
+<ul>
+<li><code>data-repo-id=&quot;R_kgDOQAXbjw&quot;</code></li>
+<li><code>data-category-id=&quot;DIC_kwDOQAXbj84CwgFy&quot;</code></li>
+</ul>
+<h2 id="配置-Butterfly-主题"><a href="#配置-Butterfly-主题" class="headerlink" title="配置 Butterfly 主题"></a>配置 Butterfly 主题</h2><p>打开 <code>themes/butterfly/_config.yml</code>，进行以下修改：</p>
+<h3 id="1-启用-Giscus-评论系统"><a href="#1-启用-Giscus-评论系统" class="headerlink" title="1. 启用 Giscus 评论系统"></a>1. 启用 Giscus 评论系统</h3><p>找到 <code>comments</code> 部分（大约 605 行）：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">comments:</span></span><br><span class="line">  <span class="comment"># Up to two comments system, the first will be shown as default</span></span><br><span class="line">  <span class="comment"># Leave it empty if you don&#x27;t need comments</span></span><br><span class="line">  <span class="attr">use:</span> <span class="string">Giscus</span>  <span class="comment"># 修改这里，原来是空的</span></span><br><span class="line">  <span class="comment"># Display the comment name next to the button</span></span><br><span class="line">  <span class="attr">text:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Lazyload: The comment system will be load when comment element enters the browser&#x27;s viewport.</span></span><br><span class="line">  <span class="attr">lazyload:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># Display comment count in post&#x27;s top_img</span></span><br><span class="line">  <span class="attr">count:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># Display comment count in Home Page</span></span><br><span class="line">  <span class="attr">card_post_count:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-配置-Giscus-参数"><a href="#2-配置-Giscus-参数" class="headerlink" title="2. 配置 Giscus 参数"></a>2. 配置 Giscus 参数</h3><p>找到 <code>giscus</code> 部分（大约 706 行）：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Giscus</span></span><br><span class="line"><span class="comment"># https://giscus.app/</span></span><br><span class="line"><span class="attr">giscus:</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">你的用户名/blog-comments</span></span><br><span class="line">  <span class="attr">repo_id:</span> <span class="string">R_kgDOQAXbjw</span>  <span class="comment"># 替换为你的 repo_id</span></span><br><span class="line">  <span class="attr">category_id:</span> <span class="string">DIC_kwDOQAXbj84CwgFy</span>  <span class="comment"># 替换为你的 category_id</span></span><br><span class="line">  <span class="attr">light_theme:</span> <span class="string">light</span></span><br><span class="line">  <span class="attr">dark_theme:</span> <span class="string">dark_dimmed</span>  <span class="comment"># 柔和的深色主题</span></span><br><span class="line">  <span class="attr">js:</span></span><br><span class="line">  <span class="attr">option:</span></span><br><span class="line">    <span class="attr">data-mapping:</span> <span class="string">pathname</span></span><br><span class="line">    <span class="attr">data-strict:</span> <span class="number">1</span></span><br><span class="line">    <span class="attr">data-reactions-enabled:</span> <span class="number">1</span></span><br><span class="line">    <span class="attr">data-emit-metadata:</span> <span class="number">0</span></span><br><span class="line">    <span class="attr">data-input-position:</span> <span class="string">top</span></span><br><span class="line">    <span class="attr">data-lang:</span> <span class="string">zh-CN</span></span><br></pre></td></tr></table></figure>
+<div class="note info simple"><p><strong>主题说明：</strong></p>
+<ul>
+<li><code>light_theme</code>: 博客浅色模式时使用的 Giscus 主题</li>
+<li><code>dark_theme</code>: 博客深色模式时使用的 Giscus 主题</li>
+<li>Butterfly 会自动根据博客的日间/夜间模式切换评论主题</li>
+</ul>
+</div>
+<h3 id="可选的主题配置"><a href="#可选的主题配置" class="headerlink" title="可选的主题配置"></a>可选的主题配置</h3><p>如果你想使用其他主题风格：</p>
+<p><strong>浅色主题可选</strong>：</p>
+<ul>
+<li><code>light</code> - 默认浅色</li>
+<li><code>light_high_contrast</code> - 高对比度浅色</li>
+<li><code>noborder_light</code> - 无边框浅色</li>
+</ul>
+<p><strong>深色主题可选</strong>：</p>
+<ul>
+<li><code>dark</code> - GitHub 标准深色</li>
+<li><code>dark_dimmed</code> - 柔和深色（推荐，护眼）</li>
+<li><code>dark_high_contrast</code> - 高对比度深色</li>
+<li><code>transparent_dark</code> - 透明深色</li>
+<li><code>noborder_dark</code> - 无边框深色</li>
+</ul>
+<h2 id="测试评论系统"><a href="#测试评论系统" class="headerlink" title="测试评论系统"></a>测试评论系统</h2><h3 id="1-生成并启动博客"><a href="#1-生成并启动博客" class="headerlink" title="1. 生成并启动博客"></a>1. 生成并启动博客</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="2-测试步骤"><a href="#2-测试步骤" class="headerlink" title="2. 测试步骤"></a>2. 测试步骤</h3><ol>
+<li>访问 <code>http://localhost:4000</code></li>
+<li>打开任意文章</li>
+<li>滚动到文章底部</li>
+<li>应该能看到 Giscus 评论区，显示”使用 GitHub 登录”按钮</li>
+</ol>
+<h3 id="3-测试评论功能"><a href="#3-测试评论功能" class="headerlink" title="3. 测试评论功能"></a>3. 测试评论功能</h3><ol>
+<li>点击”使用 GitHub 登录”</li>
+<li>授权 Giscus 应用</li>
+<li>发表一条测试评论</li>
+<li>切换博客的日间/夜间模式，观察评论区主题是否同步切换</li>
+</ol>
+<h3 id="4-查看评论存储"><a href="#4-查看评论存储" class="headerlink" title="4. 查看评论存储"></a>4. 查看评论存储</h3><p>访问：<code>https://github.com/你的用户名/blog-comments/discussions</code></p>
+<p>你会看到每篇文章对应一个 Discussion，评论都存储在这里。</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><div class="note warning modern"><p><strong>Q: 评论区一直显示加载中？</strong></p>
+<p>A: 检查以下几点：</p>
+<ol>
+<li>仓库是否是 Public（公开的）</li>
+<li>Discussions 功能是否已启用</li>
+<li>Giscus App 是否已正确安装到仓库</li>
+<li><code>repo_id</code> 和 <code>category_id</code> 是否正确</li>
+</ol>
+</div>
+<div class="note info simple"><p><strong>Q: 本地测试时评论无法加载？</strong></p>
+<p>A: 这是正常的。Giscus 需要通过 canonical URL 来识别页面，本地的 <code>localhost</code> 地址可能无法正确匹配。部署到线上后就能正常工作了。</p>
+</div>
+<div class="note success modern"><p><strong>Q: 如何修改评论区的样式？</strong></p>
+<p>A: Giscus 使用 iframe 加载，样式受限。但你可以：</p>
+<ol>
+<li>选择不同的主题（light、dark、dark_dimmed 等）</li>
+<li>通过 <code>option</code> 配置其他参数</li>
+<li>Giscus 会自动跟随博客主题切换</li>
+</ol>
+</div>
+<hr>
+<div class="note info simple"><p><strong>参考资源：</strong></p>
+<ul>
+<li>Giscus 官网：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://giscus.app/zh-CN">https://giscus.app/zh-CN</a></li>
+<li>Giscus GitHub：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/giscus/giscus">https://github.com/giscus/giscus</a></li>
+<li>Font Awesome：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://fontawesome.com/">https://fontawesome.com/</a></li>
+<li>Butterfly 主题文档：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://butterfly.js.org/">https://butterfly.js.org/</a></li>
+</ul>
+</div>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.teslongxiao.cn">Meta Xiao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.teslongxiao.cn/posts/4b32681.html">https://www.teslongxiao.cn/posts/4b32681.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.teslongxiao.cn" target="_blank">浮生若梦</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%99%E7%A8%8B/">教程</a><a class="post-meta__tags" href="/tags/%E6%97%A5%E5%BF%97/">日志</a></div><div class="post-share"><div class="social-share" data-image="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Konachan.com%20-%20394276%20sample.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/18120.html" title="本地部署hexo博客"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-24</div><div class="info-item-2">本地部署hexo博客</div></div><div class="info-2"><div class="info-item-1">简单搭建博客</div></div></div></a><a class="pagination-related" href="/posts/56011.html" title="魔改about页面以及页脚footer"><img class="cover" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/2025-01-27-134427.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-25</div><div class="info-item-2">魔改about页面以及页脚footer</div></div><div class="info-2"><div class="info-item-1">本教程介绍如何个性化修改 Hexo 的 About 页面和页脚 Footer，包括引入 51LA 访问统计、优化 Pug 与 CSS 样式、添加番剧数据展示及自定义底部样式，提升博客的视觉效果与功能体验。</div></div></div></a><a class="pagination-related" href="/posts/54962.html" title="修改butterfly的主题，加入latex数学公式渲染引擎"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-24</div><div class="info-item-2">修改butterfly的主题，加入latex数学公式渲染引擎</div></div><div class="info-2"><div class="info-item-1">本教程介绍如何修改 Hexo 的 Butterfly 主题，包括个性化设置、添加 LaTeX 数学公式渲染、字数统计、加载动画及背景特效，提升博客的美观性与功能性。</div></div></div></a><a class="pagination-related" href="/posts/1baa34af.html" title="为网页添加SEO优化以及将butterfly的背景统一"><img class="cover" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/2025-02-01-170854.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-27</div><div class="info-item-2">为网页添加SEO优化以及将butterfly的背景统一</div></div><div class="info-2"><div class="info-item-1">本文介绍如何优化 Hexo 博客的 URL 结构，使其短小精悍、易于搜索引擎收录，并指导如何配置站点地图、robots.txt 及百度、Google、Bing 收录提交，提升网站可见性。此外，还包括 Butterfly 主题的背景图片统一修改方案，让博客视觉效果更佳。</div></div></div></a><a class="pagination-related" href="/posts/96145f6d.html" title="为你的hexo博客添加QEXO后端"><img class="cover" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/2025-03-01-135509.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-01</div><div class="info-item-2">为你的hexo博客添加QEXO后端</div></div><div class="info-2"><div class="info-item-1">本文介绍使用 GitHub Actions、Vercel 和 Supabase 实现 Hexo 博客的自动部署，简化手动操作，使博客更新更加高效和便捷。</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8D-Font-Awesome-%E5%9B%BE%E6%A0%87%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">修复 Font Awesome 图标无法显示问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.1.</span> <span class="toc-text">问题原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">1.2.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.1.</span> <span class="toc-text">修改配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%8F%AF%E9%80%89-CDN-%E6%96%B9%E6%A1%88"><span class="toc-number">1.2.2.</span> <span class="toc-text">其他可选 CDN 方案</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%8F%B3%E4%BE%A7%E6%BB%9A%E5%8A%A8%E6%8C%89%E9%92%AE%E4%B8%BA%E2%80%9D%E5%9B%9E%E5%88%B0%E5%BA%95%E9%83%A8%E2%80%9D"><span class="toc-number">2.</span> <span class="toc-text">修改右侧滚动按钮为”回到底部”</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.1.</span> <span class="toc-text">修改步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BF%AE%E6%94%B9%E6%8C%89%E9%92%AE%E7%82%B9%E5%87%BB%E8%A1%8C%E4%B8%BA"><span class="toc-number">2.1.1.</span> <span class="toc-text">1. 修改按钮点击行为</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BF%AE%E6%94%B9%E6%8C%89%E9%92%AE%E5%9B%BE%E6%A0%87%E5%92%8C%E6%8F%90%E7%A4%BA%E6%96%87%E5%AD%97"><span class="toc-number">2.1.2.</span> <span class="toc-text">2. 修改按钮图标和提示文字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E6%8F%90%E7%A4%BA%E6%96%87%E5%AD%97"><span class="toc-number">2.1.3.</span> <span class="toc-text">3. 添加中文提示文字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BC%98%E5%8C%96%E6%8C%89%E9%92%AE%E6%98%BE%E7%A4%BA%E9%80%BB%E8%BE%91%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-number">2.1.4.</span> <span class="toc-text">4. 优化按钮显示逻辑（可选）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-Giscus-%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.</span> <span class="toc-text">添加 Giscus 评论系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">3.0.1.</span> <span class="toc-text">为什么选择 Giscus？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">3.1.</span> <span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E8%AF%84%E8%AE%BA%E4%B8%93%E7%94%A8%E4%BB%93%E5%BA%93"><span class="toc-number">3.1.1.</span> <span class="toc-text">1. 创建评论专用仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%90%AF%E7%94%A8-Discussions-%E5%8A%9F%E8%83%BD"><span class="toc-number">3.1.2.</span> <span class="toc-text">2. 启用 Discussions 功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85-Giscus-App"><span class="toc-number">3.1.3.</span> <span class="toc-text">3. 安装 Giscus App</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="toc-number">3.2.</span> <span class="toc-text">获取配置参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE-Giscus-%E9%85%8D%E7%BD%AE%E9%A1%B5%E9%9D%A2"><span class="toc-number">3.2.1.</span> <span class="toc-text">访问 Giscus 配置页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A1%AB%E5%86%99%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="toc-number">3.2.2.</span> <span class="toc-text">填写配置信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0-1"><span class="toc-number">3.2.3.</span> <span class="toc-text">获取配置参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-Butterfly-%E4%B8%BB%E9%A2%98"><span class="toc-number">3.3.</span> <span class="toc-text">配置 Butterfly 主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%90%AF%E7%94%A8-Giscus-%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.3.1.</span> <span class="toc-text">1. 启用 Giscus 评论系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE-Giscus-%E5%8F%82%E6%95%B0"><span class="toc-number">3.3.2.</span> <span class="toc-text">2. 配置 Giscus 参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E9%80%89%E7%9A%84%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE"><span class="toc-number">3.3.3.</span> <span class="toc-text">可选的主题配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.4.</span> <span class="toc-text">测试评论系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%94%9F%E6%88%90%E5%B9%B6%E5%90%AF%E5%8A%A8%E5%8D%9A%E5%AE%A2"><span class="toc-number">3.4.1.</span> <span class="toc-text">1. 生成并启动博客</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B5%8B%E8%AF%95%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.4.2.</span> <span class="toc-text">2. 测试步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B5%8B%E8%AF%95%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD"><span class="toc-number">3.4.3.</span> <span class="toc-text">3. 测试评论功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9F%A5%E7%9C%8B%E8%AF%84%E8%AE%BA%E5%AD%98%E5%82%A8"><span class="toc-number">3.4.4.</span> <span class="toc-text">4. 查看评论存储</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-number">3.5.</span> <span class="toc-text">常见问题</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/ee1dab94.html" title="概率论与数理统计期末复习">概率论与数理统计期末复习</a><time datetime="2026-01-17T12:43:34.000Z" title="发表于 2026-01-17 20:43:34">2026-01-17</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><footer id="footer" style="background: transparent"><div id="footer_icons"><div><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://www.teslongxiao.cn/about" title="关于我"><i class="fa-solid fa-compass"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://res.abeim.cn/api/qq/?qq=2040426884" title="联系QQ"><i class="fa-brands fa-qq"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="mailto:2040426884@qq.com" title="发送邮件"><i class="fa-solid fa-envelope"></i></a></div><img class="footer_logo" src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/aoao.gif" onclick="btf.scrollToDest(0,500)" title="返回顶部"/><div><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://github.com/META-Xiao" title="Github主页"><i class="fa-brands fa-github"></i></a><a class="icon_link" target="_blank" rel="noopener external nofollow" href="https://space.bilibili.com/332124713" title="哔哩哔哩主页"><i class="fa-brands fa-bilibili"></i></a><a class="icon_link" href="/message/" title="留言"><i class="fa-solid fa-comment"></i></a></div><div id="footer_content"><div class="footer-group"><h3 class="footer-title"></h3><div class="footer-links"><a class="footer-item" href="undefined"></a></div></div></div></div><div id="footer-bottom"><div class="footer-bottom-content"><div class="footer-bottom-left"><span class="copyright">&copy;2024 - 2026 By <a target="_blank" rel="noopener" href="https://www.teslongxiao.cn" title="点击访问&quot;Meta&quot;的主页" style="margin-left:5px">Meta</a></span><div><a class="footer-bottom-link" target="_blank" href="https://icp.gov.moe/?keyword=20250061" rel="noopener external nofollow" title="萌ICP备20250061号">萌ICP备20250061号</a><a class="footer-bottom-link" target="_blank" href="https://v6.51.la/report/overview?comId=510796" rel="noopener external nofollow" title="51LA">统计信息</a></div></div><div class="footer-bottom-right"><div id="runtime" title="已运行时长">本站已运行：0 天 0 时 0 分 0 秒</div><div><a class="footer-bottom-link" target="_blank" href="https://hexo.io/zh-cn/" rel="noopener external nofollow" title="框架">Hexo</a><a class="footer-bottom-link" target="_blank" href="https://butterfly.js.org/" rel="noopener external nofollow" title="主题">Butterfly</a></div><script type="js" src="/js/footer.js"> </script></div></div></div></footer></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到底部"><span class="scroll-percent"></span><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-strict":1,"data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"top","data-lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark_dimmed' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'META-Xiao/blog-comments',
+      'data-repo-id': 'R_kgDOQAXbjw',
+      'data-category-id': 'DIC_kwDOQAXbj84CwgFy',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"3L3LMrlEa92UPmXV",ck:"3L3LMrlEa92UPmXV"})</script><script defer src="/js/footer.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["link[rel=\"canonical\"]","meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/posts/257e1115.html"]):not([href="/posts/928debf2.html"]):not([href="/posts/49f4a0d6.html"]):not([href="/posts/dec5d03c.html"]):not([href="/posts/b05b7d2d.html"]):not([href="/posts/5e8d613b.html"]):not([href="/posts/39efaf90.html"]):not([href="/project/"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start -->
+      <script data-pjax>
+        if (typeof window.recommend === 'undefined') {
+          window.recommend = {
+            hexo_butterfly_recommend_init: function() {
+              const $recommend = document.querySelector('#recommend');
+              if($recommend) return;
+              document.documentElement.style.setProperty('--recommend-main', '#409eff');
+              document.documentElement.style.setProperty('--recommend-deep', '#0075ffdd');
+              const hexo_butterfly_recommend_elist = 'null'.split(',');
+              var hexo_butterfly_recommend_cpage = location.pathname;
+              const hexo_butterfly_recommend_epage = '/';
+              var hexo_butterfly_recommend_flag = 0;
+        
+              for (var i = 0; i < hexo_butterfly_recommend_elist.length; i++) {
+                if (hexo_butterfly_recommend_cpage.includes(hexo_butterfly_recommend_elist[i])) {
+                  hexo_butterfly_recommend_flag++;
+                }
+              }
+              if ((hexo_butterfly_recommend_epage === 'all') && (hexo_butterfly_recommend_flag === 0)) {
+                window.recommend.hexo_butterfly_recommend_injector_config();
+              } else if (hexo_butterfly_recommend_epage === hexo_butterfly_recommend_cpage) {
+                window.recommend.hexo_butterfly_recommend_injector_config();
+              }
+            },
+            hexo_butterfly_recommend_injector_config: function() {
+              var parent_div_git = document.getElementById('content-inner');
+              var item_html = '<div class="recommend-right" id="recommend"><div id="recommend-content" onmousewheel="recommend.postScroll(this)"><div class="recommend-wrapper" id="recommend-banner"><div id="recommend-banner-wrapper"><div class="recommend-banner-title-wrapper"><div class="recommend-banner-title">Stay hungry</div><div class="recommend-banner-title">Stay foolish</div><div class="recommend-banner-title">www.teslongxiao.cn</div></div><div class="recommend-tags-all"><div class="recommend-tags-wrapper"><div class="recommend-tags-line"><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #f7cb4f"><i class="fa-brands fa-js" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #bd0102"><i class="fa-brands fa-angular" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #df5b40"><i class="fa-brands fa-git-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #f7cb4f"><i class="fa-brands fa-js" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #bd0102"><i class="fa-brands fa-angular" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #df5b40"><i class="fa-brands fa-git-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #e9572b"><i class="fa-brands fa-html5" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #ca6496"><i class="fa-brands fa-sass" style="color: #fff"></i></div></div></div><div class="recommend-tags-line"><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #2c51db"><i class="fa-brands fa-css3-alt" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #563e7c"><i class="fa-brands fa-bootstrap" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #42b883"><i class="fa-brands fa-vuejs" style="color: #fff"></i></div></div><div class="recommend-tags-column"><div class="recommend-tags-icon" style="background: #37322e"><i class="fa-brands fa-node" style="color: #7dbd05"></i></div></div></div></div></div><a id="recommend-banner-hover" onclick="recommend.toRandomPost()"><span class="recommend-banner-text">随便逛逛</span><i class="fas fa-arrow-right recommend-banner-righticon"></i></a></div><div id="recommend-category"><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;categories/精选&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #358bff, #15c6ff)"></div><span class="recommend-categoryItem-text">站长精选</span><i class="fa-solid fa-star"></i></a></div><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;categories&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #f65, #ffbf37)"></div><span class="recommend-categoryItem-text">文章分类</span><i class="fa-solid fa-book"></i></a></div><div class="recommend-categoryItem"><a class="recommend-categoryItem-button" onclick="recommend.toPost(&quot;project&quot;)"><div class="recommend-categoryItem-bg" style="background: linear-gradient(to right, #18e7ae, #1eebeb)"></div><span class="recommend-categoryItem-text">个人项目</span><i class="fa-solid fa-code"></i></a></div></div></div><div class="recommend-wrapper" id="recommend-post"><div class="recommend-post-main" id="recommend-post-main"><div class="recommend-post-cover" onclick="recommend.toPost(&quot;about&quot;)" style="background: var(--recommend-main) url(https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Light_up_Sky.gif) no-repeat center/cover"></div><div class="recommend-post-cover-wrapper"><div class="recommend-post-cover-info" onclick="recommend.toPost(&quot;about&quot;)"><div class="recommend-post-cover-subTitle">缥缃筆記</div><div class="recommend-post-cover-title">芸编偶拾 • 闲敲平仄煮时光</div></div><div class="recommend-post-cover-more" onclick="window.event.cancelBubble=true;recommend.hideCover();"><div class="recommend-post-cover-more-bg"></div><i class="fa-solid fa-circle-plus"></i><span>更多推荐</span></div></div></div><div class="recommend-post-list" onmouseleave="window.event.cancelBubble=true;recommend.showCover();"><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/f8e37cbd.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Oyama_Mahiro.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="生成函数笔记"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/f8e37cbd.html&quot;)" title="生成函数笔记">生成函数笔记</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/75364206.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Yanami_Anna.png" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="牛客小白月赛117题解"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/75364206.html&quot;)" title="牛客小白月赛117题解">牛客小白月赛117题解</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/fec4b5ee.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Konachan.com%20-%20368742%20sample.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="牛客2025秋季算法编程训练联赛5-基础组题解"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/fec4b5ee.html&quot;)" title="牛客2025秋季算法编程训练联赛5-基础组题解">牛客2025秋季算法编程训练联赛5-基础组题解</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/704d10ab.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/2025-03-12%20122109.png" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="火箭轨迹三维模拟（低空）"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/704d10ab.html&quot;)" title="火箭轨迹三维模拟（低空）">火箭轨迹三维模拟（低空）</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/6cc39754.html&quot;)"><img src="https://image-host-for-meta.oss-cn-hangzhou.aliyuncs.com/blog-img/Tifa1.jpg" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="洛谷题解--记3月24日训练"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/6cc39754.html&quot;)" title="洛谷题解--记3月24日训练">洛谷题解--记3月24日训练</div></div><div class="recommend-post-item"><div class="recommend-post-item-cover" onclick="recommend.toPost(&quot;posts/ee1dab94.html&quot;)"><img src="" onerror="this.onerror=null,this.src=&quot;/img/404.png&quot;" title="概率论与数理统计期末复习"/></div><div class="recommend-post-item-title" onclick="recommend.toPost(&quot;posts/ee1dab94.html&quot;)" title="概率论与数理统计期末复习">概率论与数理统计期末复习</div></div></div></div></div></div>';
+              parent_div_git.insertAdjacentHTML("afterbegin",item_html);
+            },
+            toRandomPost: function() {
+              var posts_path = "posts/4a52651e.html,posts/f2a626f9.html,posts/73c6c6c9.html,posts/18120.html,posts/56011.html,posts/54962.html,posts/4b32681.html,posts/1baa34af.html,posts/3538e23e.html,posts/45c6e9dc.html,posts/6ecdd18f.html,posts/bb2feb5d.html,posts/16107.html,posts/d629c6d1.html,posts/7c1672ff.html,posts/96145f6d.html,posts/c43560d9.html,posts/e91093f0.html,posts/c72ae656.html,posts/5a9acf5a.html,posts/5e8d613b.html,posts/bfbde536.html,posts/623e9466.html,posts/928debf2.html,posts/49f4a0d6.html,posts/dec5d03c.html,posts/b05b7d2d.html,posts/257e1115.html,posts/39efaf90.html,posts/8f5e0b51.html,posts/b9a16b3b.html,posts/3de51743.html,posts/ee1dab94.html,posts/6cc39754.html,posts/704d10ab.html,posts/fec4b5ee.html,posts/75364206.html,posts/f8e37cbd.html".split(',');
+              var randomPost = posts_path[Math.floor(Math.random() * posts_path.length)];
+              window.recommend.toPost(randomPost);
+            },
+            toPost: function(href) {
+              if (typeof pjax !== 'undefined') pjax.loadUrl('/' + href);
+              else window.location.href = window.location.origin + (href.charAt(0) === '/' ? '' : '/') + href;
+            },
+            hideCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              $main.className = 'recommend-post-main recommend-hide';
+            },
+            showCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              if ($main) $main.className = 'recommend-post-main';
+            },
+            postScroll: function(dom) {
+              const e = window.event || arguments.callee.caller.arguments[0];
+              if (document.body.clientWidth <= 1200) {
+                let o = -e.wheelDelta / 2;
+                dom.scrollLeft += o;
+                e.preventDefault();
+              }
+            }
+          }
+          console.log(
+            "%c plugin ⭐ hexo_butterfly_recommend ⭐ https://github.com/weizwz/hexo-butterfly-recommend ",
+            "color: #fff; padding:3px; font-size:12px; background: linear-gradient(90deg, #358bff, #1eebeb);"
+          )
+        }
+        window.recommend.hexo_butterfly_recommend_init();
+      </script><!-- hexo injector body_end end --></body></html>
